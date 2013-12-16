@@ -17,8 +17,8 @@
 package com.koobe.editor.client.application;
 
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
-import com.koobe.editor.client.application.aboutus.AboutUsPresenter;
-import com.koobe.editor.client.application.aboutus.AboutUsView;
+import com.koobe.editor.client.application.about.AboutPresenter;
+import com.koobe.editor.client.application.about.AboutView;
 import com.koobe.editor.client.application.contact.ContactPresenter;
 import com.koobe.editor.client.application.contact.ContactPresenterBase;
 import com.koobe.editor.client.application.contact.ContactView;
@@ -26,19 +26,29 @@ import com.koobe.editor.client.application.home.HomePresenter;
 import com.koobe.editor.client.application.home.HomeView;
 import com.koobe.editor.client.application.monitor.MonitorPresenter;
 import com.koobe.editor.client.application.monitor.MonitorView;
-import com.koobe.editor.client.legacy.page.Monitor;
+import com.koobe.editor.client.application.sandbox.SandboxPresenter;
+import com.koobe.editor.client.application.sandbox.SandboxView;
 
 public class ApplicationModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
-        // Applicaiton Presenters
         bindPresenter(ApplicationPresenter.class, ApplicationPresenter.MyView.class, ApplicationView.class,
-                      ApplicationPresenter.MyProxy.class);
+                ApplicationPresenter.MyProxy.class);
+
         bindPresenter(HomePresenter.class, HomePresenter.MyView.class, HomeView.class, HomePresenter.MyProxy.class);
-        bindPresenter(AboutUsPresenter.class, AboutUsPresenter.MyView.class, AboutUsView.class,
-                      AboutUsPresenter.MyProxy.class);
+
+        bindPresenter(AboutPresenter.class, AboutPresenter.MyView.class, AboutView.class,
+                AboutPresenter.MyProxy.class);
+
         bindPresenter(ContactPresenter.class, ContactPresenterBase.MyView.class, ContactView.class,
-                      ContactPresenter.MyProxy.class);
-        bindPresenter(MonitorPresenter.class, MonitorPresenter.MyView.class, MonitorView.class, MonitorPresenter.MyProxy.class);
+                ContactPresenter.MyProxy.class);
+
+        //monitor
+        bindPresenter(MonitorPresenter.class, MonitorPresenter.MyView.class, MonitorView.class,
+                MonitorPresenter.MyProxy.class);
+
+        //sandbox
+        bindPresenter(SandboxPresenter.class, SandboxPresenter.MyView.class, SandboxView.class,
+                SandboxPresenter.MyProxy.class);
     }
 }
