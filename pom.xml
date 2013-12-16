@@ -54,6 +54,14 @@
     </properties>
 
     <dependencies>
+
+        <!--KoobeCommonLibrary-->
+        <dependency>
+            <groupId>koobe</groupId>
+            <artifactId>KoobeCommonData</artifactId>
+            <version>0.1.2-SNAPSHOT</version>
+        </dependency>
+
         <!--GWT-->
         <dependency>
             <groupId>com.google.gwt</groupId>

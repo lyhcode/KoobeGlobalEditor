@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.koobe.editor.client.application.aboutus;
+package com.koobe.editor.client.application.sandbox;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
@@ -26,25 +26,31 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.koobe.editor.client.application.ApplicationPresenter;
 import com.koobe.editor.client.place.NameTokens;
 
-public class AboutUsPresenter extends Presenter<AboutUsPresenter.MyView, AboutUsPresenter.MyProxy> {
+public class SandboxPresenter extends Presenter<SandboxPresenter.MyView, SandboxPresenter.MyProxy> {
     /**
-     * {@link AboutUsPresenter}'s proxy.
+     * {@link SandboxPresenter}'s proxy.
      */
     @ProxyCodeSplit
-    @NameToken(NameTokens.aboutUsPage)
-    public interface MyProxy extends ProxyPlace<AboutUsPresenter> {
+    @NameToken(NameTokens.sandboxPage)
+    public interface MyProxy extends ProxyPlace<SandboxPresenter> {
     }
 
     /**
-     * {@link AboutUsPresenter}'s view.
+     * {@link SandboxPresenter}'s view.
      */
     public interface MyView extends View {
+        void updateText1(String html);
     }
 
     @Inject
-    AboutUsPresenter(EventBus eventBus,
-                     MyView view,
-                     MyProxy proxy) {
+    public SandboxPresenter(EventBus eventBus,
+                            MyView view,
+                            MyProxy proxy) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
+    }
+
+    @Override
+    protected void onReveal() {
+        getView().updateText1("Update by " + getClass().getName());
     }
 }
