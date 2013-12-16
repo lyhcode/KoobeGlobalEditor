@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 Koobe Global
-=======
->>>>>>> origin/master
 
 ## Run GWT DevMode ##
 
