@@ -4,11 +4,11 @@
 
     <ui:style>
         .buttons button {
-            margin: 0.5em;
+        margin: 0.5em;
         }
 
         .labels span {
-            margin-right: 5px;
+        margin-right: 5px;
         }
     </ui:style>
 
@@ -39,7 +39,7 @@
                 </b:NavbarCollapse>
             </b:Container>
         </b:Navbar>
-        
+
         <!-- Container Content -->
         <b:Row ui:field="container" width="100%">
             <!-- Empty -->

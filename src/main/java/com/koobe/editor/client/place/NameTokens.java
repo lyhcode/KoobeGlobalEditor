@@ -46,4 +46,10 @@ public class NameTokens {
     public static String getSandboxPage() {
         return sandboxPage;
     }
+
+    public static final String typographyPage = "!typographyPage";
+
+    public static String getTypographyPage() {
+        return typographyPage;
+    }
 }

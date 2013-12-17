@@ -14,12 +14,12 @@ import com.google.gwt.user.client.ui.Widget;
 import com.svenjacobs.gwtbootstrap3.bootbox.client.Bootbox;
 import com.svenjacobs.gwtbootstrap3.client.ui.Button;
 import com.svenjacobs.gwtbootstrap3.client.ui.FormGroup;
-import com.svenjacobs.gwtbootstrap3.client.ui.TextBox;
 import com.svenjacobs.gwtbootstrap3.client.ui.PasswordTextBox;
+import com.svenjacobs.gwtbootstrap3.client.ui.TextBox;
 import com.svenjacobs.gwtbootstrap3.client.ui.constants.ValidationState;
-import static gwtquery.plugins.ui.UiEffects.UiEffects;
 
 import static com.google.gwt.query.client.GQuery.$;
+import static gwtquery.plugins.ui.UiEffects.UiEffects;
 
 /**
  * GWT Entry Point - Login
@@ -66,7 +66,7 @@ public class LoginEntryPoint implements EntryPoint {
 
     @UiHandler("loginButton")
     void handleLoginButton(ClickEvent e) {
-        
+
         String username = usernameTextBox.getText();
         String password = passwordTextBox.getText();
 
@@ -83,8 +83,7 @@ public class LoginEntryPoint implements EntryPoint {
 
                     String queryString = Window.Location.getQueryString();
                     Window.Location.assign("/" + queryString);
-                }
-                else {
+                } else {
                     changeValidationState(ValidationState.ERROR);
 
                     $("#loginbox").as(UiEffects).effect("shake");

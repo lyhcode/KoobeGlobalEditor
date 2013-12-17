@@ -23,14 +23,15 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.gwtplatform.mvp.client.ViewImpl;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import com.svenjacobs.gwtbootstrap3.bootbox.client.Bootbox;
 import com.svenjacobs.gwtbootstrap3.bootbox.client.callback.AlertCallback;
 import com.svenjacobs.gwtbootstrap3.bootbox.client.callback.ConfirmCallback;
 import com.svenjacobs.gwtbootstrap3.bootbox.client.callback.PromptCallback;
 import com.svenjacobs.gwtbootstrap3.client.ui.Button;
+import com.svenjacobs.gwtbootstrap3.client.ui.TextBox;
 
-public class SandboxView extends ViewImpl implements SandboxPresenter.MyView {
+public class SandboxView extends ViewWithUiHandlers<SandboxUiHandlers> implements SandboxPresenter.MyView {
 
     interface Binder extends UiBinder<Widget, SandboxView> {
     }
@@ -46,6 +47,23 @@ public class SandboxView extends ViewImpl implements SandboxPresenter.MyView {
     @Override
     public void updateText1(String html) {
         text1.setHTML(html);
+    }
+
+    @UiField
+    HTML sendTextResultHTML;
+    @UiField
+    TextBox sendNameTextBox;
+    @UiField
+    Button sendTextButton;
+
+    @UiHandler("sendTextButton")
+    void onSendTextButtonClick(ClickEvent event) {
+        getUiHandlers().sendName(sendNameTextBox.getText());
+    }
+
+    @Override
+    public void updateSendTextResult(String html) {
+        sendTextResultHTML.setHTML(html);
     }
 
     @UiField
@@ -72,7 +90,7 @@ public class SandboxView extends ViewImpl implements SandboxPresenter.MyView {
         Bootbox.confirm("How are you?", new ConfirmCallback() {
             @Override
             public void callback(boolean result) {
-                dialogResult.setHTML("return: " + result);
+                dialogResult.setHTML("return: <span class=\"label label-default\">" + result + "</span>");
             }
         });
     }

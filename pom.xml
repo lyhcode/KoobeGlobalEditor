@@ -19,6 +19,16 @@
             <id>gwtquery-ui-repository</id>
             <url>http://gwtquery-ui.googlecode.com/svn/mavenrepo</url>
         </repository>
+        <repository>
+            <id>koobe-nexus-snapshots</id>
+            <url>http://nexus.teamcollab.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
     </repositories>
 
     <groupId>koobe</groupId>
@@ -29,6 +39,8 @@
     <packaging>war</packaging>
 
     <properties>
+        <koobe.common.version>0.0.1-SNAPSHOT</koobe.common.version>
+
         <!--GWT, GWTP-->
         <gwt.version>2.5.1</gwt.version>
         <gwtp.version>1.0.1</gwtp.version>
@@ -59,7 +71,7 @@
         <dependency>
             <groupId>koobe</groupId>
             <artifactId>KoobeCommonData</artifactId>
-            <version>0.1.2-SNAPSHOT</version>
+            <version>${koobe.common.version}</version>
         </dependency>
 
         <!--GWT-->

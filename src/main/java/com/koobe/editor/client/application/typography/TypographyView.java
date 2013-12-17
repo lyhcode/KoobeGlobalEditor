@@ -14,35 +14,33 @@
  * the License.
  */
 
-package com.koobe.editor.client.application.monitor;
+package com.koobe.editor.client.application.typography;
 
-import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
-import com.svenjacobs.gwtbootstrap3.client.ui.Button;
 
-import static com.google.gwt.query.client.GQuery.$;
-
-public class MonitorView extends ViewImpl implements MonitorPresenter.MyView {
-    interface Binder extends UiBinder<Widget, MonitorView> {
+public class TypographyView extends ViewImpl implements TypographyPresenter.MyView {
+    interface Binder extends UiBinder<Widget, TypographyView> {
     }
 
     @Inject
-    public MonitorView(Binder binder) {
-        initWidget(binder.createAndBindUi(this));
+    public TypographyView(Binder binder) {
+        Widget w = binder.createAndBindUi(this);
+        initWidget(w);
+
+        w.addAttachHandler(new AttachEvent.Handler() {
+            @Override
+            public void onAttachOrDetach(AttachEvent event) {
+                nativeCode();
+            }
+        });
     }
 
-    @UiField
-    Button refreshButton;
+    public native void nativeCode() /*-{
+        $wnd.prettyPrint && $wnd.prettyPrint();
+    }-*/;
 
-    @UiHandler("refreshButton")
-    void onRefreshButtonClick(ClickEvent event) {
-        //Window.alert("rest");
-
-        $("#monitor-table-body").append("<tr><td>123</td></tr>");
-    }
 }

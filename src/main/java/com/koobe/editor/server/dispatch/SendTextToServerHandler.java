@@ -21,12 +21,12 @@ import com.google.inject.Provider;
 import com.gwtplatform.dispatch.server.ExecutionContext;
 import com.gwtplatform.dispatch.server.actionhandler.ActionHandler;
 import com.gwtplatform.dispatch.shared.ActionException;
+import com.koobe.editor.shared.FieldVerifier;
+import com.koobe.editor.shared.dispatch.SendTextToServerAction;
+import com.koobe.editor.shared.dispatch.SendTextToServerResult;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-
-import com.koobe.editor.shared.FieldVerifier;
-import com.koobe.editor.shared.dispatch.*;
 
 public class SendTextToServerHandler implements ActionHandler<SendTextToServerAction, SendTextToServerResult> {
     private Provider<HttpServletRequest> requestProvider;
@@ -53,8 +53,8 @@ public class SendTextToServerHandler implements ActionHandler<SendTextToServerAc
         String serverInfo = servletContext.getServerInfo();
         String userAgent = requestProvider.get().getHeader("User-Agent");
         String response = String.format("Hello, %s!<br/><br/>I am running %s.<br/><br/>" +
-                                        "It looks like you are using:<br/>%s",
-                                        input, serverInfo, userAgent);
+                "It looks like you are using:<br/>%s",
+                input, serverInfo, userAgent);
 
         return new SendTextToServerResult(response);
     }

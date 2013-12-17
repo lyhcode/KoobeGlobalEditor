@@ -11,11 +11,11 @@ import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.koobe.editor.client.login.LoginService;
-import com.koobe.editor.client.login.LoginServiceAsync;
 import com.koobe.editor.client.legacy.page.Default;
 import com.koobe.editor.client.legacy.page.Import;
 import com.koobe.editor.client.legacy.page.Monitor;
+import com.koobe.editor.client.login.LoginService;
+import com.koobe.editor.client.login.LoginServiceAsync;
 import com.svenjacobs.gwtbootstrap3.client.ui.ListItem;
 import com.svenjacobs.gwtbootstrap3.client.ui.NavbarBrand;
 import com.svenjacobs.gwtbootstrap3.client.ui.Row;
@@ -62,7 +62,7 @@ public class MainAppEntryPoint implements EntryPoint, HistoryListener {
         RootPanel.get().add(uiBinder.createAndBindUi(this));
 
         //processFormContainer();
-        
+
         loadPage(History.getToken());
     }
 
@@ -86,7 +86,7 @@ public class MainAppEntryPoint implements EntryPoint, HistoryListener {
         loadPage("page-Monitor");
         e.preventDefault();
     }
-    
+
     @UiHandler("importLink")
     void handleImportLinkClick(ClickEvent e) {
         loadPage("page-Import");
@@ -95,18 +95,18 @@ public class MainAppEntryPoint implements EntryPoint, HistoryListener {
 
     /**
      * Load page to container
-     * 
-     * @param pageName 
+     *
+     * @param pageName
      */
     private void loadPage(String pageName) {
 
         Class pageClass = findPageClass(pageName);
-        
+
         if (pageClass == null) {
             GWT.log("Page not found");
             return;
         }
-        
+
         Widget pageWidget = GWT.create(pageClass);
 
         container.clear();
@@ -115,12 +115,12 @@ public class MainAppEntryPoint implements EntryPoint, HistoryListener {
         // New record in browser history
         History.newItem(pageName);
     }
-    
+
     private Class findPageClass(String pageName) {
         if (pageName == null) {
             return null;
         }
-        
+
         if (pageName.isEmpty()) {
             return Default.class;
         }
@@ -130,7 +130,7 @@ public class MainAppEntryPoint implements EntryPoint, HistoryListener {
         if (pageName.endsWith("Import")) {
             return Import.class;
         }
-        
+
         return null;
     }
 
