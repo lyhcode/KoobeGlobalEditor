@@ -1,0 +1,87 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:b="urn:import:com.svenjacobs.gwtbootstrap3.client.ui">
+
+    <ui:with type="com.koobe.editor.admin.client.place.NameTokens" field="nameTokens"/>
+
+    <g:HTMLPanel>
+        <div class="sidebar sidebar-fixed" id="sidebar">
+            <script type="text/javascript">
+                try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+            </script>
+
+            <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+                <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+                    <button class="btn btn-success">
+                        <b:Icon type="SIGNAL"/>
+                    </button>
+
+                    <button class="btn btn-info">
+                        <b:Icon type="PENCIL"/>
+                    </button>
+
+                    <button class="btn btn-warning">
+                        <b:Icon type="GROUP"/>
+                    </button>
+
+                    <button class="btn btn-danger">
+                        <b:Icon type="COGS"/>
+                    </button>
+                </div>
+
+                <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+                    <span class="btn btn-success"></span>
+
+                    <span class="btn btn-info"></span>
+
+                    <span class="btn btn-warning"></span>
+
+                    <span class="btn btn-danger"></span>
+                </div>
+            </div>
+            <!-- #sidebar-shortcuts -->
+
+            <ul class="nav nav-list">
+                <li class="active">
+                    <a href="#{nameTokens.getHomePage}">
+                        <b:Icon type="DASHBOARD"/>
+                        <span class="menu-text">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#{nameTokens.getAboutPage}">
+                        <b:Icon type="FILE_O"/>
+                        <span class="menu-text">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#{nameTokens.getMonitorPage}">
+                        <b:Icon type="FILE_O"/>
+                        <span class="menu-text">Monitor</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#{nameTokens.getSandboxPage}">
+                        <b:Icon type="FILE_O"/>
+                        <span class="menu-text">Sandbox</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#{nameTokens.getTypographyPage}">
+                        <b:Icon type="FILE_O"/>
+                        <span class="menu-text">Typography</span>
+                    </a>
+                </li>
+
+            </ul>
+            <!-- /.nav-list -->
+
+            <div class="sidebar-collapse" id="sidebar-collapse">
+                <i class="icon-wrapper">
+                    <b:Icon type="ANGLE_DOUBLE_LEFT"/>
+                </i>
+            </div>
+
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>
