@@ -8,7 +8,7 @@
     <!-- Login Servlets -->
     <servlet>
         <servlet-name>loginServlet</servlet-name>
-        <servlet-class>com.koobe.editor.server.login.LoginServiceImpl</servlet-class>
+        <servlet-class>com.koobe.editor.login.server.LoginServiceImpl</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -18,7 +18,7 @@
 
     <!-- Guice is a lightweight dependency injection framework -->
     <listener>
-        <listener-class>com.koobe.editor.server.guice.GuiceServletConfig</listener-class>
+        <listener-class>com.koobe.editor.admin.server.guice.GuiceServletConfig</listener-class>
     </listener>
 
     <filter>

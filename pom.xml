@@ -6,6 +6,16 @@
 
     <repositories>
         <repository>
+            <id>koobe-nexus-snapshots</id>
+            <url>http://nexus.teamcollab.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+        <repository>
             <id>sonatype-nexus-snapshots</id>
             <url>http://oss.sonatype.org/content/repositories/snapshots</url>
             <snapshots>
@@ -18,16 +28,6 @@
         <repository>
             <id>gwtquery-ui-repository</id>
             <url>http://gwtquery-ui.googlecode.com/svn/mavenrepo</url>
-        </repository>
-        <repository>
-            <id>koobe-nexus-snapshots</id>
-            <url>http://nexus.teamcollab.org/content/repositories/snapshots</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
         </repository>
     </repositories>
 
