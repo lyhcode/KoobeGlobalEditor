@@ -23,7 +23,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
-import com.svenjacobs.gwtbootstrap3.client.ui.Button;
+import org.gwtbootstrap3.client.ui.Button;
 
 import static com.google.gwt.query.client.GQuery.$;
 

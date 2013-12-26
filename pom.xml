@@ -55,7 +55,7 @@
         <gwtquery-ui.version>1.0-SNAPSHOT</gwtquery-ui.version>
 
         <!--GWT Bootstrap-->
-        <gwtbootstrap3.version>0.3-SNAPSHOT</gwtbootstrap3.version>
+        <gwtbootstrap3.version>0.5-SNAPSHOT</gwtbootstrap3.version>
 
         <!--Unit Test-->
         <junit.version>4.11</junit.version>
@@ -131,8 +131,14 @@
 
         <!--GWT-Bootstrap3-->
         <dependency>
-            <groupId>com.svenjacobs.gwtbootstrap3</groupId>
+            <groupId>org.gwtbootstrap3</groupId>
             <artifactId>gwtbootstrap3</artifactId>
+            <version>${gwtbootstrap3.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.gwtbootstrap3</groupId>
+            <artifactId>gwtbootstrap3-extras</artifactId>
             <version>${gwtbootstrap3.version}</version>
             <scope>provided</scope>
         </dependency>
@@ -175,6 +181,20 @@
             <artifactId>aopalliance</artifactId>
             <version>${aopalliance.version}</version>
         </dependency>
+
+        <!-- lib-gwt-file -->
+        <dependency>
+            <groupId>org.vectomatic</groupId>
+            <artifactId>lib-gwt-file</artifactId>
+            <version>0.3.4</version>
+        </dependency>
+        <dependency>
+            <!-- Must appear before gwt-user to allow injection of custom UiBinder parser in classpath -->
+            <groupId>org.vectomatic</groupId>
+            <artifactId>lib-gwt-svg</artifactId>
+            <version>0.5.8</version>
+        </dependency>
+
 
         <!-- Testing -->
         <dependency>
@@ -222,7 +242,7 @@
                 <artifactId>gwt-maven-plugin</artifactId>
                 <version>${gwt.version}</version>
                 <configuration>
-                    <runTarget>index.html</runTarget>
+                    <runTarget>devmode.html</runTarget>
                     <hostedWebapp>${webappDirectory}</hostedWebapp>
                 </configuration>
             </plugin>

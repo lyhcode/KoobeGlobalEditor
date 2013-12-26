@@ -1,0 +1,178 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:b="urn:import:org.gwtbootstrap3.client.ui">
+    <ui:style>
+    .bookCover {
+    width:auto !important;
+    height:auto !important;
+    min-width: 160px;
+    max-width: 200px !important;
+    max-height: 200px !important;
+    }
+    .bookElement {
+    }
+    .searchBox {
+    float:right;
+    margin-right:15px;
+    display:inline-block;
+    width:250px;
+    }
+    .layoutBox {
+    float:right;
+    display:inline-block;
+    }
+    .settingBox {
+    margin-right:15px;
+    display:inline-block;
+    }
+    </ui:style>
+    <b:Container styleName="page-content">
+
+        <g:HTMLPanel styleName="page-content page-gallery">
+
+            <div class="text-right">
+
+                <div class="{style.settingBox}">
+                    <span>Show: Public</span>
+                    |
+                    <span>Sort by: Title</span>
+                </div>
+
+
+                <div class="{style.layoutBox}">
+                    <b:ButtonGroup>
+                        <b:Button type="DEFAULT" icon="TH_LARGE" enabled="false" />
+                        <b:Button type="DEFAULT" icon="TH_LIST" enabled="true" />
+                    </b:ButtonGroup>
+                </div>
+
+                <div class="{style.searchBox}">
+                    <b:InputGroup>
+                        <b:TextBox placeholder="Keywords" autocomplete="false"/>
+                        <b:InputGroupAddon icon="SEARCH" iconPosition="LEFT">Search</b:InputGroupAddon>
+                    </b:InputGroup>
+                </div>
+
+            </div>
+
+            <div style="clear:both"></div>
+
+            <div id="gallery">
+                <div class="element {style.bookElement}">
+                    <a href="#" class="prettyphoto">
+                        <img src="http://www.books.com.tw/img/001/061/93/0010619351.jpg" alt="" class="{style.bookCover}"/>
+                    </a>
+                    <div class="gall-caption">
+                        <ul class="list-unstyled">
+                            <li class="text-center">MyBook</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="element">
+                    <a href="#" class="prettyphoto">
+                        <img src="http://www.books.com.tw/img/001/057/16/0010571671.jpg" alt="" class="{style.bookCover}"/>
+                    </a>
+                    <div class="gall-caption">
+                        <ul class="list-unstyled">
+                            <li class="text-center">MyBook</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="element">
+                    <a href="#" class="prettyphoto">
+                        <img src="http://www.books.com.tw/img/001/061/14/0010611478.jpg" alt="" class="{style.bookCover}"/>
+                    </a>
+                    <div class="gall-caption">
+                        <ul class="list-unstyled">
+                            <li class="text-center">MyBook</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="element">
+                    <a href="#" class="prettyphoto">
+                        <img src="http://www.books.com.tw/img/001/057/99/0010579937.jpg" alt="" class="{style.bookCover}"/>
+                    </a>
+                    <div class="gall-caption">
+                        <ul class="list-unstyled">
+                            <li class="text-center">MyBook</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="element">
+                    <a href="#" class="prettyphoto">
+                        <img src="http://www.books.com.tw/img/001/061/14/0010611478.jpg" alt="" class="{style.bookCover}"/>
+                    </a>
+                    <div class="gall-caption">
+                        <ul class="list-unstyled">
+                            <li class="text-center">MyBook</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="element">
+                    <a href="#" class="prettyphoto">
+                        <img src="http://www.books.com.tw/img/001/061/93/0010619355.jpg" alt="" class="{style.bookCover}"/>
+                    </a>
+                    <div class="gall-caption">
+                        <ul class="list-unstyled">
+                            <li class="text-center">MyBook</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="element">
+                    <a href="#" class="prettyphoto">
+                        <img src="http://www.books.com.tw/img/001/061/14/0010611476.jpg" alt="" class="{style.bookCover}"/>
+                    </a>
+                    <div class="gall-caption">
+                        <ul class="list-unstyled">
+                            <li class="text-center">MyBook</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="element">
+                    <a href="#" class="prettyphoto">
+                        <img src="http://www.books.com.tw/img/001/061/93/0010619350.jpg" alt="" class="{style.bookCover}"/>
+                    </a>
+                    <div class="gall-caption">
+                        <ul class="list-unstyled">
+                            <li class="text-center">MyBook</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="element">
+                    <a href="#" class="prettyphoto">
+                        <img src="http://www.books.com.tw/img/001/061/14/0010611479.jpg" alt="" class="{style.bookCover}"/>
+                    </a>
+                    <div class="gall-caption">
+                        <ul class="list-unstyled">
+                            <li class="text-center">MyBook</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="element">
+                    <a href="#" class="prettyphoto">
+                        <img src="http://www.books.com.tw/img/001/061/93/0010619353.jpg" alt="" class="{style.bookCover}"/>
+                    </a>
+                    <div class="gall-caption">
+                        <ul class="list-unstyled">
+                            <li class="text-center">MyBook</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <!-- Pagination -->
+                <ul class="pagination">
+                    <li><a href="#">«</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">»</a></li>
+                </ul>
+            </div>
+        </g:HTMLPanel>
+
+    </b:Container>
+</ui:UiBinder>
