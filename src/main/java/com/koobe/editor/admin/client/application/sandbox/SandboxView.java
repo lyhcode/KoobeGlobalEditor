@@ -27,12 +27,12 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
-import com.svenjacobs.gwtbootstrap3.bootbox.client.Bootbox;
-import com.svenjacobs.gwtbootstrap3.bootbox.client.callback.AlertCallback;
-import com.svenjacobs.gwtbootstrap3.bootbox.client.callback.ConfirmCallback;
-import com.svenjacobs.gwtbootstrap3.bootbox.client.callback.PromptCallback;
-import com.svenjacobs.gwtbootstrap3.client.ui.Button;
-import com.svenjacobs.gwtbootstrap3.client.ui.TextBox;
+import org.gwtbootstrap3.extras.bootbox.client.Bootbox;
+import org.gwtbootstrap3.extras.bootbox.client.callback.AlertCallback;
+import org.gwtbootstrap3.extras.bootbox.client.callback.ConfirmCallback;
+import org.gwtbootstrap3.extras.bootbox.client.callback.PromptCallback;
+import org.gwtbootstrap3.client.ui.Button;
+import org.gwtbootstrap3.client.ui.TextBox;
 
 public class SandboxView extends ViewWithUiHandlers<SandboxUiHandlers> implements SandboxPresenter.MyView {
 

@@ -1,0 +1,67 @@
+<!-- GWT BootStrap 3 -->
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+             xmlns:kui="urn:import:com.koobe.editor.common.client.ui">
+    <ui:style>
+
+    </ui:style>
+
+    <ui:with type="com.koobe.editor.index.client.place.NameTokens" field="nameTokens"/>
+
+    <b:Container styleName="out-container">
+        <b:Container styleName="outer">
+
+            <b:Container styleName="mainbar">
+
+                <g:HTMLPanel styleName="page-head">
+                    <div class="container">
+                        <div class="row">
+                            <!-- Page heading -->
+                            <div class="col-md-3 col-sm-6 col-xs-6">
+                                <h2><i class="icon-desktop"></i> Koobe Books Author</h2>
+                            </div>
+                            <!-- Mini status -->
+                            <div class="col-md-6 col-sm-0 hidden-sm hidden-xs">
+                                <span class="ph-status">
+                                    <a href="#"><strong>Visits</strong> <i class="icon-chevron-up ph-red"></i> 25% -</a>
+                                    <a href="#"><strong>Stock</strong> <i class="icon-chevron-down ph-green"></i> 15.0 -</a>
+                                    <a href="#"><strong>Profit</strong> <i class="icon-chevron-up ph-red"></i> $500</a>
+                                </span>
+                            </div>
+                            <!-- Icons -->
+                            <div class="col-md-3 col-sm-6 col-xs-6">
+                                <span class="ph-misc pull-right">
+                                    <a href="#" class="bs-tooltip" title="" data-placement="bottom" data-original-title="Share"><i class="icon-share"></i> </a>
+                                    <a href="#" class="bs-tooltip" title="" data-placement="bottom" data-original-title="Export"><i class="icon-upload-alt"></i> </a>
+                                    <a href="#" class="bs-tooltip" title="" data-placement="bottom" data-original-title="Print"><i class="icon-print"></i> </a>
+                                </span>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </g:HTMLPanel>
+
+                <g:HTMLPanel styleName="blue-block">
+                    <div class="page-title">
+                        <h3 class="pull-left"><i class="icon-desktop"></i> 線上編輯 <span>online authoring</span></h3>
+                        <div class="breads pull-right">
+                            <a href="#">Home </a>/ <a href="#">Pages </a>/ Title
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </g:HTMLPanel>
+
+                <!-- Main Place Container -->
+                <b:Container ui:field="container"/>
+
+            </b:Container>
+
+            <!-- Loading -->
+            <kui:LoadingIndicator ui:field="loadingIndicator" />
+
+        </b:Container>
+    </b:Container>
+
+</ui:UiBinder>

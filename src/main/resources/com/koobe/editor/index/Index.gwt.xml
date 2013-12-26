@@ -1,0 +1,60 @@
+<module rename-to="index">
+
+    <inherits name="com.google.gwt.user.User"/>
+    <inherits name='com.google.gwt.dom.DOM' />
+    <inherits name='com.google.gwt.xml.XML' />
+    <inherits name="com.google.gwt.http.HTTP"/>
+    <inherits name="com.google.gwt.uibinder.UiBinder"/>
+
+    <!-- Other module inherits -->
+    <inherits name="com.google.gwt.inject.Inject"/>
+    <!--<inherits name="com.gwtplatform.mvp.Mvp" />-->
+    <inherits name="com.gwtplatform.mvp.MvpWithEntryPoint"/>
+    <inherits name="com.gwtplatform.dispatch.Dispatch"/>
+
+    <!-- GWT-Bootstrap3 -->
+    <inherits name="org.gwtbootstrap3.GwtBootstrap3NoTheme"/>
+    <!--<inherits name="org.gwtbootstrap3.extras.bootbox.Bootbox"/>-->
+
+    <!-- GWT-jQuery(gwtquery) -->
+    <inherits name="com.google.gwt.query.Query"/>
+    <inherits name="gwtquery.plugins.UiEmbedded"/>
+
+    <!-- Other module inherits -->
+    <inherits name="org.vectomatic.libgwtfile" />
+    <inherits name="org.vectomatic.libgwtsvg" />
+
+    <!-- Editor Common Library -->
+    <inherits name="com.koobe.editor.common.Common" />
+
+    <public path="resource">
+        <include name="css/*.css"/>
+        <include name="js/*.js"/>
+
+        <include name="sheldon/css/*.css"/>
+        <include name="sheldon/js/*.js"/>
+        <include name="sheldon/css/images/*"/>
+        <include name="sheldon/font/*"/>
+        <include name="sheldon/img/*"/>
+    </public>
+
+    <stylesheet src="css/prettify.css"/>
+    <script src="js/prettify.js"/>
+
+    <!-- Sheldon Theme -->
+    <stylesheet src="sheldon/css/bootstrap.min.css"/>
+    <stylesheet src="sheldon/css/font-awesome.min.css"/>
+    <stylesheet src="sheldon/css/style.css"/>
+    <stylesheet src="css/style.css"/>
+
+
+    <!-- Specify the paths for translatable code -->
+    <source path="client"/>
+    <source path="shared"/>
+
+    <define-configuration-property name="gin.ginjector" is-multi-valued="false"/>
+    <set-configuration-property name="gin.ginjector.modules" value="com.koobe.editor.index.client.gin.ClientModule"/>
+
+    <!-- GWT Properties -->
+    <set-property name="compiler.stackMode" value="strip"/>
+</module>

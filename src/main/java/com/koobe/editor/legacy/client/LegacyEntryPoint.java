@@ -14,9 +14,9 @@ import com.google.gwt.user.client.ui.Widget;
 import com.koobe.editor.legacy.client.page.Default;
 import com.koobe.editor.legacy.client.page.Import;
 import com.koobe.editor.legacy.client.page.Monitor;
-import com.svenjacobs.gwtbootstrap3.client.ui.ListItem;
-import com.svenjacobs.gwtbootstrap3.client.ui.NavbarBrand;
-import com.svenjacobs.gwtbootstrap3.client.ui.Row;
+import org.gwtbootstrap3.client.ui.ListItem;
+import org.gwtbootstrap3.client.ui.NavbarBrand;
+import org.gwtbootstrap3.client.ui.Row;
 
 /**
  * GWT Main Entry Point

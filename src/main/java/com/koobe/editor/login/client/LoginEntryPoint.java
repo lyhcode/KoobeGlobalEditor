@@ -11,12 +11,12 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.svenjacobs.gwtbootstrap3.bootbox.client.Bootbox;
-import com.svenjacobs.gwtbootstrap3.client.ui.Button;
-import com.svenjacobs.gwtbootstrap3.client.ui.FormGroup;
-import com.svenjacobs.gwtbootstrap3.client.ui.PasswordTextBox;
-import com.svenjacobs.gwtbootstrap3.client.ui.TextBox;
-import com.svenjacobs.gwtbootstrap3.client.ui.constants.ValidationState;
+import org.gwtbootstrap3.extras.bootbox.client.Bootbox;
+import org.gwtbootstrap3.client.ui.Button;
+import org.gwtbootstrap3.client.ui.FormGroup;
+import org.gwtbootstrap3.client.ui.PasswordTextBox;
+import org.gwtbootstrap3.client.ui.TextBox;
+import org.gwtbootstrap3.client.ui.constants.ValidationState;
 
 import static com.google.gwt.query.client.GQuery.$;
 import static gwtquery.plugins.ui.UiEffects.UiEffects;

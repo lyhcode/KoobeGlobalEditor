@@ -25,8 +25,8 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.InlineHyperlink;
 import com.google.gwt.user.client.ui.Widget;
-import com.svenjacobs.gwtbootstrap3.bootbox.client.Bootbox;
-import com.svenjacobs.gwtbootstrap3.bootbox.client.callback.ConfirmCallback;
+import org.gwtbootstrap3.extras.bootbox.client.Bootbox;
+import org.gwtbootstrap3.extras.bootbox.client.callback.ConfirmCallback;
 
 /**
  * A simple menu that can be reused.
