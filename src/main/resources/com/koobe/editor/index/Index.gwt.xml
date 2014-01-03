@@ -47,12 +47,11 @@
     <stylesheet src="sheldon/css/style.css"/>
     <stylesheet src="css/style.css"/>
 
-
     <!-- Specify the paths for translatable code -->
     <source path="client"/>
     <source path="shared"/>
 
-    <define-configuration-property name="gin.ginjector" is-multi-valued="false"/>
+    <!--<define-configuration-property name="gin.ginjector" is-multi-valued="false"/>-->
     <set-configuration-property name="gin.ginjector.modules" value="com.koobe.editor.index.client.gin.ClientModule"/>
 
     <!-- GWT Properties -->
