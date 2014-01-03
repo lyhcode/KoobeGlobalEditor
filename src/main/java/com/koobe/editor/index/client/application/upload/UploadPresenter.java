@@ -16,17 +16,32 @@
 
 package com.koobe.editor.index.client.application.upload;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.typedarrays.shared.Int8Array;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+import com.gwtplatform.dispatch.shared.DispatchAsync;
+import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyCodeSplit;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
+import com.koobe.editor.index.shared.dispatch.SendFileToServerAction;
+import com.koobe.editor.index.shared.dispatch.SendFileToServerResult;
 import com.koobe.editor.index.client.application.ApplicationPresenter;
 import com.koobe.editor.index.client.place.NameTokens;
+import com.koobe.editor.login.client.LoginService;
+import com.koobe.editor.login.client.LoginServiceAsync;
 
-public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPresenter.MyProxy> {
+public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPresenter.MyProxy>
+        implements UploadUiHandlers {
+
+    private final UploadServiceAsync uploadService = GWT.create(UploadService.class);
+
+    private final DispatchAsync dispatcher;
+
     /**
      * {@link UploadPresenter}'s proxy.
      */
@@ -38,13 +53,36 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
     /**
      * {@link UploadPresenter}'s view.
      */
-    public interface MyView extends View {
+    public interface MyView extends View, HasUiHandlers<UploadUiHandlers> {
+        void updateSendTextResult(String s);
     }
 
     @Inject
     public UploadPresenter(EventBus eventBus,
                            MyView view,
-                           MyProxy proxy) {
+                           MyProxy proxy,
+                           DispatchAsync dispatcher) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
+
+        this.dispatcher = dispatcher;
+
+        getView().setUiHandlers(this);
+    }
+
+    @Override
+    public void sendFile(String file) {
+
+        uploadService.upload(file, new AsyncCallback<String>() {
+            @Override
+            public void onFailure(Throwable caught) {
+
+            }
+
+            @Override
+            public void onSuccess(String result) {
+                getView().updateSendTextResult(result);
+            }
+        });
+
     }
 }

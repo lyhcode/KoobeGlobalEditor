@@ -2,17 +2,23 @@ package com.koobe.editor.index.client.application.upload;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.*;
+import com.google.gwt.typedarrays.client.Int8ArrayNative;
+import com.google.gwt.typedarrays.shared.ArrayBuffer;
+import com.google.gwt.typedarrays.shared.Int8Array;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
+import com.koobe.editor.admin.client.application.sandbox.SandboxUiHandlers;
 import com.koobe.editor.index.client.place.NameTokens;
 import org.gwtbootstrap3.client.ui.Button;
 import org.vectomatic.dnd.DataTransferExt;
@@ -28,7 +34,13 @@ import java.util.List;
 
 import static com.google.gwt.query.client.GQuery.$;
 
-public class UploadView extends ViewImpl implements UploadPresenter.MyView {
+public class UploadView extends ViewWithUiHandlers<UploadUiHandlers>
+        implements UploadPresenter.MyView {
+
+    @Override
+    public void updateSendTextResult(String s) {
+        debugHTML.setText(debugHTML.getText()+s);
+    }
 
     interface Binder extends UiBinder<Widget, UploadView> {
     }
@@ -81,6 +93,9 @@ public class UploadView extends ViewImpl implements UploadPresenter.MyView {
     @UiField
     HTMLPanel multipleFileUploaderPanel;
 
+    @UiField
+    HTML debugHTML;
+
     protected FileReader reader = new FileReader();
 
     protected List<File> readQueue = new ArrayList<File>();
@@ -94,12 +109,49 @@ public class UploadView extends ViewImpl implements UploadPresenter.MyView {
             public void onLoadEnd(LoadEndEvent event) {
                 if (reader.getError() == null) {
                     if (readQueue.size() > 0) {
-                        File file = readQueue.get(0);
+                        final File file = readQueue.get(0);
                         try {
-                            //imagePanel.add(createThumbnail(file));
+
+
+                            //ArrayBuffer buffer = reader.getArrayBufferResult();
+                            //Int8Array array = Int8ArrayNative.create(buffer);
+
+                            //String url = "data:" + file.getType() + ";base64," + toBase64(array);
+                            //debugHTML.setText(""+array.length());
+
+                            //Window.alert("test");
+                            //debugHTML.setText(reader.getStringResult());
+                            //Window.alert(reader.getStringResult().length()+"");
+
+                            //getUiHandlers().sendFile(reader.getStringResult());
+
+                            String result = reader.getStringResult();
+
+                            debugHTML.setText(result);
+
+                            start += step;
+
+                            long end = start + step;
+
+                            if (end > file.getSize()) {
+                                end = file.getSize();
+                            }
+
+                            if (start < file.getSize()) {
+
+                                GWT.log(start + ", " + end);
+
+                                reader.readAsBinaryString(file.slice(start, end));
+                            }
+                            else {
+                                readQueue.remove(0);
+                            }
+
+
+
                         } finally {
-                            readQueue.remove(0);
-                            readNextFile();
+                            //readQueue.remove(0);
+                            //readNextFile();
                         }
                     }
                 }
@@ -184,7 +236,6 @@ public class UploadView extends ViewImpl implements UploadPresenter.MyView {
         else {
             multipleFileUploaderPanel.setVisible(true);
         }
-        fileUploaderPanel.setVisible(false);
     }
 
     /**
@@ -196,17 +247,14 @@ public class UploadView extends ViewImpl implements UploadPresenter.MyView {
 
         int filesLength = files.getLength();
 
-        switchToFileUploaderPanel(filesLength > 1);
+        boolean isMultipleFile = filesLength > 1;
+        switchToFileUploaderPanel(isMultipleFile);
 
         if (filesLength == 1) {
-            File file1 = files.getItem(0);
 
-            //StringBuffer html = new StringBuffer();
-            //html.append(String.format("<code>%s</code>", file1.getName()));
-            //html.append("<br/>");
-            //html.append(CommonStringUtils.prettySize(file1.getSize()));
+            new FileUploadTask(files.getItem(0)).start();
 
-            //fileUploaderInfoHTML.setHTML(html.toString());
+            return;
         }
 
         for (File file : files) {
@@ -216,28 +264,22 @@ public class UploadView extends ViewImpl implements UploadPresenter.MyView {
         readNextFile();
     }
 
+    long start = 0;
+    long step = 1024 * 100;
+
     private void readNextFile() {
 
         if (readQueue.size() > 0) {
             File file = readQueue.get(0);
             String type = file.getType();
             try {
-                if ("image/svg+xml".equals(type)) {
-                    reader.readAsText(file);
-                } else if (type.startsWith("image/png")) {
-                    readQueue.remove(0);
-                    readNextFile();
-                } else if (type.startsWith("image/")) {
-                    //reader.readAsArrayBuffer(file);
-                    reader.readAsBinaryString(file);
+                //reader.readAsArrayBuffer(file);
 
-                } else if (type.startsWith("text/")) {
-                    Blob blob = file;
-                    if (file.getSize() > 0) {
-                        blob = file.slice(0, 1000, "text/plain; charset=utf-8");
-                    }
-                    reader.readAsText(blob);
-                }
+                GWT.log(""+file.getSize());
+
+
+                reader.readAsBinaryString(file.slice(start, start + step));
+
             } catch (Throwable t) {
                 handleError(file);
                 readQueue.remove(0);
@@ -256,5 +298,58 @@ public class UploadView extends ViewImpl implements UploadPresenter.MyView {
             }
         }
         Window.alert("File loading error for file: " + file.getName() + "\n" + errorDesc);
+    }
+
+
+    private static final char[] BASE64_CHARS = {
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+            'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+            'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd',
+            'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+            'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+            'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7',
+            '8', '9', '+', '/'
+    };
+
+    private static final char BASE64_PADDING = '=';
+
+    public static String toBase64(Int8Array array) {
+        // Manual conversion to base64. There are probably smarter ways
+        // to do this but the goal is to demonstrate typed arrays.
+        StringBuilder builder = new StringBuilder();
+        int length = array.length();
+        if (length > 0) {
+            char[] charArray = new char[4];
+            int ix = 0;
+            while (length >= 3) {
+                int i = ((array.get(ix) & 0xff)<<16)
+                        + ((array.get(ix+1) & 0xff)<<8)
+                        + (array.get(ix+2) & 0xff);
+                charArray[0] = BASE64_CHARS[i>>18];
+                charArray[1] = BASE64_CHARS[(i>>12) & 0x3f];
+                charArray[2] = BASE64_CHARS[(i>>6) & 0x3f];
+                charArray[3] = BASE64_CHARS[i & 0x3f];
+                builder.append(charArray);
+                ix += 3;
+                length -= 3;
+            }
+            if (length == 1) {
+                int i = array.get(ix)&0xff;
+                charArray[0] = BASE64_CHARS[i>>2];
+                charArray[1] = BASE64_CHARS[(i<<4)&0x3f];
+                charArray[2] = BASE64_PADDING;
+                charArray[3] = BASE64_PADDING;
+                builder.append(charArray);
+            } else if (length == 2) {
+                int i = ((array.get(ix) & 0xff)<<8)
+                        + (array.get(ix+1) & 0xff);
+                charArray[0] = BASE64_CHARS[i>>10];
+                charArray[1] = BASE64_CHARS[(i>>4) & 0x3f];
+                charArray[2] = BASE64_CHARS[(i<<2) & 0x3f];
+                charArray[3] = BASE64_PADDING;
+                builder.append(charArray);
+            }
+        }
+        return builder.toString();
     }
 }

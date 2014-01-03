@@ -183,5 +183,7 @@
 
         </g:HTMLPanel>
 
+        <g:HTML ui:field="debugHTML" />
+
     </b:Container>
 </ui:UiBinder>

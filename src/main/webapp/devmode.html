@@ -12,6 +12,15 @@
 body {
     padding-top: 70px;
 }
+.list-group-item-text>span+span:before {
+    padding: 0 5px;
+    color: #ccc;
+    content: "/\00a0";
+}
+.list-group-item-text code {
+    background: none;
+    color: gray;
+}
 </style>
 </head>
 <body>
@@ -82,19 +91,33 @@ body {
     <div class="list-group">
         <a href="login.html" class="list-group-item">
             <h4 class="list-group-item-heading">登入頁面</h4>
-            <p class="list-group-item-text">login.html | <code>com.koobe.editor.login</code> | legacy GWT + RPC</p>
+            <p class="list-group-item-text">
+                <span><code>login.html</code></span>
+                <span><code>com.koobe.editor.login</code></span>
+                <span>Legacy GWT + RPC</span>
+            </p>
         </a>
         <a href="index.html" class="list-group-item">
             <h4 class="list-group-item-heading">我的作品</h4>
-            <p class="list-group-item-text">index.html | <code>com.koobe.editor.index</code> | main</p>
+            <p class="list-group-item-text">
+                <span><code>index.html</code></span>
+                <span><code>com.koobe.editor.index</code></span>
+                <span>GWTP</span>
+            </p>
         </a>
         <a href="#" class="list-group-item">
             <h4 class="list-group-item-heading">編輯器</h4>
-            <p class="list-group-item-text">composer.html | <code>com.koobe.editor.composer</code> | in progress</p>
+            <p class="list-group-item-text">
+                <span><code>composer.html</code></span>
+                <span><code>com.koobe.editor.composer</code></span>
+            </p>
         </a>
         <a href="admin.html" class="list-group-item">
             <h4 class="list-group-item-heading">管理後台</h4>
-            <p class="list-group-item-text">admin.html | <code>com.koobe.editor.admin</code></p>
+            <p class="list-group-item-text">
+                <span><code>admin.html</code></span>
+                <span><code>com.koobe.editor.admin</code></span>
+            </p>
         </a>
     </div>
 

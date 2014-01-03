@@ -1,5 +1,5 @@
 /**
- * Copyright 2011 ArcBees Inc.
+ * Copyright 2013 ArcBees Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -14,15 +14,11 @@
  * the License.
  */
 
-package com.koobe.editor.admin.server.guice;
+package com.koobe.editor.index.client.application.upload;
 
-import com.google.inject.servlet.ServletModule;
-import com.gwtplatform.dispatch.server.guice.DispatchServiceImpl;
-import com.gwtplatform.dispatch.shared.ActionImpl;
+import com.google.gwt.typedarrays.shared.Int8Array;
+import com.gwtplatform.mvp.client.UiHandlers;
 
-public class DispatchServletModule extends ServletModule {
-    @Override
-    public void configureServlets() {
-        serve("/" + ActionImpl.DEFAULT_SERVICE_NAME + "*").with(DispatchServiceImpl.class);
-    }
+public interface UploadUiHandlers extends UiHandlers {
+    void sendFile(String file);
 }

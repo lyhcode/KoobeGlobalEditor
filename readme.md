@@ -15,5 +15,6 @@ https://svn.koobe.com.tw:8443/svn/KoobeSystem3/KoobeGlobalEditor
     cd KoobeGlobalEditor
     git svn clone -r HEAD https://svn.koobe.com.tw:8443/svn/KoobeSystem3/KoobeGlobalEditor .
     git update-ref refs/remotes/git-svn refs/remotes/origin/master
+    git svn dcommit
     git svn fetch
     git pull
