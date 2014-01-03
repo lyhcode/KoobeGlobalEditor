@@ -39,6 +39,12 @@
     <packaging>war</packaging>
 
     <properties>
+
+        <!--Spring-->
+        <springframework.version>4.0.0.RELEASE</springframework.version>
+        <springframework.data.version>1.4.3.RELEASE</springframework.data.version>
+
+        <!--Koobe-->
         <koobe.common.version>0.0.1-SNAPSHOT</koobe.common.version>
 
         <!--GWT, GWTP-->
@@ -67,11 +73,30 @@
 
     <dependencies>
 
+        <!--Spring Framework-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${springframework.data.version}</version>
+        </dependency>
+
         <!--KoobeCommonLibrary-->
+        <dependency>
+            <groupId>koobe</groupId>
+            <artifactId>KoobeCommonCore</artifactId>
+            <version>${koobe.common.version}</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>koobe</groupId>
             <artifactId>KoobeCommonData</artifactId>
             <version>${koobe.common.version}</version>
+            <scope>compile</scope>
         </dependency>
 
         <!--GWT-->
@@ -233,8 +258,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
             <plugin>
