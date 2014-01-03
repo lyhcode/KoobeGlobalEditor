@@ -14,18 +14,28 @@
  * the License.
  */
 
-package com.koobe.editor.admin.server.guice;
+package com.koobe.editor.index.shared.dispatch;
 
-import com.gwtplatform.dispatch.server.guice.HandlerModule;
-import com.koobe.editor.admin.server.dispatch.SendTextToServerHandler;
-import com.koobe.editor.admin.shared.dispatch.*;
+import com.gwtplatform.dispatch.shared.Result;
 
 /**
- * Module which binds the handlers and configurations.
+ * The result of a {@link SendFileToServerAction} action.
  */
-public class ServerModule extends HandlerModule {
-    @Override
-    protected void configureHandlers() {
-        bindHandler(SendTextToServerAction.class, SendTextToServerHandler.class);
+public class SendFileToServerResult implements Result {
+    private String response;
+
+    public SendFileToServerResult(final String response) {
+        this.response = response;
+    }
+
+    /**
+     * For serialization only.
+     */
+    @SuppressWarnings("unused")
+    private SendFileToServerResult() {
+    }
+
+    public String getResponse() {
+        return response;
     }
 }

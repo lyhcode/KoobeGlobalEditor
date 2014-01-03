@@ -4,7 +4,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.koobe.editor.login.shared.LoginResult;
 
 /**
- * The async counterpart of <code>LoginService</code>.
+ * The async counterpart of <code>UploadService</code>.
  */
 public interface LoginServiceAsync {
     void auth(String username, String password, AsyncCallback<LoginResult> callback)

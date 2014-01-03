@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.koobe.editor.admin.server.guice;
+package com.koobe.editor.server.guice;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
