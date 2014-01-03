@@ -53,7 +53,6 @@
             padding-top:20px;
             padding-bottom:20px;
         }
-
     </ui:style>
     <b:Container styleName="page-content">
 
@@ -119,7 +118,6 @@
             </g:HTMLPanel>
 
         </g:HTMLPanel>
-
 
         <!-- Multiple File Upload -->
         <g:HTMLPanel styleName="widget" ui:field="multipleFileUploaderPanel">
