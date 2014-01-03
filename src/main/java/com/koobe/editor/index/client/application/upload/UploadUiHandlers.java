@@ -20,5 +20,5 @@ import com.google.gwt.typedarrays.shared.Int8Array;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface UploadUiHandlers extends UiHandlers {
-    void sendFile(String file);
+    void sendFileChunk(String chunk);
 }

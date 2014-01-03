@@ -70,9 +70,9 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
     }
 
     @Override
-    public void sendFile(String file) {
+    public void sendFileChunk(String chunk) {
 
-        uploadService.upload(file, new AsyncCallback<String>() {
+        uploadService.upload(chunk, new AsyncCallback<String>() {
             @Override
             public void onFailure(Throwable caught) {
 

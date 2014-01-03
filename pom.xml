@@ -99,6 +99,13 @@
             <scope>compile</scope>
         </dependency>
 
+        <!--Apache Commons-->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.9</version>
+        </dependency>
+
         <!--GWT-->
         <dependency>
             <groupId>com.google.gwt</groupId>

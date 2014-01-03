@@ -8,7 +8,7 @@ import org.vectomatic.file.events.*;
 /**
  * Created by lyhcode on 2014/1/4.
  */
-public class FileUploadTask {
+public class FileReaderTask {
 
     private FileReader reader;
 
@@ -17,11 +17,17 @@ public class FileUploadTask {
 
     private long start = 0;
 
+    /**
+     * Adjust this value for suitable network transfer rate
+     */
     private final static int SLICE_SIZE = 102400;
 
-    public FileUploadTask(File file) {
+    private FileReaderCallback callback;
+
+    public FileReaderTask(File file, FileReaderCallback callback) {
         this.file = file;
         this.fileSize = file.getSize();
+        this.callback = callback;
         initReader();
     }
 
@@ -32,27 +38,35 @@ public class FileUploadTask {
             public void onLoadEnd(LoadEndEvent event) {
                 if (reader.getError() == null) {
                     try {
-                        String result = reader.getStringResult();
+                        String chunk = reader.getStringResult();
 
-                        start += SLICE_SIZE + 1;
-
-                        long end = start + SLICE_SIZE;
-
-                        if (end > fileSize) {
-                            end = fileSize;
-                        }
-
-                        if (fileSize - end < SLICE_SIZE) {
-                            end = fileSize;
+                        if (callback != null) {
+                            callback.upload(b64encode(chunk));
                         }
 
                         if (start <= fileSize) {
 
+                            long end = start + SLICE_SIZE;
+
+                            if (end > fileSize) {
+                                end = fileSize;
+                            }
+
+                            if (fileSize - end < SLICE_SIZE) {
+                                end = fileSize;
+                            }
+
                             GWT.log(start + ", " + end);
 
                             reader.readAsBinaryString(file.slice(start, end));
+
+                            start = end + 1;
+                        }
+                        else {
+                            callback.complete();
                         }
                     } finally {
+                        //nothing
                     }
                 }
             }
@@ -68,12 +82,21 @@ public class FileUploadTask {
         reader.addErrorHandler(new ErrorHandler() {
             @Override
             public void onError(ErrorEvent event) {
-                GWT.log("read file error");
+                callback.error();
             }
         });
     }
 
     public void start() {
-        reader.readAsBinaryString(file.slice(start, start + SLICE_SIZE));
+        start = SLICE_SIZE + 1;
+        reader.readAsBinaryString(file.slice(0, SLICE_SIZE));
     }
+
+    private static native String b64decode(String a) /*-{
+      return $wnd.atob(a);
+    }-*/;
+
+    private static native String b64encode(String a) /*-{
+      return $wnd.btoa(a);
+    }-*/;
 }
