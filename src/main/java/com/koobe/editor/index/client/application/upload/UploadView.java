@@ -26,6 +26,8 @@ import org.vectomatic.file.events.LoadEndHandler;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.google.gwt.query.client.GQuery.$;
+
 public class UploadView extends ViewImpl implements UploadPresenter.MyView {
 
     interface Binder extends UiBinder<Widget, UploadView> {
@@ -49,7 +51,6 @@ public class UploadView extends ViewImpl implements UploadPresenter.MyView {
 
         fileUploaderPanel.setVisible(false);
         multipleFileUploaderPanel.setVisible(false);
-
         initFileReader();
     }
 
@@ -170,7 +171,6 @@ public class UploadView extends ViewImpl implements UploadPresenter.MyView {
 
     private void switchToFileChooserPanel() {
         fileChooserPanel.setVisible(true);
-
         fileUploaderPanel.setVisible(false);
         multipleFileUploaderPanel.setVisible(false);
     }
@@ -184,6 +184,7 @@ public class UploadView extends ViewImpl implements UploadPresenter.MyView {
         else {
             multipleFileUploaderPanel.setVisible(true);
         }
+        fileUploaderPanel.setVisible(false);
     }
 
     /**
