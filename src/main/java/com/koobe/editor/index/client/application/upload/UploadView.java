@@ -6,6 +6,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -25,8 +26,6 @@ import org.vectomatic.file.events.LoadEndHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.gwt.query.client.GQuery.$;
-
 public class UploadView extends ViewImpl implements UploadPresenter.MyView {
 
     interface Binder extends UiBinder<Widget, UploadView> {
@@ -45,7 +44,12 @@ public class UploadView extends ViewImpl implements UploadPresenter.MyView {
         res.style().ensureInjected();
         initWidget(binder.createAndBindUi(this));
 
+        forwardButton.setEnabled(false);
+        multipleForwardButton.setEnabled(false);
+
         fileUploaderPanel.setVisible(false);
+        multipleFileUploaderPanel.setVisible(false);
+
         initFileReader();
     }
 
@@ -56,6 +60,12 @@ public class UploadView extends ViewImpl implements UploadPresenter.MyView {
     Button customUploadButton;
 
     @UiField
+    Button forwardButton;
+
+    @UiField
+    Button multipleForwardButton;
+
+    @UiField
     FileUploadExt customUpload;
 
     @UiField
@@ -63,6 +73,12 @@ public class UploadView extends ViewImpl implements UploadPresenter.MyView {
 
     @UiField
     HTMLPanel fileUploaderPanel;
+
+    @UiField
+    HTML fileUploaderInfoHTML;
+
+    @UiField
+    HTMLPanel multipleFileUploaderPanel;
 
     protected FileReader reader = new FileReader();
 
@@ -154,12 +170,20 @@ public class UploadView extends ViewImpl implements UploadPresenter.MyView {
 
     private void switchToFileChooserPanel() {
         fileChooserPanel.setVisible(true);
+
         fileUploaderPanel.setVisible(false);
+        multipleFileUploaderPanel.setVisible(false);
     }
 
-    private void switchToFileUploaderPanel() {
+    private void switchToFileUploaderPanel(boolean multiple) {
         fileChooserPanel.setVisible(false);
-        fileUploaderPanel.setVisible(true);
+
+        if (!multiple) {
+            fileUploaderPanel.setVisible(true);
+        }
+        else {
+            multipleFileUploaderPanel.setVisible(true);
+        }
     }
 
     /**
@@ -169,12 +193,25 @@ public class UploadView extends ViewImpl implements UploadPresenter.MyView {
      */
     private void processFiles(FileList files) {
 
-        switchToFileUploaderPanel();
+        int filesLength = files.getLength();
 
-        GWT.log("length=" + files.getLength());
+        switchToFileUploaderPanel(filesLength > 1);
+
+        if (filesLength == 1) {
+            File file1 = files.getItem(0);
+
+            //StringBuffer html = new StringBuffer();
+            //html.append(String.format("<code>%s</code>", file1.getName()));
+            //html.append("<br/>");
+            //html.append(CommonStringUtils.prettySize(file1.getSize()));
+
+            //fileUploaderInfoHTML.setHTML(html.toString());
+        }
+
         for (File file : files) {
             readQueue.add(file);
         }
+
         readNextFile();
     }
 
