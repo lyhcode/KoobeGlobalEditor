@@ -10,14 +10,13 @@
         }
     </ui:style>
 
-    <b:Container>
+    <b:Container ui:id="page" ui:field="container">
 
         <b:Div ui:id="logo">
             <b:Heading size="3">New Koobe Editor</b:Heading>
         </b:Div>
 
         <b:Div ui:id="loginbox">
-
             <b:Form>
                 <b:Paragraph>
                     Please login first.
@@ -26,14 +25,14 @@
                 <b:FormGroup ui:field="usernameFormGroup">
                     <b:InputGroup>
                         <b:InputGroupAddon icon="USER"/>
-                        <b:TextBox ui:field="usernameTextBox" placeHolder="Name" autoComplete="false"/>
+                        <b:TextBox ui:field="usernameTextBox" placeholder="Name" autocomplete="false"/>
                     </b:InputGroup>
                 </b:FormGroup>
 
                 <b:FormGroup ui:field="passwordFormGroup">
                     <b:InputGroup>
                         <b:InputGroupAddon icon="LOCK"/>
-                        <b:PasswordTextBox ui:field="passwordTextBox" placeHolder="Password" autoComplete="false"/>
+                        <b:PasswordTextBox ui:field="passwordTextBox" placeholder="Password" autocomplete="false"/>
                     </b:InputGroup>
                 </b:FormGroup>
 
