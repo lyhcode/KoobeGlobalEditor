@@ -1,12 +1,20 @@
+# KoobeGlobalEditor #
 
 ## Run GWT DevMode ##
 
+    mvn clean package gwt:run
+
+## After changes ##
+
+    mvn compile
+
+Or
+
     mvn package
-    mvn gwt:run
 
 ## Repositories ##
 
-https://svn.koobe.com.tw:8443/svn/KoobeSystem3/KoobeGlobalEditor
+    https://svn.koobe.com.tw:8443/svn/KoobeSystem3/KoobeGlobalEditor
 
 
 ## Git-Svn Usages ##
