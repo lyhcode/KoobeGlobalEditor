@@ -98,8 +98,8 @@
 
                         <p>檔案上傳中，請耐心等候。</p>
 
-                        <b:Progress active="true" type="STRIPED" addStyleNames="{style.progress}">
-                            <b:ProgressBar type="INFO" percent="20" text="20%"/>
+                        <b:Progress type="STRIPED" addStyleNames="{style.progress}">
+                            <b:ProgressBar ui:field="progressBar" type="INFO" percent="0" />
                         </b:Progress>
 
                         <g:HTML ui:field="fileUploaderInfoHTML"></g:HTML>

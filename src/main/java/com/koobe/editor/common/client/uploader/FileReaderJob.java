@@ -16,7 +16,7 @@ public class FileReaderJob {
     private long fileSize;
 
     private long index = 0;
-    private long start = 0;
+    private long offset = 0;
 
     /**
      * Specify the size limit of each chunk (1024kb)
@@ -37,44 +37,46 @@ public class FileReaderJob {
         reader.addLoadEndHandler(new LoadEndHandler() {
             @Override
             public void onLoadEnd(LoadEndEvent event) {
-                if (reader.getError() == null) {
-                    try {
-                        String chunk = reader.getStringResult();
+            if (reader.getError() == null) {
+                try {
+                    String chunk = reader.getStringResult();
 
-                        if (callback != null) {
-                            callback.load(index++, b64encode(chunk));
-                        }
-
-                        if (start <= fileSize) {
-
-                            long end = start + CHUNK_SIZE;
-
-                            if (end > fileSize) {
-                                end = fileSize;
-                            }
-
-                            if (fileSize - end < CHUNK_SIZE) {
-                                end = fileSize;
-                            }
-
-                            reader.readAsBinaryString(file.slice(start, end));
-
-                            start = end + 1;
-                        }
-                        else {
-                            callback.complete();
-                        }
-                    } finally {
-                        //nothing
+                    if (callback != null) {
+                        //callback.load(index++, b64encode(chunk));
+                        callback.load(index++, (chunk));
+                        callback.progress(getProgress());
                     }
+
+                    if (offset <= fileSize) {
+
+                        long end = offset + CHUNK_SIZE;
+
+                        if (end > fileSize) {
+                            end = fileSize;
+                        }
+
+                        //if (fileSize - end < CHUNK_SIZE) {
+                        //    end = fileSize;
+                        //  }
+
+                        reader.readAsBinaryString(file.slice(offset, end));
+
+                        offset = end + 1;
+                    }
+                    else {
+                        callback.complete();
+                    }
+                } finally {
+                    //nothing
                 }
+            }
             }
         });
 
         reader.addProgressHandler(new ProgressHandler() {
             @Override
             public void onProgress(ProgressEvent progressEvent) {
-                GWT.log("progress: " + progressEvent.loaded());
+            //GWT.log("progress: " + progressEvent.loaded());
             }
         });
 
@@ -87,8 +89,16 @@ public class FileReaderJob {
     }
 
     public void start() {
-        start = CHUNK_SIZE + 1;
+        offset = CHUNK_SIZE + 1;
         reader.readAsBinaryString(file.slice(0, CHUNK_SIZE));
+    }
+
+    public long getOffset() {
+        return offset;
+    }
+
+    public double getProgress() {
+        return (double)offset / (double)fileSize;
     }
 
     private static native String b64encode(String a) /*-{

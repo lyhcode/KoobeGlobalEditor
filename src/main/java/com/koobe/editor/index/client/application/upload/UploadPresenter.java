@@ -52,6 +52,7 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
 
     public interface MyView extends View, HasUiHandlers<UploadUiHandlers> {
         void updateSendTextResult(String s);
+        void updateProgress(double progress);
     }
 
     @Inject
@@ -102,20 +103,17 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
             new FileReaderJob(file, new FileReaderCallback() {
                 @Override
                 public void load(long index, String chunk) {
-
-                    GWT.log("load index: " + index);
-
                     uploadChunk(index, chunk);
                 }
 
                 @Override
                 public void progress(double progress) {
-
+                    getView().updateProgress(progress);
                 }
 
                 @Override
                 public void complete() {
-                    GWT.log("file upload done");
+                    getView().updateProgress(1);
                 }
 
                 @Override
@@ -140,11 +138,10 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
             return false;
         }
 
-
-        String lowercaseFileName = file.getName().toLowerCase();
+        String lowerCaseFileName = file.getName().toLowerCase();
 
         for (String ext : ALLOW_FILE_SUFFIX) {
-            if (lowercaseFileName.endsWith(ext)) {
+            if (lowerCaseFileName.contains(ext)) {
                 return true;
             }
         }
@@ -171,7 +168,7 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
 
     private void uploadChunk(long index, String chunk) {
 
-        uploadService.uploadChunk(index, chunk, new AsyncCallback<String>() {
+        /*uploadService.uploadChunk(index, chunk, new AsyncCallback<String>() {
             @Override
             public void onFailure(Throwable caught) {
 
@@ -179,9 +176,9 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
 
             @Override
             public void onSuccess(String result) {
-                getView().updateSendTextResult(result);
+                //nothing
             }
-        });
+        });*/
 
     }
 }

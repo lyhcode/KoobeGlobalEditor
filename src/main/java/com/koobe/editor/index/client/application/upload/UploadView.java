@@ -16,6 +16,7 @@ import com.koobe.editor.common.client.uploader.FileReaderCallback;
 import com.koobe.editor.common.client.uploader.FileReaderJob;
 import com.koobe.editor.index.client.place.NameTokens;
 import org.gwtbootstrap3.client.ui.Button;
+import org.gwtbootstrap3.client.ui.ProgressBar;
 import org.vectomatic.dnd.DataTransferExt;
 import org.vectomatic.dnd.DropPanel;
 import org.vectomatic.file.FileList;
@@ -27,6 +28,14 @@ public class UploadView extends ViewWithUiHandlers<UploadUiHandlers>
     @Override
     public void updateSendTextResult(String s) {
         debugHTML.setText(s);
+    }
+
+    @Override
+    public void updateProgress(double progress) {
+        int percent = (int)(progress*100);
+
+        progressBar.setPercent(percent);
+        //progressBar.setText(percent + "%");
     }
 
     interface Binder extends UiBinder<Widget, UploadView> {
@@ -81,6 +90,9 @@ public class UploadView extends ViewWithUiHandlers<UploadUiHandlers>
 
     @UiField
     HTML debugHTML;
+
+    @UiField
+    ProgressBar progressBar;
 
     @UiHandler("customUploadButton")
     public void onCustomUploadButtonClick(ClickEvent event) {

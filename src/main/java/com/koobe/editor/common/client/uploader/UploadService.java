@@ -10,5 +10,5 @@ import com.koobe.editor.login.shared.LoginResult;
  */
 @RemoteServiceRelativePath("upload")
 public interface UploadService extends RemoteService {
-    String uploadChunk(long index, String file) throws IllegalArgumentException;
+    String uploadChunk(long index, String chunk) throws IllegalArgumentException;
 }

@@ -15,22 +15,21 @@ import java.io.IOException;
 public class UploadServiceImpl extends RemoteServiceServlet implements
         UploadService {
 
+    final static BASE64Decoder base64decoder = new BASE64Decoder();
+
     public String uploadChunk(long index, String chunk) throws IllegalArgumentException {
 
         File file = new File("/tmp/test.jpg");
         try {
-            BASE64Decoder dec = new BASE64Decoder();
-
             FileOutputStream stream = new FileOutputStream(file, true);
-            stream.write(dec.decodeBuffer(chunk));
+            //stream.write(base64decoder.decodeBuffer(chunk));
+            stream.write(chunk.getBytes());
             stream.close();
         }
         catch (IOException ex) {
             ex.printStackTrace();
         }
 
-        return chunk;
-
-
+        return "ok";
     }
 }
