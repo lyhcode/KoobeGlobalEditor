@@ -1,0 +1,25 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:b="urn:import:org.gwtbootstrap3.client.ui">
+
+    <ui:style>
+        .margin-fix {
+        margin-bottom: 0 !important;
+        }
+    </ui:style>
+    <b:Row>
+
+        <b:PageHeader text="Import"/>
+
+        <b:Panel>
+            <b:PanelHeader>
+                <b:Heading size="3" text="Upload file(s)"/>
+            </b:PanelHeader>
+            <b:PanelBody>
+                <b:Span>Drop files to this area.</b:Span>
+            </b:PanelBody>
+            <b:PanelFooter>
+            </b:PanelFooter>
+        </b:Panel>
+
+    </b:Row>
+</ui:UiBinder>

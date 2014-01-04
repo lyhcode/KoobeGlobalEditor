@@ -1,0 +1,38 @@
+<!-- GWT BootStrap 3 -->
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:b="urn:import:org.gwtbootstrap3.client.ui">
+    <ui:with type="com.koobe.editor.admin.client.place.NameTokens" field="nameTokens"/>
+    <b:Navbar position="FIXED_TOP">
+        <b:Container>
+            <b:NavbarHeader>
+                <b:NavbarBrand ui:field="brand">Koobe Editor</b:NavbarBrand>
+                <b:NavbarCollapseButton target="#navbar-collapse"/>
+            </b:NavbarHeader>
+            <b:NavbarCollapse b:id="navbar-collapse">
+                <b:NavbarNav>
+                    <b:ListDropDown>
+                        <b:AnchorButton toggle="DROPDOWN">File</b:AnchorButton>
+                        <b:DropDownMenu>
+                            <b:ListItem>Open</b:ListItem>
+                            <b:ListItem>Import</b:ListItem>
+                            <b:ListItem ui:field="logoutLink">Logout</b:ListItem>
+                        </b:DropDownMenu>
+                    </b:ListDropDown>
+                    <b:ListDropDown>
+                        <b:AnchorButton toggle="DROPDOWN">Tools</b:AnchorButton>
+                        <b:DropDownMenu>
+                            <b:ListItem b:href="#{nameTokens.getMonitorPage}">Monitor</b:ListItem>
+                        </b:DropDownMenu>
+                    </b:ListDropDown>
+                    <b:ListDropDown>
+                        <b:AnchorButton toggle="DROPDOWN">Pages</b:AnchorButton>
+                        <b:DropDownMenu>
+                            <b:ListItem b:href="#{nameTokens.getAboutPage}">About</b:ListItem>
+                            <b:ListItem b:href="#{nameTokens.getSandboxPage}">Sandbox</b:ListItem>
+                        </b:DropDownMenu>
+                    </b:ListDropDown>
+                </b:NavbarNav>
+            </b:NavbarCollapse>
+        </b:Container>
+    </b:Navbar>
+</ui:UiBinder>

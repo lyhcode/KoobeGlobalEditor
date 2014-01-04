@@ -1,0 +1,189 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+             xmlns:f="urn:import:org.vectomatic.file"
+             xmlns:v="urn:import:org.vectomatic.dnd">
+    <ui:style>
+        .widget {
+        padding-top:100px;
+        padding-bottom:100px;
+        }
+        .dropPanel {
+        position:relative;
+        width:100%;
+        height:320px;
+        border:2px dashed #aaa;
+        }
+        .dropPanel div {
+        width:50%;
+        height:120px;
+        font-size: 10px;
+        color:gray;
+        text-align: center;
+        overflow: hidden;
+        margin: auto;
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
+        }
+        .uploadFile {
+        display:inline-block;
+        }
+        .customUpload {
+        visibility: hidden;
+        width: 0;
+        }
+        .progress {
+        height:20px;
+        }
+
+        .centerContainer {
+            height: 320px;
+            position: relative;
+        }
+        .absoluteCenter {
+            width: 50%;
+            height: 50%;
+            overflow: auto;
+            margin: auto;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+        }
+        .forwardButtonWrapper {
+            text-align:center;
+            padding-top:20px;
+            padding-bottom:20px;
+        }
+    </ui:style>
+    <b:Container styleName="page-content">
+
+        <g:HTMLPanel styleName="widget" ui:field="fileChooserPanel">
+
+            <g:HTMLPanel styleName="widget-head">
+                您的檔案將上傳至全世界最大的社群，讓所有讀者閱讀。
+            </g:HTMLPanel>
+
+            <g:HTMLPanel styleName="widget-body">
+
+                <v:DropPanel ui:field="dropPanel" styleName="{style.dropPanel}">
+
+                    <g:HTMLPanel>
+
+                        <f:FileUploadExt ui:field="customUpload" styleName="{style.customUpload}" />
+                        <b:Button icon="UPLOAD" ui:field="customUploadButton">選擇一個檔案上傳</b:Button><br/>
+                        <br/>
+                        檔案格式為：word、ppt、txt、pdf、epub、e-mail檔案<br/>
+                        或在這拖曳多個檔案...
+                    </g:HTMLPanel>
+
+                </v:DropPanel>
+            </g:HTMLPanel>
+
+            <g:HTMLPanel styleName="widget-foot">
+
+            </g:HTMLPanel>
+
+        </g:HTMLPanel>
+
+        <!-- Single File Upload -->
+        <g:HTMLPanel styleName="widget" ui:field="fileUploaderPanel">
+
+            <g:HTMLPanel styleName="widget-head">
+                檔案上傳中，請耐心等候。
+            </g:HTMLPanel>
+
+            <g:HTMLPanel styleName="widget-body">
+
+                <div class="{style.centerContainer}">
+                    <div class="{style.absoluteCenter} text-center">
+
+                        <p>檔案上傳中，請耐心等候。</p>
+
+                        <b:Progress active="true" type="STRIPED" addStyleNames="{style.progress}">
+                            <b:ProgressBar type="INFO" percent="20" text="20%"/>
+                        </b:Progress>
+
+                        <g:HTML ui:field="fileUploaderInfoHTML"></g:HTML>
+
+                        <br/>
+
+                        <b:Button ui:field="forwardButton">儲存</b:Button>
+                    </div>
+                </div>
+
+
+            </g:HTMLPanel>
+
+            <g:HTMLPanel styleName="widget-foot">
+
+            </g:HTMLPanel>
+
+        </g:HTMLPanel>
+
+        <!-- Multiple File Upload -->
+        <g:HTMLPanel styleName="widget" ui:field="multipleFileUploaderPanel">
+
+            <g:HTMLPanel styleName="widget-head">
+                檔案上傳中，請耐心等候。
+            </g:HTMLPanel>
+
+            <g:HTMLPanel styleName="widget-body">
+
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>檔案</th>
+                            <th>檔案大小</th>
+                            <th>上傳日期</th>
+                            <th>轉檔進度</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MyBook.pdf</td>
+                            <td>1.23 MB</td>
+                            <td>2013/03/16</td>
+                            <td>...</td>
+                        </tr>
+                        <tr>
+                            <td>MyBook1.pdf</td>
+                            <td>1.23 MB</td>
+                            <td>2013/03/16</td>
+                            <td>...</td>
+                        </tr>
+                        <tr>
+                            <td>MyBook2.pdf</td>
+                            <td>1.23 MB</td>
+                            <td>2013/03/16</td>
+                            <td>...</td>
+                        </tr>
+                        <tr>
+                            <td>MyBook3.pdf</td>
+                            <td>1.23 MB</td>
+                            <td>2013/03/16</td>
+                            <td>...</td>
+                        </tr>
+                        <tr>
+                            <td>MyBook4.pdf</td>
+                            <td>1.23 MB</td>
+                            <td>2013/03/16</td>
+                            <td>...</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="{style.forwardButtonWrapper}">
+                    <b:Button ui:field="multipleForwardButton">儲存</b:Button>
+                </div>
+
+            </g:HTMLPanel>
+
+            <g:HTMLPanel styleName="widget-foot">
+
+            </g:HTMLPanel>
+
+        </g:HTMLPanel>
+
+        <g:HTML ui:field="debugHTML" />
+
+    </b:Container>
+</ui:UiBinder>
