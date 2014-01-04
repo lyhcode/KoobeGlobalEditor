@@ -18,3 +18,12 @@ https://svn.koobe.com.tw:8443/svn/KoobeSystem3/KoobeGlobalEditor
     git svn dcommit
     git svn fetch
     git pull
+
+?
+
+    git svn clone -r HEAD https://svn.koobe.com.tw:8443/svn/KoobeSystem3/KoobeGlobalEditor
+    cd KoobeGlobalEditor
+    git remote add github git@github.com:lyhcode/KoobeGlobalEditor.git
+    git fetch github
+    git merge github/master
+
