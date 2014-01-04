@@ -1,5 +1,7 @@
 # KoobeGlobalEditor #
 
+Web-based eBook Authoring Tool.
+
 ## Run GWT DevMode ##
 
     mvn clean package gwt:run
