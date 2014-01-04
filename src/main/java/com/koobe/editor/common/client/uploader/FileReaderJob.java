@@ -1,4 +1,4 @@
-package com.koobe.editor.index.client.application.upload;
+package com.koobe.editor.common.client.uploader;
 
 import com.google.gwt.core.client.GWT;
 import org.vectomatic.file.File;
@@ -6,25 +6,26 @@ import org.vectomatic.file.FileReader;
 import org.vectomatic.file.events.*;
 
 /**
- * Created by lyhcode on 2014/1/4.
+ * Use this FileReaderJob to get chunks from File
  */
-public class FileReaderTask {
+public class FileReaderJob {
 
     private FileReader reader;
 
     private File file;
     private long fileSize;
 
+    private long index = 0;
     private long start = 0;
 
     /**
-     * Adjust this value for suitable network transfer rate
+     * Specify the size limit of each chunk (1024kb)
      */
-    private final static int SLICE_SIZE = 102400;
+    private final static int CHUNK_SIZE = 1024 * 1024;
 
     private FileReaderCallback callback;
 
-    public FileReaderTask(File file, FileReaderCallback callback) {
+    public FileReaderJob(File file, FileReaderCallback callback) {
         this.file = file;
         this.fileSize = file.getSize();
         this.callback = callback;
@@ -41,22 +42,20 @@ public class FileReaderTask {
                         String chunk = reader.getStringResult();
 
                         if (callback != null) {
-                            callback.upload(b64encode(chunk));
+                            callback.load(index++, b64encode(chunk));
                         }
 
                         if (start <= fileSize) {
 
-                            long end = start + SLICE_SIZE;
+                            long end = start + CHUNK_SIZE;
 
                             if (end > fileSize) {
                                 end = fileSize;
                             }
 
-                            if (fileSize - end < SLICE_SIZE) {
+                            if (fileSize - end < CHUNK_SIZE) {
                                 end = fileSize;
                             }
-
-                            GWT.log(start + ", " + end);
 
                             reader.readAsBinaryString(file.slice(start, end));
 
@@ -88,13 +87,9 @@ public class FileReaderTask {
     }
 
     public void start() {
-        start = SLICE_SIZE + 1;
-        reader.readAsBinaryString(file.slice(0, SLICE_SIZE));
+        start = CHUNK_SIZE + 1;
+        reader.readAsBinaryString(file.slice(0, CHUNK_SIZE));
     }
-
-    private static native String b64decode(String a) /*-{
-      return $wnd.atob(a);
-    }-*/;
 
     private static native String b64encode(String a) /*-{
       return $wnd.btoa(a);

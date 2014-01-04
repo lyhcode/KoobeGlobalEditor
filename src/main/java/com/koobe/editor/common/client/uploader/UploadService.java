@@ -1,4 +1,4 @@
-package com.koobe.editor.index.client.application.upload;
+package com.koobe.editor.common.client.uploader;
 
 import com.google.gwt.typedarrays.shared.Int8Array;
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -10,5 +10,5 @@ import com.koobe.editor.login.shared.LoginResult;
  */
 @RemoteServiceRelativePath("upload")
 public interface UploadService extends RemoteService {
-    String upload(String file) throws IllegalArgumentException;
+    String uploadChunk(long index, String file) throws IllegalArgumentException;
 }

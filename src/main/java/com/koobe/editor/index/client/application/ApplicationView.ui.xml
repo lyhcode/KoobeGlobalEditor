@@ -19,24 +19,7 @@
                         <div class="row">
                             <!-- Page heading -->
                             <div class="col-md-3 col-sm-6 col-xs-6">
-                                <h2><i class="icon-desktop"></i> Koobe Books Author</h2>
-                            </div>
-                            <!-- Mini status -->
-                            <div class="col-md-6 col-sm-0 hidden-sm hidden-xs">
-                                <span class="ph-status">
-                                    <a href="#"><strong>Visits</strong> <i class="icon-chevron-up ph-red"></i> 25% -</a>
-                                    <a href="#"><strong>Stock</strong> <i class="icon-chevron-down ph-green"></i> 15.0 -</a>
-                                    <a href="#"><strong>Profit</strong> <i class="icon-chevron-up ph-red"></i> $500</a>
-                                </span>
-                            </div>
-                            <!-- Icons -->
-                            <div class="col-md-3 col-sm-6 col-xs-6">
-                                <span class="ph-misc pull-right">
-                                    <a href="#" class="bs-tooltip" title="" data-placement="bottom" data-original-title="Share"><i class="icon-share"></i> </a>
-                                    <a href="#" class="bs-tooltip" title="" data-placement="bottom" data-original-title="Export"><i class="icon-upload-alt"></i> </a>
-                                    <a href="#" class="bs-tooltip" title="" data-placement="bottom" data-original-title="Print"><i class="icon-print"></i> </a>
-                                </span>
-                                <div class="clearfix"></div>
+                                <h2><i class="icon-desktop"></i> e7read beta</h2>
                             </div>
                             <div class="clearfix"></div>
                         </div>

@@ -18,7 +18,8 @@ package com.koobe.editor.index.client.application.upload;
 
 import com.google.gwt.typedarrays.shared.Int8Array;
 import com.gwtplatform.mvp.client.UiHandlers;
+import org.vectomatic.file.FileList;
 
 public interface UploadUiHandlers extends UiHandlers {
-    void sendFileChunk(String chunk);
+    void processFiles(FileList files);
 }

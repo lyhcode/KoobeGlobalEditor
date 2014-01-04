@@ -12,6 +12,8 @@ import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
+import com.koobe.editor.common.client.uploader.FileReaderCallback;
+import com.koobe.editor.common.client.uploader.FileReaderJob;
 import com.koobe.editor.index.client.place.NameTokens;
 import org.gwtbootstrap3.client.ui.Button;
 import org.vectomatic.dnd.DataTransferExt;
@@ -87,7 +89,10 @@ public class UploadView extends ViewWithUiHandlers<UploadUiHandlers>
 
     @UiHandler("customUpload")
     public void onCustomUploadChange(ChangeEvent event) {
-        processFiles(customUpload.getFiles());
+
+        switchToFileUploaderPanel(false);
+
+        getUiHandlers().processFiles(customUpload.getFiles());
     }
 
     @UiHandler("dropPanel")
@@ -117,7 +122,9 @@ public class UploadView extends ViewWithUiHandlers<UploadUiHandlers>
     @UiHandler("dropPanel")
     public void onDrop(DropEvent event) {
 
-        processFiles(event.getDataTransfer().<DataTransferExt>cast().getFiles());
+        switchToFileUploaderPanel(true);
+
+        getUiHandlers().processFiles(event.getDataTransfer().<DataTransferExt>cast().getFiles());
 
         event.stopPropagation();
         event.preventDefault();
@@ -146,47 +153,5 @@ public class UploadView extends ViewWithUiHandlers<UploadUiHandlers>
         else {
             multipleFileUploaderPanel.setVisible(true);
         }
-    }
-
-    /**
-     * Adds a collection of file the queue and begin processing them
-     *
-     * @param files The file to process
-     */
-    private void processFiles(FileList files) {
-
-        int filesLength = files.getLength();
-
-        boolean isMultipleFile = filesLength > 1;
-        switchToFileUploaderPanel(isMultipleFile);
-
-        if (filesLength == 1) {
-
-            new FileReaderTask(files.getItem(0), new FileReaderCallback() {
-                @Override
-                public void upload(String chunk) {
-                    getUiHandlers().sendFileChunk(chunk);
-                }
-
-                @Override
-                public void progress(int percent) {
-
-                }
-
-                @Override
-                public void complete() {
-                    GWT.log("file upload done");
-                }
-
-                @Override
-                public void error() {
-                    GWT.log("file upload error");
-                }
-            }).start();
-
-            return;
-        }
-
-
     }
 }

@@ -17,8 +17,9 @@
 package com.koobe.editor.index.client.application.upload;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.typedarrays.shared.Int8Array;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.xhr.client.XMLHttpRequest;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.dispatch.shared.DispatchAsync;
@@ -28,12 +29,14 @@ import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyCodeSplit;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
-import com.koobe.editor.index.shared.dispatch.SendFileToServerAction;
-import com.koobe.editor.index.shared.dispatch.SendFileToServerResult;
+import com.koobe.editor.common.client.uploader.FileReaderCallback;
+import com.koobe.editor.common.client.uploader.FileReaderJob;
+import com.koobe.editor.common.client.uploader.UploadService;
+import com.koobe.editor.common.client.uploader.UploadServiceAsync;
 import com.koobe.editor.index.client.application.ApplicationPresenter;
 import com.koobe.editor.index.client.place.NameTokens;
-import com.koobe.editor.login.client.LoginService;
-import com.koobe.editor.login.client.LoginServiceAsync;
+import org.vectomatic.file.File;
+import org.vectomatic.file.FileList;
 
 public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPresenter.MyProxy>
         implements UploadUiHandlers {
@@ -42,17 +45,11 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
 
     private final DispatchAsync dispatcher;
 
-    /**
-     * {@link UploadPresenter}'s proxy.
-     */
     @ProxyCodeSplit
     @NameToken(NameTokens.uploadPage)
     public interface MyProxy extends ProxyPlace<UploadPresenter> {
     }
 
-    /**
-     * {@link UploadPresenter}'s view.
-     */
     public interface MyView extends View, HasUiHandlers<UploadUiHandlers> {
         void updateSendTextResult(String s);
     }
@@ -69,10 +66,112 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
         getView().setUiHandlers(this);
     }
 
-    @Override
-    public void sendFileChunk(String chunk) {
+    /**
+     * Adds a collection of file the queue and begin processing them
+     *
+     * @param files The list of files to process
+     */
+    public  void processFiles(FileList files) {
 
-        uploadService.upload(chunk, new AsyncCallback<String>() {
+        int filesLength = files.getLength();
+
+        if (filesLength > 1) {
+            Window.alert("Oops, multiple file uploads not support yet.");
+            return;
+        }
+
+        if (filesLength == 1) {
+
+            File file = files.getItem(0);
+
+
+            // Check file suffix first.
+
+            if (!checkFileSuffix(file)) {
+                Window.alert("Not allow this file type. " + file.getName());
+                return;
+            }
+
+            // Check file size.
+
+            if (!checkFileSize(file)) {
+                Window.alert("File is too big. " + file.getName());
+                return;
+            }
+
+            new FileReaderJob(file, new FileReaderCallback() {
+                @Override
+                public void load(long index, String chunk) {
+
+                    GWT.log("load index: " + index);
+
+                    uploadChunk(index, chunk);
+                }
+
+                @Override
+                public void progress(double progress) {
+
+                }
+
+                @Override
+                public void complete() {
+                    GWT.log("file upload done");
+                }
+
+                @Override
+                public void error() {
+                    GWT.log("file upload error");
+                }
+            }).start();
+        }
+    }
+
+    private static final String[] ALLOW_FILE_SUFFIX = {".doc", ".docx", ".epub", ".txt", "pdf"};
+
+    private static final long ALLOW_FILE_SIZE = 200 * 1024 * 1024; // Max 200MB
+
+    /**
+     * Check file suffix name
+     * @param file
+     * @return true if file suffix name is allow
+     */
+    private boolean checkFileSuffix(File file) {
+        if (file == null) {
+            return false;
+        }
+
+
+        String lowercaseFileName = file.getName().toLowerCase();
+
+        for (String ext : ALLOW_FILE_SUFFIX) {
+            if (lowercaseFileName.endsWith(ext)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check file size
+     * @param file
+     * @return true if file size is allow
+     */
+    private boolean checkFileSize(File file) {
+        if (file == null) {
+            return false;
+        }
+
+        if (file.getSize() <= ALLOW_FILE_SIZE) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private void uploadChunk(long index, String chunk) {
+
+        uploadService.uploadChunk(index, chunk, new AsyncCallback<String>() {
             @Override
             public void onFailure(Throwable caught) {
 
