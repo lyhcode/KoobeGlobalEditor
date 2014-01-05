@@ -41,7 +41,7 @@
 
         <!-- Amazon Elastic BeansTalk -->
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
-        <beanstalk.versionLabel>${maven.build.timestamp}</beanstalk.versionLabel>
+        <beanstalk.versionLabel>${project.artifactId}-${maven.build.timestamp}</beanstalk.versionLabel>
 
         <!--Spring-->
         <springframework.version>4.0.0.RELEASE</springframework.version>
@@ -305,10 +305,13 @@
                 <artifactId>beanstalk-maven-plugin</artifactId>
                 <version>1.1.1</version>
                 <configuration>
+                    <region>ap-southeast-1</region>
                     <applicationName>Koobe-RD</applicationName>
+                    <cnamePrefix>kooberd-globaleditor</cnamePrefix>
                     <environmentName>kooberd-globaleditor</environmentName>
                     <s3Bucket>koobe-deploy</s3Bucket>
                     <s3Key>${project.artifactId}/${project.build.finalName}-${maven.build.timestamp}.war</s3Key>
+                    <beanstalk.versionLabel>${project.artifactId}-${maven.build.timestamp}</beanstalk.versionLabel>
                 </configuration>
             </plugin>
         </plugins>
