@@ -38,6 +38,13 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.source.encoding>UTF-8</project.source.encoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+
+        <!-- Maven GWT Plugin -->
+        <gwt.compile.skip>false</gwt.compile.skip>
+        <gwt.draftcompile>false</gwt.draftcompile>
+        <gwt.copyWebapp>true</gwt.copyWebapp>
 
         <!-- Amazon Elastic BeansTalk -->
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
@@ -285,9 +292,12 @@
                 <artifactId>gwt-maven-plugin</artifactId>
                 <version>${gwt.version}</version>
                 <configuration>
+                    <skip>${gwt.compile.skip}</skip>
+                    <draftCompile>${gwt.draftcompile}</draftCompile>
                     <encoding>UTF-8</encoding>
                     <runTarget>devmode.html</runTarget>
                     <hostedWebapp>${webappDirectory}</hostedWebapp>
+                    <copyWebapp>${gwt.copyWebapp}</copyWebapp>
                 </configuration>
                 <executions>
                     <execution>
@@ -311,7 +321,6 @@
                     <environmentName>kooberd-globaleditor</environmentName>
                     <s3Bucket>koobe-deploy</s3Bucket>
                     <s3Key>${project.artifactId}/${project.build.finalName}-${maven.build.timestamp}.war</s3Key>
-                    <beanstalk.versionLabel>${project.artifactId}-${maven.build.timestamp}</beanstalk.versionLabel>
                 </configuration>
             </plugin>
         </plugins>
