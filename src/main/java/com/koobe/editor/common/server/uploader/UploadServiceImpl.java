@@ -2,12 +2,11 @@ package com.koobe.editor.common.server.uploader;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.koobe.common.core.KoobeApplication;
-import com.koobe.common.data.KoobeDataService;
 import com.koobe.common.storage.KoobeStorageService;
 import com.koobe.common.storage.impl.KoobeStorage;
 import com.koobe.editor.common.client.uploader.UploadChunk;
 import com.koobe.editor.common.client.uploader.UploadService;
-import sun.misc.BASE64Decoder;
+import org.apache.commons.codec.binary.Base64;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -22,7 +21,7 @@ import java.util.UUID;
 public class UploadServiceImpl extends RemoteServiceServlet implements
         UploadService {
 
-    private final static BASE64Decoder base64decoder = new BASE64Decoder();
+    private final static Base64 base64decoder = new Base64();
 
     private final static String DEFAULT_BUCKET_NAME = "koobe-tmp";
 
@@ -76,7 +75,7 @@ public class UploadServiceImpl extends RemoteServiceServlet implements
 
         try {
             FileOutputStream stream = new FileOutputStream(file, true);
-            stream.write(base64Encoding?base64decoder.decodeBuffer(chunk):chunk.getBytes());
+            stream.write(base64Encoding ? base64decoder.decode(chunk) : chunk.getBytes());
             stream.close();
         }
         catch (IOException ex) {
