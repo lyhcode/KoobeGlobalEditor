@@ -5,7 +5,7 @@ package com.koobe.editor.common.client.uploader;
  * methods in this callback will be invoked.
  */
 public interface FileReaderCallback {
-    void load(long index, String chunk);
+    void load(long index, BinaryString chunk);
     void progress(double progress);
     void complete();
     void error();

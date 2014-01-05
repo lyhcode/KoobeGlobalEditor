@@ -1,6 +1,5 @@
 package com.koobe.editor.common.client.uploader;
 
-import com.google.gwt.core.client.GWT;
 import org.vectomatic.file.File;
 import org.vectomatic.file.FileReader;
 import org.vectomatic.file.events.*;
@@ -18,10 +17,8 @@ public class FileReaderJob {
     private long index = 0;
     private long offset = 0;
 
-    private boolean isBase64Encoding = true;
-
     /**
-     * Specify the size limit of each chunk (1024kb)
+     * Specify the size limit of each chunk (1MB = 1024 * 1024)
      */
     private final static int CHUNK_SIZE = 1024 * 1024;
 
@@ -35,7 +32,9 @@ public class FileReaderJob {
     }
 
     private void initReader() {
+
         reader = new FileReader();
+
         reader.addLoadEndHandler(new LoadEndHandler() {
             @Override
             public void onLoadEnd(LoadEndEvent event) {
@@ -44,7 +43,7 @@ public class FileReaderJob {
                     String chunk = reader.getStringResult();
 
                     if (callback != null) {
-                        callback.load(index++, isBase64Encoding?b64encode(chunk):chunk);
+                        callback.load(index++, new BinaryString(chunk));
                         callback.progress(getProgress());
                     }
 
@@ -103,17 +102,5 @@ public class FileReaderJob {
 
     public double getProgress() {
         return (double)offset / (double)fileSize;
-    }
-
-    private static native String b64encode(String a) /*-{
-      return $wnd.btoa(a);
-    }-*/;
-
-    public boolean isBase64Encoding() {
-        return isBase64Encoding;
-    }
-
-    public void setBase64Encoding(boolean isBase64Encoding) {
-        this.isBase64Encoding = isBase64Encoding;
     }
 }

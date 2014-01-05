@@ -29,10 +29,7 @@ import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyCodeSplit;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
-import com.koobe.editor.common.client.uploader.FileReaderCallback;
-import com.koobe.editor.common.client.uploader.FileReaderJob;
-import com.koobe.editor.common.client.uploader.UploadService;
-import com.koobe.editor.common.client.uploader.UploadServiceAsync;
+import com.koobe.editor.common.client.uploader.*;
 import com.koobe.editor.index.client.application.ApplicationPresenter;
 import com.koobe.editor.index.client.place.NameTokens;
 import org.vectomatic.file.File;
@@ -110,7 +107,7 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
 
             readerJob = new FileReaderJob(file, new FileReaderCallback() {
                 @Override
-                public void load(long index, String chunk) {
+                public void load(long index, BinaryString chunk) {
                     uploadChunk(index, chunk);
                 }
 
@@ -177,10 +174,9 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
         return false;
     }
 
-    private void uploadChunk(long index, String chunk) {
+    private void uploadChunk(long index, BinaryString chunk) {
 
-
-        uploadService.uploadChunk(index, chunk, readerJob.isBase64Encoding(), new AsyncCallback<String>() {
+        uploadService.uploadChunk(index, chunk.getBase64EncodedString(), true, new AsyncCallback<String>() {
             @Override
             public void onFailure(Throwable caught) {
 
