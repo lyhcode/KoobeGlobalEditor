@@ -23,6 +23,9 @@ Or
 
     https://svn.koobe.com.tw:8443/svn/KoobeSystem3/KoobeGlobalEditor
 
+## Deploy to BeansTalk ##
+
+    mvn package beanstalk:upload-source-bundle beanstalk:create-application-version beanstalk:update-environment-options
 
 ## Git-Svn Usages ##
 
