@@ -18,6 +18,8 @@ public class FileReaderJob {
     private long index = 0;
     private long offset = 0;
 
+    private boolean isBase64Encoding = true;
+
     /**
      * Specify the size limit of each chunk (1024kb)
      */
@@ -42,30 +44,10 @@ public class FileReaderJob {
                     String chunk = reader.getStringResult();
 
                     if (callback != null) {
-                        //callback.load(index++, b64encode(chunk));
-                        callback.load(index++, (chunk));
+                        callback.load(index++, isBase64Encoding?b64encode(chunk):chunk);
                         callback.progress(getProgress());
                     }
 
-                    if (offset <= fileSize) {
-
-                        long end = offset + CHUNK_SIZE;
-
-                        if (end > fileSize) {
-                            end = fileSize;
-                        }
-
-                        //if (fileSize - end < CHUNK_SIZE) {
-                        //    end = fileSize;
-                        //  }
-
-                        reader.readAsBinaryString(file.slice(offset, end));
-
-                        offset = end + 1;
-                    }
-                    else {
-                        callback.complete();
-                    }
                 } finally {
                     //nothing
                 }
@@ -93,6 +75,28 @@ public class FileReaderJob {
         reader.readAsBinaryString(file.slice(0, CHUNK_SIZE));
     }
 
+    public void next() {
+        if (offset <= fileSize) {
+
+            long end = offset + CHUNK_SIZE;
+
+            if (end > fileSize) {
+                end = fileSize;
+            }
+
+            //if (fileSize - end < CHUNK_SIZE) {
+            //    end = fileSize;
+            //  }
+
+            reader.readAsBinaryString(file.slice(offset, end));
+
+            offset = end + 1;
+        }
+        else {
+            callback.complete();
+        }
+    }
+
     public long getOffset() {
         return offset;
     }
@@ -104,4 +108,12 @@ public class FileReaderJob {
     private static native String b64encode(String a) /*-{
       return $wnd.btoa(a);
     }-*/;
+
+    public boolean isBase64Encoding() {
+        return isBase64Encoding;
+    }
+
+    public void setBase64Encoding(boolean isBase64Encoding) {
+        this.isBase64Encoding = isBase64Encoding;
+    }
 }

@@ -15,7 +15,7 @@
 
                     <g:HTMLPanel styleName="widget-body text-center">
                         <div class="{style.widget}">
-                            <b:Button size="LARGE" icon="FILE">Create</b:Button>
+                            <b:Button size="LARGE" icon="FILE" enabled="false">Create</b:Button>
                         </div>
                     </g:HTMLPanel>
 
@@ -26,7 +26,7 @@
 
                     <g:HTMLPanel styleName="widget-body text-center">
                         <div class="{style.widget}">
-                            <b:Button size="LARGE" icon="FOLDER_OPEN">Open</b:Button>
+                            <b:Button size="LARGE" icon="FOLDER_OPEN" enabled="false">Open</b:Button>
                         </div>
                     </g:HTMLPanel>
 

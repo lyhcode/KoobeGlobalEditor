@@ -30,7 +30,8 @@
                     <div class="page-title">
                         <h3 class="pull-left"><i class="icon-desktop"></i> 線上編輯 <span>online authoring</span></h3>
                         <div class="breads pull-right">
-                            <a href="#">Home </a>/ <a href="#">Pages </a>/ Title
+                            <a href="#">Home </a>
+                            <!--/ <a href="#">Pages </a>/ Title-->
                         </div>
                         <div class="clearfix"></div>
                     </div>

@@ -45,6 +45,8 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
 
     private final DispatchAsync dispatcher;
 
+    private FileReaderJob readerJob;
+
     @ProxyCodeSplit
     @NameToken(NameTokens.uploadPage)
     public interface MyProxy extends ProxyPlace<UploadPresenter> {
@@ -53,6 +55,9 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
     public interface MyView extends View, HasUiHandlers<UploadUiHandlers> {
         void updateSendTextResult(String s);
         void updateProgress(double progress);
+        void enableForwardButton();
+        void switchToFileUploaderPanel(boolean multiple);
+        void switchToFileChooserPanel();
     }
 
     @Inject
@@ -78,10 +83,13 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
 
         if (filesLength > 1) {
             Window.alert("Oops, multiple file uploads not support yet.");
+            getView().switchToFileChooserPanel();
             return;
         }
 
         if (filesLength == 1) {
+
+            getView().switchToFileUploaderPanel(false);
 
             File file = files.getItem(0);
 
@@ -100,7 +108,7 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
                 return;
             }
 
-            new FileReaderJob(file, new FileReaderCallback() {
+            readerJob = new FileReaderJob(file, new FileReaderCallback() {
                 @Override
                 public void load(long index, String chunk) {
                     uploadChunk(index, chunk);
@@ -113,6 +121,7 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
 
                 @Override
                 public void complete() {
+                    uploadSave();
                     getView().updateProgress(1);
                 }
 
@@ -120,7 +129,9 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
                 public void error() {
                     GWT.log("file upload error");
                 }
-            }).start();
+            });
+
+            readerJob.start();
         }
     }
 
@@ -168,7 +179,8 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
 
     private void uploadChunk(long index, String chunk) {
 
-        /*uploadService.uploadChunk(index, chunk, new AsyncCallback<String>() {
+
+        uploadService.uploadChunk(index, chunk, readerJob.isBase64Encoding(), new AsyncCallback<String>() {
             @Override
             public void onFailure(Throwable caught) {
 
@@ -176,9 +188,19 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
 
             @Override
             public void onSuccess(String result) {
-                //nothing
+                readerJob.next();
             }
-        });*/
+        });
+
+    }
+
+    /**
+     * Save file to storage after all chunks uploaded
+     */
+    private void uploadSave() {
+
+        getView().enableForwardButton();
+
 
     }
 }

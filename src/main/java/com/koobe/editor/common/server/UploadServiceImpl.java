@@ -17,13 +17,12 @@ public class UploadServiceImpl extends RemoteServiceServlet implements
 
     final static BASE64Decoder base64decoder = new BASE64Decoder();
 
-    public String uploadChunk(long index, String chunk) throws IllegalArgumentException {
+    public String uploadChunk(long index, String chunk, boolean base64Encoding) throws IllegalArgumentException {
 
         File file = new File("/tmp/test.jpg");
         try {
             FileOutputStream stream = new FileOutputStream(file, true);
-            //stream.write(base64decoder.decodeBuffer(chunk));
-            stream.write(chunk.getBytes());
+            stream.write(base64Encoding?base64decoder.decodeBuffer(chunk):chunk.getBytes());
             stream.close();
         }
         catch (IOException ex) {

@@ -26,16 +26,8 @@ public class UploadView extends ViewWithUiHandlers<UploadUiHandlers>
         implements UploadPresenter.MyView {
 
     @Override
-    public void updateSendTextResult(String s) {
-        debugHTML.setText(s);
-    }
-
-    @Override
-    public void updateProgress(double progress) {
-        int percent = (int)(progress*100);
-
-        progressBar.setPercent(percent);
-        //progressBar.setText(percent + "%");
+    public void enableForwardButton() {
+        forwardButton.setEnabled(true);
     }
 
     interface Binder extends UiBinder<Widget, UploadView> {
@@ -101,9 +93,6 @@ public class UploadView extends ViewWithUiHandlers<UploadUiHandlers>
 
     @UiHandler("customUpload")
     public void onCustomUploadChange(ChangeEvent event) {
-
-        switchToFileUploaderPanel(false);
-
         getUiHandlers().processFiles(customUpload.getFiles());
     }
 
@@ -133,9 +122,6 @@ public class UploadView extends ViewWithUiHandlers<UploadUiHandlers>
 
     @UiHandler("dropPanel")
     public void onDrop(DropEvent event) {
-
-        switchToFileUploaderPanel(true);
-
         getUiHandlers().processFiles(event.getDataTransfer().<DataTransferExt>cast().getFiles());
 
         event.stopPropagation();
@@ -150,13 +136,15 @@ public class UploadView extends ViewWithUiHandlers<UploadUiHandlers>
         placeManager.revealPlace(responsePlaceRequest);
     }
 
-    private void switchToFileChooserPanel() {
+    @Override
+    public void switchToFileChooserPanel() {
         fileChooserPanel.setVisible(true);
         fileUploaderPanel.setVisible(false);
         multipleFileUploaderPanel.setVisible(false);
     }
 
-    private void switchToFileUploaderPanel(boolean multiple) {
+    @Override
+    public void switchToFileUploaderPanel(boolean multiple) {
         fileChooserPanel.setVisible(false);
 
         if (!multiple) {
@@ -165,5 +153,18 @@ public class UploadView extends ViewWithUiHandlers<UploadUiHandlers>
         else {
             multipleFileUploaderPanel.setVisible(true);
         }
+    }
+
+    @Override
+    public void updateSendTextResult(String s) {
+        debugHTML.setText(s);
+    }
+
+    @Override
+    public void updateProgress(double progress) {
+        int percent = (int)(progress*100);
+
+        progressBar.setPercent(percent);
+        //progressBar.setText(percent + "%");
     }
 }
