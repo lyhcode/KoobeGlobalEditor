@@ -43,8 +43,8 @@ public class FileReaderJob {
                     String chunk = reader.getStringResult();
 
                     if (callback != null) {
-                        callback.load(index++, new BinaryString(chunk));
-                        callback.progress(getProgress());
+                        callback.load(file, index++, new BinaryString(chunk));
+                        callback.progress(file, getProgress());
                     }
 
                 } finally {
@@ -64,7 +64,7 @@ public class FileReaderJob {
         reader.addErrorHandler(new ErrorHandler() {
             @Override
             public void onError(ErrorEvent event) {
-                callback.error();
+                callback.error(file);
             }
         });
     }
@@ -92,7 +92,7 @@ public class FileReaderJob {
             offset = end + 1;
         }
         else {
-            callback.complete();
+            callback.complete(file);
         }
     }
 

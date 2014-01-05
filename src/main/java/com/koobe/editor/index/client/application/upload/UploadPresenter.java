@@ -35,6 +35,8 @@ import com.koobe.editor.index.client.place.NameTokens;
 import org.vectomatic.file.File;
 import org.vectomatic.file.FileList;
 
+import java.io.IOException;
+
 public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPresenter.MyProxy>
         implements UploadUiHandlers {
 
@@ -88,7 +90,7 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
 
             getView().switchToFileUploaderPanel(false);
 
-            File file = files.getItem(0);
+            final File file = files.getItem(0);
 
 
             // Check file suffix first.
@@ -105,30 +107,41 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
                 return;
             }
 
-            readerJob = new FileReaderJob(file, new FileReaderCallback() {
+            uploadService.transferBegin(new AsyncCallback<String>() {
                 @Override
-                public void load(long index, BinaryString chunk) {
-                    uploadChunk(index, chunk);
+                public void onFailure(Throwable throwable) {
+                    Window.alert("Could not start file transfer.");
                 }
 
                 @Override
-                public void progress(double progress) {
-                    getView().updateProgress(progress);
-                }
+                public void onSuccess(final String transferId) {
 
-                @Override
-                public void complete() {
-                    uploadSave();
-                    getView().updateProgress(1);
-                }
+                    readerJob = new FileReaderJob(file, new FileReaderCallback() {
+                        @Override
+                        public void load(File file, long index, BinaryString chunk) {
+                            uploadChunk(transferId, index, chunk);
+                        }
 
-                @Override
-                public void error() {
-                    GWT.log("file upload error");
+                        @Override
+                        public void progress(File file, double progress) {
+                            getView().updateProgress(progress);
+                        }
+
+                        @Override
+                        public void complete(File file) {
+                            getView().updateProgress(1);
+                            uploadSave(transferId, file);
+                        }
+
+                        @Override
+                        public void error(File file) {
+                            GWT.log("file upload error");
+                        }
+                    });
+
+                    readerJob.start();
                 }
             });
-
-            readerJob.start();
         }
     }
 
@@ -174,29 +187,46 @@ public class UploadPresenter extends Presenter<UploadPresenter.MyView, UploadPre
         return false;
     }
 
-    private void uploadChunk(long index, BinaryString chunk) {
+    private void uploadChunk(String transferId, long index, BinaryString chunk) {
 
-        uploadService.uploadChunk(index, chunk.getBase64EncodedString(), true, new AsyncCallback<String>() {
-            @Override
-            public void onFailure(Throwable caught) {
+        try {
+            uploadService.uploadChunk(transferId, index, chunk.getBase64EncodedString(), true, new AsyncCallback<Void>() {
+                @Override
+                public void onFailure(Throwable caught) {
 
-            }
+                }
 
-            @Override
-            public void onSuccess(String result) {
-                readerJob.next();
-            }
-        });
+                @Override
+                public void onSuccess(Void arg) {
+                    readerJob.next();
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
     /**
      * Save file to storage after all chunks uploaded
      */
-    private void uploadSave() {
+    private void uploadSave(String transferId, File file) {
 
-        getView().enableForwardButton();
+        try {
+            uploadService.transferEnd(transferId, file.getName(), file.getType(), new AsyncCallback<Void>() {
+                @Override
+                public void onFailure(Throwable throwable) {
 
+                }
+
+                @Override
+                public void onSuccess(Void aVoid) {
+                    getView().enableForwardButton();
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }

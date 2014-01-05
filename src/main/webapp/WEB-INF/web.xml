@@ -18,7 +18,7 @@
     <!-- Upload Servlets -->
     <servlet>
         <servlet-name>uploadServlet</servlet-name>
-        <servlet-class>com.koobe.editor.common.server.UploadServiceImpl</servlet-class>
+        <servlet-class>com.koobe.editor.common.server.uploader.UploadServiceImpl</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>uploadServlet</servlet-name>
