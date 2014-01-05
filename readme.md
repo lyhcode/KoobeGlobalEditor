@@ -2,6 +2,11 @@
 
 Web-based eBook Authoring Tool.
 
+RD site:
+
+    http://kooberd-globaleditor.elasticbeanstalk.com/
+
+
 ## Run GWT DevMode ##
 
     mvn clean package gwt:run
