@@ -285,9 +285,20 @@
                 <artifactId>gwt-maven-plugin</artifactId>
                 <version>${gwt.version}</version>
                 <configuration>
+                    <encoding>UTF-8</encoding>
                     <runTarget>devmode.html</runTarget>
                     <hostedWebapp>${webappDirectory}</hostedWebapp>
                 </configuration>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
+                        </configuration>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>br.com.ingenieux</groupId>
