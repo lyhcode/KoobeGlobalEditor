@@ -25,10 +25,6 @@
                 <enabled>false</enabled>
             </releases>
         </repository>
-        <repository>
-            <id>gwtquery-ui-repository</id>
-            <url>http://gwtquery-ui.googlecode.com/svn/mavenrepo</url>
-        </repository>
     </repositories>
 
     <groupId>koobe</groupId>
@@ -39,6 +35,13 @@
     <packaging>war</packaging>
 
     <properties>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.source.encoding>UTF-8</project.source.encoding>
+
+        <!-- Amazon Elastic BeansTalk -->
+        <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+        <beanstalk.versionLabel>${maven.build.timestamp}</beanstalk.versionLabel>
 
         <!--Spring-->
         <springframework.version>4.0.0.RELEASE</springframework.version>
@@ -186,15 +189,13 @@
             <scope>provided</scope>
         </dependency>
 
-        <!--GWT-jQuery(gwtquery)-->
+        <!-- GWT-jQuery -->
         <dependency>
             <groupId>com.googlecode.gwtquery</groupId>
             <artifactId>gwtquery</artifactId>
             <version>${gwtquery.version}</version>
             <scope>provided</scope>
         </dependency>
-
-        <!--GWT-jQuery-UI-->
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwtquery-ui</artifactId>
@@ -269,7 +270,6 @@
                 </includes>
             </resource>
         </resources>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -287,6 +287,17 @@
                 <configuration>
                     <runTarget>devmode.html</runTarget>
                     <hostedWebapp>${webappDirectory}</hostedWebapp>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>br.com.ingenieux</groupId>
+                <artifactId>beanstalk-maven-plugin</artifactId>
+                <version>1.1.1</version>
+                <configuration>
+                    <applicationName>Koobe-RD</applicationName>
+                    <environmentName>kooberd-globaleditor</environmentName>
+                    <s3Bucket>koobe-deploy</s3Bucket>
+                    <s3Key>${project.artifactId}/${project.build.finalName}-${maven.build.timestamp}.war</s3Key>
                 </configuration>
             </plugin>
         </plugins>
