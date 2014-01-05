@@ -321,6 +321,7 @@
                     <environmentName>kooberd-globaleditor</environmentName>
                     <s3Bucket>koobe-deploy</s3Bucket>
                     <s3Key>${project.artifactId}/${project.build.finalName}-${maven.build.timestamp}.war</s3Key>
+                    <beanstalk.versionLabel>${project.artifactId}-${maven.build.timestamp}</beanstalk.versionLabel>
                 </configuration>
             </plugin>
         </plugins>
