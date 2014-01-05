@@ -32,7 +32,7 @@
                 <b:FormGroup ui:field="passwordFormGroup">
                     <b:InputGroup>
                         <b:InputGroupAddon icon="LOCK"/>
-                        <b:PasswordTextBox ui:field="passwordTextBox" placeholder="Password" autocomplete="false"/>
+                        <b:TextBox ui:field="passwordTextBox" placeholder="Password" autocomplete="false"/>
                     </b:InputGroup>
                 </b:FormGroup>
 

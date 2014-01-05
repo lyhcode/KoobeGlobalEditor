@@ -13,9 +13,12 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.koobe.editor.login.shared.LoginResult;
-import org.gwtbootstrap3.client.ui.*;
-import org.gwtbootstrap3.extras.bootbox.client.Bootbox;
+import org.gwtbootstrap3.client.ui.Button;
+import org.gwtbootstrap3.client.ui.Container;
+import org.gwtbootstrap3.client.ui.FormGroup;
+import org.gwtbootstrap3.client.ui.TextBox;
 import org.gwtbootstrap3.client.ui.constants.ValidationState;
+import org.gwtbootstrap3.extras.bootbox.client.Bootbox;
 
 import static com.google.gwt.query.client.GQuery.$;
 import static gwtquery.plugins.ui.UiEffects.UiEffects;
@@ -47,7 +50,7 @@ public class LoginEntryPoint implements EntryPoint {
     FormGroup usernameFormGroup;
 
     @UiField
-    PasswordTextBox passwordTextBox;
+    TextBox passwordTextBox;
 
     @UiField
     FormGroup passwordFormGroup;
