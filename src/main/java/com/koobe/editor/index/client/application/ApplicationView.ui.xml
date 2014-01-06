@@ -14,15 +14,9 @@
 
             <b:Container styleName="mainbar">
 
-                <g:HTMLPanel styleName="page-head">
-                    <div class="container">
-                        <div class="row">
-                            <!-- Page heading -->
-                            <div class="col-md-3 col-sm-6 col-xs-6">
-                                <h2><i class="icon-desktop"></i> e7read beta</h2>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
+                <g:HTMLPanel styleName="red-block">
+                    <div class="logo">
+                        <h1><a href="index.html">KOOBE</a></h1>
                     </div>
                 </g:HTMLPanel>
 
@@ -31,7 +25,7 @@
                         <h3 class="pull-left"><i class="icon-desktop"></i> 線上編輯 <span>online authoring</span></h3>
                         <div class="breads pull-right">
                             <a href="#">Home </a>
-                            <!--/ <a href="#">Pages </a>/ Title-->
+                            / <a href="#">Pages </a>/ Title
                         </div>
                         <div class="clearfix"></div>
                     </div>

@@ -18,7 +18,6 @@
     z-index: 999;
 }
 
-
 .draft-with-border {
-border:1px solid red;
+    border:1px solid red;
 }
