@@ -116,6 +116,12 @@
             <version>${koobe.common.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>koobe</groupId>
+            <artifactId>KoobeCommonConverter</artifactId>
+            <version>${koobe.common.version}</version>
+            <scope>compile</scope>
+        </dependency>
 
         <!--Apache Commons-->
         <dependency>

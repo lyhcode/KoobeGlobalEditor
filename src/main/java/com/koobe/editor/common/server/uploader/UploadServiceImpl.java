@@ -1,6 +1,9 @@
 package com.koobe.editor.common.server.uploader;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import com.koobe.common.converter.KoobeConverter;
+import com.koobe.common.converter.KoobeConverterService;
+import com.koobe.common.converter.KoobeConverterType;
 import com.koobe.common.core.KoobeApplication;
 import com.koobe.common.storage.KoobeStorageService;
 import com.koobe.common.storage.impl.KoobeStorage;
@@ -28,6 +31,8 @@ public class UploadServiceImpl extends RemoteServiceServlet implements
     private final static KoobeApplication application;
     private final static KoobeStorageService storageService;
     private final static KoobeStorage storage;
+    private final static KoobeConverterService converterService;
+
 
     private static File tempDirectory;
 
@@ -35,9 +40,13 @@ public class UploadServiceImpl extends RemoteServiceServlet implements
         application = KoobeApplication.getInstance();
         storageService = (KoobeStorageService)application.getService(KoobeStorageService.class);
         storage = storageService.getS3Storage(DEFAULT_BUCKET_NAME);
+        converterService = (KoobeConverterService)application.getService(KoobeConverterService.class);
 
         try {
-            tempDirectory = File.createTempFile(UploadServiceImpl.class.getName(), String.valueOf(new Date().getTime()));
+            String timestamp = String.valueOf(new Date().getTime());
+            String className = UploadServiceImpl.class.getSimpleName();
+
+            tempDirectory = File.createTempFile(className, timestamp);
             tempDirectory.delete();
             tempDirectory.mkdir();
         } catch (IOException e) {
@@ -55,10 +64,17 @@ public class UploadServiceImpl extends RemoteServiceServlet implements
 
         File file = getTransferFile(transferId);
 
-        S3UploadJob job;
-        job = new S3UploadJob(storage, file, fileName, contentType);
+        UploadContextListener.executeJob(new S3UploadJob(storage, file, fileName, contentType));
 
-        UploadContextListener.executeJob(job);
+
+        if (fileName.toLowerCase().endsWith(".pdf")) {
+            String epubFileName = fileName.substring(0, fileName.length()-4)+".epub";
+
+            KoobeConverter converter;
+            converter = converterService.getConverter(KoobeConverterType.PDF_TO_EPUB);
+
+            UploadContextListener.executeJob(new ConverterJob(converter, file, storage, epubFileName, "application/epub+zip"));
+        }
     }
 
     private File getTransferFile(String transferId) throws IOException {
