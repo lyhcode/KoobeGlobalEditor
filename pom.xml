@@ -29,7 +29,7 @@
 
     <groupId>koobe</groupId>
     <artifactId>KoobeGlobalEditor</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>${koobe.application.version}</version>
 
     <name>Koobe Global Editor</name>
     <packaging>war</packaging>
@@ -322,7 +322,7 @@
                     <cnamePrefix>kooberd-globaleditor</cnamePrefix>
                     <environmentName>kooberd-globaleditor</environmentName>
                     <s3Bucket>koobe-deploy</s3Bucket>
-                    <s3Key>${project.artifactId}/${project.build.finalName}-${maven.build.timestamp}.war</s3Key>
+                    <s3Key>${project.artifactId}/${project.artifactId}-${koobe.application.version}.war</s3Key>
                 </configuration>
             </plugin>
         </plugins>
