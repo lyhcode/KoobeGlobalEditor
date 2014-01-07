@@ -41,6 +41,11 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!-- Run s3upload and converter jobs with executors -->
+    <listener>
+        <listener-class>com.koobe.editor.common.server.uploader.UploadContextListener</listener-class>
+    </listener>
+
     <!--Session-->
     <session-config>
         <session-timeout>60</session-timeout>

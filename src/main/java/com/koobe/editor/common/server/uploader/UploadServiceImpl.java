@@ -52,11 +52,13 @@ public class UploadServiceImpl extends RemoteServiceServlet implements
 
     @Override
     public void transferEnd(String transferId, String fileName, String contentType) throws IllegalArgumentException, IOException {
+
         File file = getTransferFile(transferId);
 
-        if (file.exists() && file.isFile()) {
-            storage.putFile(fileName, file);
-        }
+        S3UploadJob job;
+        job = new S3UploadJob(storage, file, fileName, contentType);
+
+        UploadContextListener.executeJob(job);
     }
 
     private File getTransferFile(String transferId) throws IOException {
