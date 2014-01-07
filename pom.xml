@@ -50,7 +50,7 @@
         <!-- Amazon Elastic BeansTalk -->
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
         <koobe.application.version>${maven.build.timestamp}</koobe.application.version>
-        <beanstalk.versionLabel>${project.artifactId}-${koobe.application.version}</beanstalk.versionLabel>
+        <beanstalk.versionLabel>${project.artifactId}_${koobe.application.version}</beanstalk.versionLabel>
 
         <!--Spring-->
         <springframework.version>4.0.0.RELEASE</springframework.version>
@@ -265,6 +265,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}_${project.version}</finalName>
         <outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
 
         <resources>
