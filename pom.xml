@@ -36,6 +36,7 @@
 
     <properties>
 
+        <!-- Project -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.source.encoding>UTF-8</project.source.encoding>
         <maven.compiler.source>1.7</maven.compiler.source>
@@ -48,7 +49,8 @@
 
         <!-- Amazon Elastic BeansTalk -->
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
-        <beanstalk.versionLabel>${project.artifactId}-${maven.build.timestamp}</beanstalk.versionLabel>
+        <koobe.application.version>${maven.build.timestamp}</koobe.application.version>
+        <beanstalk.versionLabel>${project.artifactId}-${koobe.application.version}</beanstalk.versionLabel>
 
         <!--Spring-->
         <springframework.version>4.0.0.RELEASE</springframework.version>
