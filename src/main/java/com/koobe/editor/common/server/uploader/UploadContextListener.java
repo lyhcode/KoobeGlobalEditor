@@ -13,18 +13,10 @@ public class UploadContextListener implements ServletContextListener {
 
     private final static String executorServiceName = UploadContextListener.class.getName();
 
-    private final static ExecutorService executorService = Executors.newCachedThreadPool();//线程池
+    private final static ExecutorService executorService = Executors.newCachedThreadPool();
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-
-
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("++++++++ Test Context Listener ========");
-            }
-        });
 
         ServletContext context = servletContextEvent.getServletContext();
 

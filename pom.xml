@@ -57,7 +57,7 @@
         <springframework.data.version>1.4.3.RELEASE</springframework.data.version>
 
         <!--Koobe-->
-        <koobe.common.version>0.0.1-SNAPSHOT</koobe.common.version>
+        <koobe.common.version>0.0.2-SNAPSHOT</koobe.common.version>
 
         <!--GWT, GWTP-->
         <gwt.version>2.5.1</gwt.version>
@@ -121,6 +121,18 @@
             <artifactId>KoobeCommonConverter</artifactId>
             <version>${koobe.common.version}</version>
             <scope>compile</scope>
+        </dependency>
+
+        <!-- Amazon Web Services SDK -->
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>1.6.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.3.1</version>
         </dependency>
 
         <!--Apache Commons-->
