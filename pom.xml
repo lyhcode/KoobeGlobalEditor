@@ -329,7 +329,7 @@
                     <cnamePrefix>kooberd-globaleditor</cnamePrefix>
                     <environmentName>kooberd-globaleditor</environmentName>
                     <s3Bucket>koobe-deploy</s3Bucket>
-                    <s3Key>${project.artifactId}/${project.artifactId}-${koobe.application.version}.war</s3Key>
+                    <s3Key>${project.artifactId}/${project.artifactId}_${koobe.application.version}.war</s3Key>
                 </configuration>
             </plugin>
         </plugins>
