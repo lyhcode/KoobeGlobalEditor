@@ -9,6 +9,7 @@ import com.google.gwt.resources.client.CssResource;
 public interface UploadBundle extends ClientBundle {
     public interface MyCss extends CssResource {
         String dragOver();
+        String dragOverError();
     }
 
     @Source("UploadView.css")

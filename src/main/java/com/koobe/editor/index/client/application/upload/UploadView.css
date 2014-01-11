@@ -1,3 +1,7 @@
 .dragOver {
 background-color: yellow;
 }
+
+.dragOverError {
+background-color: red;
+}

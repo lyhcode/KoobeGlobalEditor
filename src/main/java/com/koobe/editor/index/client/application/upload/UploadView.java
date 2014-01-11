@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.*;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -15,15 +16,24 @@ import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.koobe.editor.common.client.uploader.FileReaderCallback;
 import com.koobe.editor.common.client.uploader.FileReaderJob;
 import com.koobe.editor.index.client.place.NameTokens;
+import gwtquery.plugins.ui.UiWidget;
 import org.gwtbootstrap3.client.ui.Button;
 import org.gwtbootstrap3.client.ui.ProgressBar;
+import org.gwtbootstrap3.extras.bootbox.client.Bootbox;
 import org.vectomatic.dnd.DataTransferExt;
 import org.vectomatic.dnd.DropPanel;
+import org.vectomatic.file.File;
 import org.vectomatic.file.FileList;
 import org.vectomatic.file.FileUploadExt;
 
+import static com.google.gwt.query.client.GQuery.$;
+import static com.google.gwt.query.client.GQuery.window;
+
 public class UploadView extends ViewWithUiHandlers<UploadUiHandlers>
         implements UploadPresenter.MyView {
+
+    private final static String SUPPORT_FILE_TYPE = ".doc,.docx,.txt,.ppt,.pptx,.pdf,.epub,.zip";
+    private final static String[] SUPPORT_FILE_TYPE_LIST = SUPPORT_FILE_TYPE.split(",");
 
     @Override
     public void enableForwardButton() {
@@ -40,11 +50,12 @@ public class UploadView extends ViewWithUiHandlers<UploadUiHandlers>
 
     @Inject
     public UploadView(Binder binder, PlaceManager placeManager) {
-
         this.placeManager = placeManager;
 
         res.style().ensureInjected();
         initWidget(binder.createAndBindUi(this));
+
+        $(customUpload).attr("accept", SUPPORT_FILE_TYPE);
 
         forwardButton.setEnabled(false);
         multipleForwardButton.setEnabled(false);
@@ -98,6 +109,12 @@ public class UploadView extends ViewWithUiHandlers<UploadUiHandlers>
 
     @UiHandler("dropPanel")
     public void onDragOver(DragOverEvent event) {
+        event.stopPropagation();
+        event.preventDefault();
+    }
+
+    @UiHandler("dropPanel")
+    public void onDragEnter(DragEnterEvent event) {
 
         dropPanel.addStyleName(res.style().dragOver());
 
@@ -106,15 +123,10 @@ public class UploadView extends ViewWithUiHandlers<UploadUiHandlers>
     }
 
     @UiHandler("dropPanel")
-    public void onDragEnter(DragEnterEvent event) {
-        event.stopPropagation();
-        event.preventDefault();
-    }
-
-    @UiHandler("dropPanel")
     public void onDragLeave(DragLeaveEvent event) {
 
         dropPanel.removeStyleName(res.style().dragOver());
+        dropPanel.removeStyleName(res.style().dragOverError());
 
         event.stopPropagation();
         event.preventDefault();
@@ -122,7 +134,16 @@ public class UploadView extends ViewWithUiHandlers<UploadUiHandlers>
 
     @UiHandler("dropPanel")
     public void onDrop(DropEvent event) {
-        getUiHandlers().processFiles(event.getDataTransfer().<DataTransferExt>cast().getFiles());
+
+        FileList files = event.getDataTransfer().<DataTransferExt>cast().getFiles();
+
+        if (!checkAllFileIsSupported(files)) {
+            dropPanel.addStyleName(res.style().dragOverError());
+            Bootbox.alert("包含不支援的檔案。");
+        }
+        else {
+            getUiHandlers().processFiles(files);
+        }
 
         event.stopPropagation();
         event.preventDefault();
@@ -130,8 +151,15 @@ public class UploadView extends ViewWithUiHandlers<UploadUiHandlers>
 
     @UiHandler("forwardButton")
     public void onForwardButtonClick(ClickEvent event) {
+        forwardToBookList();
+    }
+
+    /**
+     * Jump to: My Book List
+     */
+    private void forwardToBookList() {
         PlaceRequest responsePlaceRequest = new PlaceRequest.Builder()
-                .nameToken(NameTokens.getConverterStatusPage())
+                .nameToken(NameTokens.getBookListPage())
                 .build();
         placeManager.revealPlace(responsePlaceRequest);
     }
@@ -166,5 +194,29 @@ public class UploadView extends ViewWithUiHandlers<UploadUiHandlers>
 
         progressBar.setPercent(percent);
         //progressBar.setText(percent + "%");
+    }
+
+    private boolean checkAllFileIsSupported(FileList files) {
+        GWT.log(files.getLength()+".");
+        for (File file : files) {
+
+            String fileName = file.getName().toLowerCase();
+
+            GWT.log(fileName);
+
+            boolean supported = false;
+
+            for (String type : SUPPORT_FILE_TYPE_LIST) {
+                if (fileName.endsWith(type)) {
+                    supported = true;
+                    break;
+                }
+            }
+
+            if (!supported) {
+                return false;
+            }
+        }
+        return true;
     }
 }
