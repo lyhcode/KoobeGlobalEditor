@@ -24,4 +24,10 @@ public class NameTokens {
     public static String getBookListPage() {
         return bookListPage;
     }
+
+    public static final String bookEditPage = "!bookEdit";
+
+    public static String getBookEditPage() {
+        return bookEditPage;
+    }
 }

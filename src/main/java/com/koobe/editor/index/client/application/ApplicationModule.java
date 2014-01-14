@@ -1,6 +1,8 @@
 package com.koobe.editor.index.client.application;
 
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
+import com.koobe.editor.index.client.application.book.edit.BookEditPresenter;
+import com.koobe.editor.index.client.application.book.edit.BookEditView;
 import com.koobe.editor.index.client.application.book.list.BookListPresenter;
 import com.koobe.editor.index.client.application.book.list.BookListView;
 import com.koobe.editor.index.client.application.converter.status.StatusPresenter;
@@ -42,6 +44,12 @@ public class ApplicationModule extends AbstractPresenterModule {
                 BookListPresenter.MyView.class,
                 BookListView.class,
                 BookListPresenter.MyProxy.class);
+
+        // Book Edit
+        bindPresenter(BookEditPresenter.class,
+                BookEditPresenter.MyView.class,
+                BookEditView.class,
+                BookEditPresenter.MyProxy.class);
 
     }
 }

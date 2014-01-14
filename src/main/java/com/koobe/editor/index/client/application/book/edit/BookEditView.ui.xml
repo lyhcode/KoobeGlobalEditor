@@ -1,0 +1,114 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:b="urn:import:org.gwtbootstrap3.client.ui">
+    <ui:style>
+    <!-- Stylesheets -->
+    .bookCoverWrapper {
+        background-color: #51bfd2;
+        width: 100%;
+        height: 200px;
+        border-radius: 5px;
+        opacity: 0.6;
+    }
+    .bookCoverHints {
+        text-align: center;
+    }
+    .saveButton {
+        width: 100%;
+    }
+    .advancedButton {
+        text-align: right;
+    }
+    </ui:style>
+    <b:Container styleName="page-content">
+
+        <b:Row>
+
+            <b:Column size="MD_2" offset="MD_2">
+                <g:HTML>
+                    <div class="{style.bookCoverWrapper}">
+                    </div>
+                    <p class="{style.bookCoverHints}">請點選上傳書封</p>
+                </g:HTML>
+            </b:Column>
+            <b:Column size="MD_6">
+
+                <b:Form>
+                    <b:FieldSet>
+                        <b:FormGroup>
+                            <b:FormLabel for="draftName">標題名稱</b:FormLabel>
+                            <b:TextBox text="" b:id="draftName" placeholder="請輸入標題名稱" />
+                        </b:FormGroup>
+                        <b:FormGroup>
+                            <b:FormLabel for="draftAuthor">作者</b:FormLabel>
+                            <b:TextBox text="" b:id="draftAuthor" placeholder="請輸入作者" />
+                        </b:FormGroup>
+                        <b:FormGroup>
+                            <b:FormLabel for="draftSource">出處</b:FormLabel>
+                            <b:TextArea text="" b:id="draftSource" placeholder="請輸入出處來源" />
+                        </b:FormGroup>
+                        <b:FormGroup>
+                            <b:FormLabel for="draftDescription">簡介</b:FormLabel>
+                            <b:TextArea text="" b:id="draftDescription" placeholder="建議輸入200字左右簡介" />
+                        </b:FormGroup>
+                        <b:FormGroup>
+                            <b:FormLabel for="draftPublishDate">出版日期</b:FormLabel>
+                            <b:TextBox text="" b:id="draftPublishDate" placeholder="請選擇出版日期" />
+                        </b:FormGroup>
+
+                        <b:Row>
+                            <b:Column size="MD_6">
+                                <b:FormGroup>
+                                    <b:FormLabel for="draftCategory">主分類</b:FormLabel>
+                                    <g:ListBox ui:field="draftCategory" styleName="form-control">
+                                        <g:item value="-1">請選擇主分類</g:item>
+                                    </g:ListBox>
+                                </b:FormGroup>
+                            </b:Column>
+                            <b:Column size="MD_6">
+                                <b:FormGroup>
+                                    <b:FormLabel for="draftSubCategory">子分類</b:FormLabel>
+                                    <g:ListBox ui:field="draftSubCategory" styleName="form-control">
+                                        <g:item value="-1">請選擇子分類</g:item>
+                                    </g:ListBox>
+                                </b:FormGroup>
+                            </b:Column>
+                        </b:Row>
+                        <b:Row>
+                            <b:Column size="MD_6">
+                                <b:FormGroup>
+                                    <b:FormLabel for="draftRating">分級</b:FormLabel>
+                                    <g:ListBox ui:field="draftRating" styleName="form-control">
+                                        <g:item value="-1">請選擇內容分級</g:item>
+                                    </g:ListBox>
+                                </b:FormGroup>
+                            </b:Column>
+                            <b:Column size="MD_6">
+                                <b:FormGroup>
+                                    <b:FormLabel for="draftPrivacy">隱私</b:FormLabel>
+                                    <g:ListBox ui:field="draftPrivacy" styleName="form-control">
+                                        <g:item value="-1">請選擇隱私權</g:item>
+                                    </g:ListBox>
+                                </b:FormGroup>
+                            </b:Column>
+                        </b:Row>
+                        <b:FormGroup>
+                            <b:FormStatic b:id="formEmail">建立日期與時間：</b:FormStatic>
+                        </b:FormGroup>
+                        <b:FormGroup>
+                            <b:FormStatic b:id="formEmail">最後修改日期與時間：</b:FormStatic>
+                        </b:FormGroup>
+                        <g:HTMLPanel>
+                            <p class="{style.advancedButton}">進階設定 <b:Icon type="CARET_DOWN"/></p>
+                        </g:HTMLPanel>
+                        <b:Button styleName="btn btn-primary {style.saveButton}">儲存</b:Button>
+                    </b:FieldSet>
+                </b:Form>
+
+            </b:Column>
+
+        </b:Row>
+
+
+    </b:Container>
+</ui:UiBinder>

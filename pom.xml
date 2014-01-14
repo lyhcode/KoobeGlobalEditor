@@ -62,6 +62,7 @@
         <!--GWT, GWTP-->
         <gwt.version>2.5.1</gwt.version>
         <gwtp.version>1.0.1</gwtp.version>
+        <gwt.localWorkers>8</gwt.localWorkers>
 
         <!--Gin-->
         <gin.version>2.0.0</gin.version>
@@ -319,12 +320,17 @@
                     <runTarget>devmode.html</runTarget>
                     <hostedWebapp>${webappDirectory}</hostedWebapp>
                     <copyWebapp>${gwt.copyWebapp}</copyWebapp>
+                    <logLevel>INFO</logLevel>
+                    <style>DETAILED</style>
+                    <disableCastChecking>true</disableCastChecking>
+                    <disableClassMetadata>true</disableClassMetadata>
+                    <compileReport>false</compileReport>
+                    <extraJvmArgs>-Xmx1024m -Xms1024m -Xss1024k -XX:MaxPermSize=512m</extraJvmArgs>
+                    <extraParam>true</extraParam>
+                    <!--<extra></extra>-->
                 </configuration>
                 <executions>
                     <execution>
-                        <configuration>
-                            <extraJvmArgs>-Xmx1024M</extraJvmArgs>
-                        </configuration>
                         <goals>
                             <goal>compile</goal>
                         </goals>
