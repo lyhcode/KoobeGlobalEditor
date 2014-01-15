@@ -38,15 +38,19 @@ public class BookEditView extends ViewImpl implements BookEditPresenter.MyView {
     }
 
     private void initUiField() {
+        draftCategory.getElement().getFirstChildElement().setAttribute("disabled" ,"disabled");
         draftCategory.addItem("文學");
 
+        draftSubCategory.getElement().getFirstChildElement().setAttribute("disabled" ,"disabled");
         draftSubCategory.addItem("文學評論");
         draftSubCategory.addItem("中國古典文學");
         draftSubCategory.addItem("散文");
 
+        draftRating.getElement().getFirstChildElement().setAttribute("disabled" ,"disabled");
         draftRating.addItem("一般內容");
         draftRating.addItem("限制級內容");
 
+        draftPrivacy.getElement().getFirstChildElement().setAttribute("disabled" ,"disabled");
         draftPrivacy.addItem("所有人");
         draftPrivacy.addItem("只限朋友");
         draftPrivacy.addItem("限群組");
