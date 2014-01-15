@@ -327,7 +327,7 @@
                     <compileReport>false</compileReport>
                     <extraJvmArgs>-Xmx1024m -Xms1024m -Xss1024k -XX:MaxPermSize=512m</extraJvmArgs>
                     <extraParam>true</extraParam>
-                    <!--<extra></extra>-->
+                    <!--<localWorkers>16</localWorkers>-->
                 </configuration>
                 <executions>
                     <execution>

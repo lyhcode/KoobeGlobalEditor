@@ -8,6 +8,7 @@ import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.koobe.common.data.domain.Draft;
+import org.gwtbootstrap3.client.ui.TextArea;
 
 public class BookEditView extends ViewImpl implements BookEditPresenter.MyView {
 
@@ -15,6 +16,9 @@ public class BookEditView extends ViewImpl implements BookEditPresenter.MyView {
     }
 
     private final PlaceManager placeManager;
+
+    @UiField
+    TextArea draftDescription;
 
     @UiField
     ListBox draftCategory;
@@ -38,6 +42,7 @@ public class BookEditView extends ViewImpl implements BookEditPresenter.MyView {
     }
 
     private void initUiField() {
+
         draftCategory.getElement().getFirstChildElement().setAttribute("disabled" ,"disabled");
         draftCategory.addItem("文學");
 

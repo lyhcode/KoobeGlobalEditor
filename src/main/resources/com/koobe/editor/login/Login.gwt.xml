@@ -20,4 +20,6 @@
 
     <set-property name="compiler.stackMode" value="strip"/>
 
+    <collapse-all-properties />
+
 </module>
