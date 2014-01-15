@@ -3,6 +3,7 @@ package com.koobe.editor.index.client.application;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
@@ -19,11 +20,20 @@ public class ApplicationView extends ViewImpl implements ApplicationPresenter.My
     Container container;
 
     @UiField
+    HTMLPanel footer;
+
+    @UiField
     LoadingIndicator loadingIndicator;
 
     @Inject
     ApplicationView(Binder binder) {
         initWidget(binder.createAndBindUi(this));
+
+        initUiField();
+    }
+
+    private void initUiField() {
+        footer.add(new HTML("Copyright &copy; KOOBE Inc."));
     }
 
     @Override

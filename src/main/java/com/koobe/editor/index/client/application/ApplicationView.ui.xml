@@ -4,7 +4,11 @@
              xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
              xmlns:kui="urn:import:com.koobe.editor.common.client.ui">
     <ui:style>
-
+    .footer {
+        text-align: center;
+        padding-top: 15px;
+        padding-bottom: 25px;
+    }
     </ui:style>
 
     <ui:with type="com.koobe.editor.index.client.place.NameTokens" field="nameTokens"/>
@@ -33,6 +37,8 @@
 
                 <!-- Main Place Container -->
                 <b:Container ui:field="container"/>
+
+                <g:HTMLPanel ui:field="footer" addStyleNames="{style.footer}"/>
 
             </b:Container>
 

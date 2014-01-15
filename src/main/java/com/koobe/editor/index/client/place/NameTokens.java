@@ -30,4 +30,10 @@ public class NameTokens {
     public static String getBookEditPage() {
         return bookEditPage;
     }
+
+    public static final String bookCanvasPage = "!bookCanvas";
+
+    public static String getBookCanvasPage() {
+        return  bookCanvasPage;
+    }
 }

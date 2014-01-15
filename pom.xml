@@ -63,6 +63,7 @@
         <gwt.version>2.5.1</gwt.version>
         <gwtp.version>1.0.1</gwtp.version>
         <gwt.localWorkers>8</gwt.localWorkers>
+        <gwt.dnd.version>3.2.3</gwt.dnd.version>
 
         <!--Gin-->
         <gin.version>2.0.0</gin.version>
@@ -154,6 +155,14 @@
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-servlet</artifactId>
             <version>${gwt.version}</version>
+        </dependency>
+
+        <!-- GWT D&D -->
+        <dependency>
+            <groupId>com.allen-sauer.gwt.dnd</groupId>
+            <artifactId>gwt-dnd</artifactId>
+            <version>${gwt.dnd.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- MVP component -->

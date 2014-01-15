@@ -1,10 +1,28 @@
 <module rename-to="index">
 
     <inherits name="com.google.gwt.user.User"/>
-    <inherits name='com.google.gwt.dom.DOM' />
-    <inherits name='com.google.gwt.xml.XML' />
+    <inherits name="com.google.gwt.dom.DOM"/>
+    <inherits name="com.google.gwt.xml.XML"/>
     <inherits name="com.google.gwt.http.HTTP"/>
     <inherits name="com.google.gwt.uibinder.UiBinder"/>
+
+    <!-- GWT Drag&Drop -->
+    <inherits name="com.allen_sauer.gwt.dnd.gwt-dnd"/>
+
+    <!-- GWT Logging -->
+    <!--
+    <inherits name="com.google.gwt.logging.Logging" />
+    <set-property name="gwt.logging.logLevel" value="INFO" />
+    -->
+    <!-- <set-property name="gwt.logging.enabled" value="FALSE" /> -->
+    <!--
+    <set-property name="gwt.logging.consoleHandler" value="ENABLED" />
+    <set-property name="gwt.logging.developmentModeHandler" value="ENABLED" />
+    <set-property name="gwt.logging.popupHandler" value="ENABLED" />
+    <set-property name="gwt.logging.systemHandler" value="ENABLED" />
+    <set-property name="gwt.logging.firebugHandler" value="ENABLED" />
+    <set-property name="gwt.logging.simpleRemoteHandler" value="ENABLED" />
+    -->
 
     <!-- Other module inherits -->
     <inherits name="com.google.gwt.inject.Inject"/>
