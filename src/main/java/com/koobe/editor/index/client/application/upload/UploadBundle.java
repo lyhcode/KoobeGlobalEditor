@@ -12,6 +12,6 @@ public interface UploadBundle extends ClientBundle {
         String dragOverError();
     }
 
-    @Source("BookCanvasView.css")
+    @Source("UploadView.css")
     MyCss style();
 }
