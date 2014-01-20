@@ -13,39 +13,18 @@
 
     <ui:with type="com.koobe.editor.editor.client.place.NameTokens" field="nameTokens"/>
 
-    <b:Container styleName="out-container">
-        <b:Container styleName="outer">
+    <b:Container>
 
-            <b:Container styleName="mainbar">
+        <g:HTMLPanel>
+            <ul></ul>
+        </g:HTMLPanel>
 
-                <g:HTMLPanel styleName="red-block">
-                    <div class="logo">
-                        <h1><a href="index.html">KOOBE</a></h1>
-                    </div>
-                </g:HTMLPanel>
+        <!-- Main Place Container -->
+        <b:Container ui:field="container"/>
 
-                <g:HTMLPanel styleName="blue-block">
-                    <div class="page-title">
-                        <h3 class="pull-left"><i class="icon-desktop"></i> 線上編輯 <span>online authoring</span></h3>
-                        <div class="breads pull-right">
-                            <a href="#">Home </a>
-                            / <a href="#">Pages </a>/ Title
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </g:HTMLPanel>
+        <!-- Loading -->
+        <kui:LoadingIndicator ui:field="loadingIndicator" />
 
-                <!-- Main Place Container -->
-                <b:Container ui:field="container"/>
-
-                <g:HTMLPanel ui:field="footer" addStyleNames="{style.footer}"/>
-
-            </b:Container>
-
-            <!-- Loading -->
-            <kui:LoadingIndicator ui:field="loadingIndicator" />
-
-        </b:Container>
     </b:Container>
 
 </ui:UiBinder>

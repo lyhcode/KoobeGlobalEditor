@@ -1,23 +1,21 @@
-package com.koobe.editor.common.client.ui;
+package com.koobe.editor.editor.client.ui;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Created by lyhcode on 2013/12/23.
  */
-public class LoadingIndicator extends Composite {
-    interface Binder extends UiBinder<Widget, LoadingIndicator> {
+public class Sidebar extends Composite {
+    interface Binder extends UiBinder<Widget, Sidebar> {
     }
 
     private static Binder binder = GWT.create(Binder.class);
 
-    public LoadingIndicator() {
+    public Sidebar() {
         initWidget(binder.createAndBindUi(this));
     }
 
@@ -33,7 +31,7 @@ public class LoadingIndicator extends Composite {
      */
     public void hide() {
 
-        final LoadingIndicator _this = this;
+        final Sidebar _this = this;
 
         Timer timer = new Timer() {
             public void run() {

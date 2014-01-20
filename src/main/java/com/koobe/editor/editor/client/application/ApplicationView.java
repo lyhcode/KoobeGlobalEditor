@@ -19,9 +19,6 @@ public class ApplicationView extends ViewImpl implements ApplicationPresenter.My
     Container container;
 
     @UiField
-    HTMLPanel footer;
-
-    @UiField
     LoadingIndicator loadingIndicator;
 
     @Inject
@@ -32,7 +29,7 @@ public class ApplicationView extends ViewImpl implements ApplicationPresenter.My
     }
 
     private void initUiField() {
-        footer.add(new HTML("Copyright &copy; KOOBE Inc."));
+        //footer.add(new HTML("Copyright &copy; KOOBE Inc."));
     }
 
     @Override
