@@ -1,0 +1,21 @@
+.widget {
+    border: 1px solid #fff;
+}
+
+.widgetHeading {
+    background: #ddd;
+    border-bottom: 1px solid #555;
+}
+
+.widgetMouseOver {
+    border: 1px dotted gray;
+}
+
+.widgetMouseOut {
+    border: none;
+}
+
+.widgetMouseDown {
+    cursor: move;
+}
+

@@ -1,16 +1,72 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
     <ui:style>
-    .sidebar {
-        float: right;
-        position: absolute;
-        width: 250px;
-        height: 100%;
-        background-color: #000;
+    .heading {
+        color: #fff;
+        font-size: 16px;
+        border-bottom: 1px solid #fff;
+        padding-left: 15px;
+    }
+    ul.toolboxPanel {
+        list-style-type: none;
+        padding:15px;
+        margin:0;
+    }
+    .toolboxPanel li {
+        margin-bottom: 10px;
+        margin-right: 10px;
+        float: left;
+    }
+    .toolboxPanel li span {
+        font-family: Georgia;
+        font-size: 36px;
+        color: #fff;
+        border: 2px solid #fff;
+        border-radius: 5px;
+        width: 72px;
+        padding: 15px;
+        display: inline-block;
+        text-align: center;
+        cursor: pointer;
     }
     </ui:style>
 
-    <g:HTMLPanel styleName="{style.sidebar}">
-        Sidebar
+    <g:HTMLPanel>
+        <h3 class="{style.heading}">基本工具</h3>
+
+        <ul class="{style.toolboxPanel}">
+            <li>
+                <g:InlineHTML ui:field="textWidget">
+                    <i class="fa fa-pencil"/>
+                </g:InlineHTML>
+            </li>
+            <li>
+                <g:InlineHTML ui:field="imageWidget">
+                    <i class="fa fa-picture-o"/>
+                </g:InlineHTML>
+            </li>
+            <li>
+                <g:InlineHTML>
+                    <i class="fa fa-question"/>
+                </g:InlineHTML>
+            </li>
+            <li>
+                <g:InlineHTML>
+                    <i class="fa fa-question"/>
+                </g:InlineHTML>
+            </li>
+            <li>
+                <g:InlineHTML>
+                    <i class="fa fa-question"/>
+                </g:InlineHTML>
+            </li>
+            <li>
+                <g:InlineHTML>
+                    <i class="fa fa-question"/>
+                </g:InlineHTML>
+            </li>
+        </ul>
+
+
     </g:HTMLPanel>
 </ui:UiBinder>

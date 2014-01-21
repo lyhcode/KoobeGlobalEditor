@@ -7,7 +7,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Created by lyhcode on 2013/12/23.
+ * Authoring Tool Sidebar
  */
 public class Sidebar extends Composite {
     interface Binder extends UiBinder<Widget, Sidebar> {

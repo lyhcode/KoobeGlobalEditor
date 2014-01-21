@@ -5,30 +5,11 @@
              xmlns:common="urn:import:com.koobe.editor.common.client.ui"
              xmlns:editor="urn:import:com.koobe.editor.editor.client.ui">
     <ui:style>
-    .footer {
-        text-align: center;
-        padding-top: 15px;
-        padding-bottom: 25px;
-    }
-    .main {
-        padding-left: 250px;
-    }
     </ui:style>
-
-    <ui:with type="com.koobe.editor.editor.client.place.NameTokens" field="nameTokens"/>
-
     <g:HTMLPanel>
 
-        <!-- Sidebar -->
-        <editor:Sidebar />
-
-        <g:HTMLPanel styleName="{style.main}">
-
-            <!-- Main Place Container -->
-            <b:Container ui:field="container" />
-
-        </g:HTMLPanel>
-
+        <!-- Main Place Container -->
+        <g:HTMLPanel ui:field="container" />
 
         <!-- Loading -->
         <common:LoadingIndicator ui:field="loading" />
