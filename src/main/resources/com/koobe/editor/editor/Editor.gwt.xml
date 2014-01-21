@@ -46,6 +46,9 @@
     <!-- Editor Common Library -->
     <inherits name="com.koobe.editor.common.Common" />
 
+    <!-- Test Only -->
+    <inherits name="com.example.Example" />
+
     <public path="resource">
         <include name="css/*.css"/>
         <include name="js/*.js"/>

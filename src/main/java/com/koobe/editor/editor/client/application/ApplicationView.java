@@ -2,8 +2,6 @@ package com.koobe.editor.editor.client.application;
 
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -19,7 +17,7 @@ public class ApplicationView extends ViewImpl implements ApplicationPresenter.My
     Container container;
 
     @UiField
-    LoadingIndicator loadingIndicator;
+    LoadingIndicator loading;
 
     @Inject
     ApplicationView(Binder binder) {
@@ -30,6 +28,7 @@ public class ApplicationView extends ViewImpl implements ApplicationPresenter.My
 
     private void initUiField() {
         //footer.add(new HTML("Copyright &copy; KOOBE Inc."));
+        //Window.alert(TestEnum.A.toString());
     }
 
     @Override
@@ -43,12 +42,12 @@ public class ApplicationView extends ViewImpl implements ApplicationPresenter.My
     }
 
     @Override
-    public void showLoading(boolean visibile) {
-        if (visibile) {
-            loadingIndicator.show();
+    public void showLoading(boolean visible) {
+        if (visible) {
+            loading.show();
         }
         else {
-            loadingIndicator.hide();
+            loading.hide();
         }
     }
 }

@@ -1,46 +1,16 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
     <ui:style>
-        .absoluteCenter {
-        width: 50%;
-        height: 50%;
-        overflow: auto;
-        margin: auto;
+    .sidebar {
+        float: right;
         position: absolute;
-        top: 0; left: 0; bottom: 0; right: 0;
-        }
-
-        .isFixed {
-        position: fixed;
-        z-index: 999;
-        }
-
-        .loading {
-        text-align:center;
-        height:120px;width:120px;
-        overflow:hidden;
-        }
-
-        .inner {
-        display:inline-block;
-        background:#ccc;
-        opacity:0.5;
-        border-radius:5px;
-        overflow:hidden;
-        }
-
-        .icon {
-        font-size:80px;
-        padding:20px;
-        }
-
+        width: 250px;
+        height: 100%;
+        background-color: #000;
+    }
     </ui:style>
 
-    <g:HTMLPanel ui:field="mainPanel">
-        <div class="{style.absoluteCenter} {style.isFixed} {style.loading}">
-            <span class="{style.inner}">
-                <i class="fa fa-refresh fa-spin {style.icon}"></i>
-            </span>
-        </div>
+    <g:HTMLPanel styleName="{style.sidebar}">
+        Sidebar
     </g:HTMLPanel>
 </ui:UiBinder>

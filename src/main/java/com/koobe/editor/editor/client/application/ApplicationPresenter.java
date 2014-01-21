@@ -19,7 +19,7 @@ public class ApplicationPresenter extends Presenter<ApplicationPresenter.MyView,
     }
 
     public interface MyView extends View {
-        void showLoading(boolean visibile);
+        void showLoading(boolean visible);
     }
 
     @ContentSlot
