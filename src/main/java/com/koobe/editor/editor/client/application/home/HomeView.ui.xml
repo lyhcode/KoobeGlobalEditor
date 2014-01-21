@@ -28,7 +28,7 @@
     }
     .main {
         padding-left: 250px;
-        padding-top: 100px;
+        padding-top: 150px;
         padding-bottom: 100px;
     }
     .paper {
@@ -73,13 +73,24 @@
         text-align: center;
         cursor: pointer;
     }
+    .toolbar {
+        position: fixed;
+        top: 50px;
+        z-index: 9998;
+        width: 100%;
+        height: 50px;
+        background-color: #fff;
+        padding-left: 230px;
+    }
     </ui:style>
     <g:HTMLPanel styleName="{style.viewport}">
 
         <!-- Header -->
         <div class="navbar navbar-default navbar-fixed-top {style.header}">
-
         </div>
+
+        <!-- Toolbar -->
+        <div id="toolbar" class="{style.toolbar}"></div>
 
         <!-- Sidebar -->
         <div class="{style.sidebar}">
@@ -132,12 +143,11 @@
 
         </div>
 
-        <div class="{style.main}">
-            <div class="{style.paper}">
+        <g:FocusPanel styleName="{style.main}" ui:field="mainPanel">
+            <g:HTMLPanel styleName="{style.paper}">
                 <g:AbsolutePanel ui:field="canvas" />
-            </div>
-
-        </div>
+            </g:HTMLPanel>
+        </g:FocusPanel>
 
     </g:HTMLPanel>
 </ui:UiBinder>

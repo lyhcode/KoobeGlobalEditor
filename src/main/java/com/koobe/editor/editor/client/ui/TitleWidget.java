@@ -33,17 +33,37 @@ public class TitleWidget extends AbstractWidget {
     }
 
     @Override
+    protected void initToolbar() {
+        toolbar.add(makeSizeButton("H1", SIZE.H1));
+        toolbar.add(makeSizeButton("H2", SIZE.H2));
+        toolbar.add(makeSizeButton("H3", SIZE.H3));
+        toolbar.add(makeSizeButton("H4", SIZE.H4));
+        toolbar.add(makeSizeButton("H5", SIZE.H5));
+        toolbar.add(makeSizeButton("H6", SIZE.H6));
+    }
+
+    private Button makeSizeButton(String label, final SIZE size) {
+        final TitleWidget target = this;
+
+        Button button = new Button(label);
+        button.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                target.setSize(size);
+            }
+        });
+        return button;
+    }
+
+    @Override
     protected void drawWidget() {
-        panel.clear();
 
-        HeadingElement headingElement = Document.get().createHElement(1);
-        headingElement.setInnerText(text);
-        headingElement.setAttribute("contenteditable", "true");
+        HeadingElement element = Document.get().createHElement(size.ordinal() + 1);
+        element.setInnerText(text);
+        element.setAttribute("contenteditable", "true");
 
-        html = new HTML();
-        html.getElement().appendChild(headingElement);
-
-        panel.add(html);
+        html.setHTML("");
+        html.getElement().appendChild(element);
     }
 
     public SIZE getSize() {
@@ -52,6 +72,8 @@ public class TitleWidget extends AbstractWidget {
 
     public void setSize(SIZE size) {
         this.size = size;
+
+        drawWidget();
     }
 
     public String getText() {

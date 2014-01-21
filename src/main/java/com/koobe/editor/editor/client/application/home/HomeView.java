@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
+import com.koobe.editor.editor.client.ui.AbstractWidget;
 import com.koobe.editor.editor.client.ui.TextWidget;
 import com.koobe.editor.editor.client.ui.TitleWidget;
 
@@ -184,6 +185,12 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
     void createTextWidget(ClickEvent event) {
         canvas.add(new TextWidget("Gmail developers didn’t invent anything new; they used what was already available. In Gmail the development team made use of what’s now referred to as XHR or XMLHttpRequest. XHR is an API created by Microsoft that allows JavaScript to run in the browser to initiate direct communication with the server. Gmail was designed to use this tool, which was available in all major browsers, to change the paradigm of how we interact with websites in a visual and forceful way."));
     }
+
+    @UiHandler("mainPanel")
+    void cancelAllEditableWidget(ClickEvent event) {
+        AbstractWidget.inactiveEditableWidget();
+    }
+
     private void initDragAndDrop() {
         dragController = new PickupDragController(canvas, true);
         dragController.setBehaviorMultipleSelection(false);

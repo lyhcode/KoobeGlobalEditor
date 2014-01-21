@@ -1,59 +1,66 @@
 package com.koobe.editor.editor.client.ui;
 
 import com.google.gwt.event.dom.client.*;
-import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.*;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by lyhcode on 2014/1/21.
  */
 public abstract class AbstractWidget extends Composite {
 
-    private static AbstractWidget activeEditableWidgets = null;
+    private static AbstractWidget activeEditableWidget = null;
 
-    protected FocusPanel panel;
+    protected  HorizontalPanel toolbar = new HorizontalPanel();
+
+    protected FocusPanel focusPanel;
 
     protected HTML html;
 
     protected boolean editable = false;
 
     public AbstractWidget() {
-        panel = new FocusPanel();
+        focusPanel = new FocusPanel();
 
-        panel.addStyleName("book-widget");
+        focusPanel.addStyleName("book-widget");
 
-        panel.addClickHandler(new ClickHandler() {
+        focusPanel.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
                 setEditable(true);
+                
+                event.preventDefault();
+                event.stopPropagation();
             }
         });
 
-        panel.addFocusHandler(new FocusHandler() {
+        focusPanel.addFocusHandler(new FocusHandler() {
             @Override
             public void onFocus(FocusEvent event) {
             }
         });
 
-        panel.addMouseOverHandler(new MouseOverHandler() {
+        focusPanel.addMouseOverHandler(new MouseOverHandler() {
             @Override
             public void onMouseOver(MouseOverEvent event) {
-                panel.addStyleName("book-widget-mouse-over");
+                focusPanel.addStyleName("book-widget-mouse-over");
             }
         });
 
-        panel.addMouseOutHandler(new MouseOutHandler() {
+        focusPanel.addMouseOutHandler(new MouseOutHandler() {
             @Override
             public void onMouseOut(MouseOutEvent event) {
-                panel.removeStyleName("book-widget-mouse-over");
+                focusPanel.removeStyleName("book-widget-mouse-over");
             }
         });
 
-        initWidget(panel);
+        initWidget(focusPanel);
+
+        html = new HTML();
+
+        focusPanel.add(html);
+
+        initToolbar();
     }
 
     public boolean isEditable() {
@@ -66,20 +73,46 @@ public abstract class AbstractWidget extends Composite {
 
         if (editable) {
 
-            if (activeEditableWidgets != null) {
-                activeEditableWidgets.setEditable(false);
-            }
+            inactiveEditableWidget();
 
-            activeEditableWidgets = this;
+            activeEditableWidget = this;
 
-            panel.addStyleName("book-widget-editable");
+            focusPanel.addStyleName("book-widget-editable");
+
+            showToolbar();
         }
         else {
-            panel.removeStyleName("book-widget-editable");
+            focusPanel.removeStyleName("book-widget-editable");
+
+            hideToolbar();
         }
     }
 
+    public static void inactiveEditableWidget() {
+        if (activeEditableWidget != null) {
+            activeEditableWidget.setEditable(false);
+        }
+    }
 
+    protected abstract void initToolbar();
+
+    private void showToolbar() {
+
+        //LayoutPanel layoutPanel = new LayoutPanel();
+        DOM.setStyleAttribute(toolbar.getElement(), "position", "fixed");
+        DOM.setStyleAttribute(toolbar.getElement(), "top", (focusPanel.getElement().getAbsoluteTop()-30)+"px");
+        DOM.setStyleAttribute(toolbar.getElement(), "left", focusPanel.getElement().getAbsoluteLeft()+"px");
+        DOM.setStyleAttribute(toolbar.getElement(), "height", "30px");
+        //layoutPanel.add(toolbar);
+
+        //lastLayoutPanel = layoutPanel;
+
+        RootPanel.get().add(toolbar);
+    }
+
+    private void hideToolbar() {
+        RootPanel.get().remove(toolbar);
+    }
 
     protected abstract void drawWidget();
 

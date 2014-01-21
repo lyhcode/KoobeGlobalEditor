@@ -4,6 +4,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.HeadingElement;
 import com.google.gwt.dom.client.ParagraphElement;
 import com.google.gwt.event.dom.client.*;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RichTextArea;
@@ -23,17 +24,29 @@ public class TextWidget extends AbstractWidget {
     }
 
     @Override
+    protected void initToolbar() {
+        Button bold = new Button("B");
+
+        bold.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+
+            }
+        });
+
+        toolbar.add(bold);
+
+        toolbar.add(new Button("ITALIC"));
+    }
+
+    @Override
     protected void drawWidget() {
-        panel.clear();
 
-        ParagraphElement paragraphElement = Document.get().createPElement();
-        paragraphElement.setInnerText(text);
-        paragraphElement.setAttribute("contenteditable", "true");
+        ParagraphElement element = Document.get().createPElement();
+        element.setInnerText(text);
+        element.setAttribute("contenteditable", "true");
 
-        html = new HTML();
-        html.getElement().appendChild(paragraphElement);
-
-        panel.add(html);
+        html.getElement().appendChild(element);
     }
 
     public String getText() {
