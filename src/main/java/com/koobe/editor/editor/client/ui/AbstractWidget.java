@@ -1,5 +1,6 @@
 package com.koobe.editor.editor.client.ui;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.*;
@@ -19,6 +20,8 @@ public abstract class AbstractWidget extends Composite {
 
     protected boolean editable = false;
 
+    protected Element element;
+
     public AbstractWidget() {
         focusPanel = new FocusPanel();
 
@@ -28,7 +31,7 @@ public abstract class AbstractWidget extends Composite {
             @Override
             public void onClick(ClickEvent event) {
                 setEditable(true);
-                
+
                 event.preventDefault();
                 event.stopPropagation();
             }
@@ -99,10 +102,9 @@ public abstract class AbstractWidget extends Composite {
     private void showToolbar() {
 
         //LayoutPanel layoutPanel = new LayoutPanel();
-        DOM.setStyleAttribute(toolbar.getElement(), "position", "fixed");
+        DOM.setStyleAttribute(toolbar.getElement(), "position", "relative");
         DOM.setStyleAttribute(toolbar.getElement(), "top", (focusPanel.getElement().getAbsoluteTop()-30)+"px");
         DOM.setStyleAttribute(toolbar.getElement(), "left", focusPanel.getElement().getAbsoluteLeft()+"px");
-        DOM.setStyleAttribute(toolbar.getElement(), "height", "30px");
         //layoutPanel.add(toolbar);
 
         //lastLayoutPanel = layoutPanel;
@@ -115,5 +117,4 @@ public abstract class AbstractWidget extends Composite {
     }
 
     protected abstract void drawWidget();
-
 }

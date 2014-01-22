@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RichTextArea;
 
 /**
- * Created by lyhcode on 2014/1/21.
+ * Text Widget for Contents
  */
 public class TextWidget extends AbstractWidget {
 
@@ -42,11 +42,25 @@ public class TextWidget extends AbstractWidget {
     @Override
     protected void drawWidget() {
 
-        ParagraphElement element = Document.get().createPElement();
+        element = Document.get().createPElement();
         element.setInnerText(text);
-        element.setAttribute("contenteditable", "true");
+        element.setAttribute("contenteditable", "false");
 
+        html.setHTML("");
         html.getElement().appendChild(element);
+    }
+
+    @Override
+    public void setEditable(boolean editable) {
+
+        super.setEditable(editable);
+
+        if (editable) {
+            element.setAttribute("contenteditable", "true");
+        }
+        else {
+            element.setAttribute("contenteditable", "false");
+        }
     }
 
     public String getText() {

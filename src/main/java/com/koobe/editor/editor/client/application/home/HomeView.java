@@ -2,11 +2,14 @@ package com.koobe.editor.editor.client.application.home;
 
 import com.allen_sauer.gwt.dnd.client.PickupDragController;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.*;
+import com.google.gwt.query.client.Function;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
@@ -15,6 +18,8 @@ import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.koobe.editor.editor.client.ui.AbstractWidget;
 import com.koobe.editor.editor.client.ui.TextWidget;
 import com.koobe.editor.editor.client.ui.TitleWidget;
+
+import static com.google.gwt.query.client.GQuery.$;
 
 public class HomeView extends ViewImpl implements HomePresenter.MyView {
 
@@ -178,12 +183,27 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 
     @UiHandler("titleWidget")
     void createTitleWidget(ClickEvent event) {
-        canvas.add(new TitleWidget("A Big Title"));
+        addWidgetToCanvas(new TitleWidget("A Big Title"));
     }
 
     @UiHandler("textWidget")
     void createTextWidget(ClickEvent event) {
-        canvas.add(new TextWidget("Gmail developers didn’t invent anything new; they used what was already available. In Gmail the development team made use of what’s now referred to as XHR or XMLHttpRequest. XHR is an API created by Microsoft that allows JavaScript to run in the browser to initiate direct communication with the server. Gmail was designed to use this tool, which was available in all major browsers, to change the paradigm of how we interact with websites in a visual and forceful way."));
+        addWidgetToCanvas(new TextWidget("Gmail developers didn’t invent anything new; they used what was already available. In Gmail the development team made use of what’s now referred to as XHR or XMLHttpRequest. XHR is an API created by Microsoft that allows JavaScript to run in the browser to initiate direct communication with the server. Gmail was designed to use this tool, which was available in all major browsers, to change the paradigm of how we interact with websites in a visual and forceful way."));
+    }
+
+    private void addWidgetToCanvas(final Widget widget) {
+        widget.setVisible(false);
+
+        $(widget).fadeIn(new Function() {
+            @Override
+            public void f() {
+                //widget.setVisible(true);
+            }
+        });
+
+        canvas.add(widget);
+
+        Window.scrollTo(0, widget.getElement().getAbsoluteTop() - 150);
     }
 
     @UiHandler("mainPanel")
@@ -196,4 +216,41 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
         dragController.setBehaviorMultipleSelection(false);
         //FlowPanelDropController dropController = new FlowPanelDropController(canvas);
     }
+
+
+    public native void scrollIntoView(Element elem) /*-{
+        var left = elem.offsetLeft, top = elem.offsetTop;
+        var width = elem.offsetWidth, height = elem.offsetHeight;
+
+        if (elem.parentNode != elem.offsetParent) {
+            left -= elem.parentNode.offsetLeft;
+            top -= elem.parentNode.offsetTop;
+        }
+
+        var cur = elem.parentNode;
+        while (cur && (cur.nodeType == 1)) {
+            if (left < cur.scrollLeft) {
+                cur.scrollLeft = left;
+            }
+            if (left + width > cur.scrollLeft + cur.clientWidth) {
+                cur.scrollLeft = (left + width) - cur.clientWidth;
+            }
+            if (top < cur.scrollTop) {
+                cur.scrollTop = top;
+            }
+            if (top + height > cur.scrollTop + cur.clientHeight) {
+                cur.scrollTop = (top + height) - cur.clientHeight;
+            }
+
+            var offsetLeft = cur.offsetLeft, offsetTop = cur.offsetTop;
+            if (cur.parentNode != cur.offsetParent) {
+                offsetLeft -= cur.parentNode.offsetLeft;
+                offsetTop -= cur.parentNode.offsetTop;
+            }
+
+            left += offsetLeft - cur.scrollLeft;
+            top += offsetTop - cur.scrollTop;
+            cur = cur.parentNode;
+        }
+    }-*/;
 }

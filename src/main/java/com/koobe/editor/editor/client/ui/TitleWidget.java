@@ -1,17 +1,12 @@
 package com.koobe.editor.editor.client.ui;
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.HeadingElement;
-import com.google.gwt.event.dom.client.*;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.*;
-
-import java.util.Iterator;
-
-import static com.google.gwt.query.client.GQuery.$;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.Button;
 
 /**
- * Created by lyhcode on 2014/1/21.
+ * Title Widget for Chapter or Section Headers
  */
 public class TitleWidget extends AbstractWidget {
 
@@ -58,12 +53,25 @@ public class TitleWidget extends AbstractWidget {
     @Override
     protected void drawWidget() {
 
-        HeadingElement element = Document.get().createHElement(size.ordinal() + 1);
+        element = Document.get().createHElement(size.ordinal() + 1);
         element.setInnerText(text);
-        element.setAttribute("contenteditable", "true");
+        element.setAttribute("contenteditable", "false");
 
         html.setHTML("");
         html.getElement().appendChild(element);
+    }
+
+    @Override
+    public void setEditable(boolean editable) {
+
+        super.setEditable(editable);
+
+        if (editable) {
+            element.setAttribute("contenteditable", "true");
+        }
+        else {
+            element.setAttribute("contenteditable", "false");
+        }
     }
 
     public SIZE getSize() {
