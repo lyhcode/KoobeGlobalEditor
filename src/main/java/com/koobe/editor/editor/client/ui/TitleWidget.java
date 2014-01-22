@@ -3,7 +3,9 @@ package com.koobe.editor.editor.client.ui;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
+import org.gwtbootstrap3.client.ui.ButtonGroup;
+import org.gwtbootstrap3.client.ui.RadioButton;
+import org.gwtbootstrap3.client.ui.constants.Toggle;
 
 /**
  * Title Widget for Chapter or Section Headers
@@ -18,32 +20,52 @@ public class TitleWidget extends AbstractWidget {
 
     private String text;
 
-    public TitleWidget(String text) {
+    public TitleWidget(String text, SIZE size) {
 
         this.text = text;
 
-        this.size = SIZE.H1;
+        this.size = size;
 
         drawWidget();
     }
 
+    private ButtonGroup buttons;
+
     @Override
     protected void initToolbar() {
-        toolbar.add(makeSizeButton("H1", SIZE.H1));
-        toolbar.add(makeSizeButton("H2", SIZE.H2));
-        toolbar.add(makeSizeButton("H3", SIZE.H3));
-        toolbar.add(makeSizeButton("H4", SIZE.H4));
-        toolbar.add(makeSizeButton("H5", SIZE.H5));
-        toolbar.add(makeSizeButton("H6", SIZE.H6));
+
+        buttons = new ButtonGroup();
+        buttons.setToggle(Toggle.BUTTONS);
+        buttons.add(makeSizeButton("H1", SIZE.H1));
+        buttons.add(makeSizeButton("H2", SIZE.H2));
+        buttons.add(makeSizeButton("H3", SIZE.H3));
+        buttons.add(makeSizeButton("H4", SIZE.H4));
+        buttons.add(makeSizeButton("H5", SIZE.H5));
+        buttons.add(makeSizeButton("H6", SIZE.H6));
+
+        toolbar.add(buttons);
     }
 
-    private Button makeSizeButton(String label, final SIZE size) {
+    private void resetAllButtons() {
+        if (buttons == null) return;
+
+        int count = buttons.getWidgetCount();
+
+        for (int i = 0; i < count; i++) {
+            ((RadioButton)buttons.getWidget(i)).setActive(false);
+        }
+    }
+
+    private RadioButton makeSizeButton(String label, final SIZE size) {
         final TitleWidget target = this;
 
-        Button button = new Button(label);
+        final RadioButton button = new RadioButton(label);
+        button.setActive(this.size.equals(size));
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
+                resetAllButtons();
+                button.setActive(true);
                 target.setSize(size);
             }
         });

@@ -12,7 +12,7 @@ public abstract class AbstractWidget extends Composite {
 
     private static AbstractWidget activeEditableWidget = null;
 
-    protected  HorizontalPanel toolbar = new HorizontalPanel();
+    protected  HorizontalPanel toolbar;
 
     protected FocusPanel focusPanel;
 
@@ -62,8 +62,6 @@ public abstract class AbstractWidget extends Composite {
         html = new HTML();
 
         focusPanel.add(html);
-
-        initToolbar();
     }
 
     public boolean isEditable() {
@@ -83,11 +81,13 @@ public abstract class AbstractWidget extends Composite {
             focusPanel.addStyleName("book-widget-editable");
 
             showToolbar();
+            showRemoveButton();
         }
         else {
             focusPanel.removeStyleName("book-widget-editable");
 
             hideToolbar();
+            hideRemoveButton();
         }
     }
 
@@ -101,19 +101,57 @@ public abstract class AbstractWidget extends Composite {
 
     private void showToolbar() {
 
+        toolbar = new HorizontalPanel();
+
+        initToolbar();
+
         //LayoutPanel layoutPanel = new LayoutPanel();
         DOM.setStyleAttribute(toolbar.getElement(), "position", "relative");
-        DOM.setStyleAttribute(toolbar.getElement(), "top", (focusPanel.getElement().getAbsoluteTop()-30)+"px");
         DOM.setStyleAttribute(toolbar.getElement(), "left", focusPanel.getElement().getAbsoluteLeft()+"px");
         //layoutPanel.add(toolbar);
 
-        //lastLayoutPanel = layoutPanel;
-
         RootPanel.get().add(toolbar);
+
+        DOM.setStyleAttribute(toolbar.getElement(), "top", (focusPanel.getElement().getAbsoluteTop() - toolbar.getElement().getClientHeight()-5)+"px");
     }
 
     private void hideToolbar() {
         RootPanel.get().remove(toolbar);
+    }
+
+    private Anchor removeButton;
+
+    private void showRemoveButton() {
+
+        final AbstractWidget targetWidget = this;
+
+        removeButton = new Anchor("x");
+
+        removeButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                targetWidget.setEditable(false);
+                targetWidget.removeFromParent();
+            }
+        });
+
+        removeButton.setStyleName("book-widget-remove-button");
+
+        DOM.setStyleAttribute(removeButton.getElement(), "position", "relative");
+        DOM.setStyleAttribute(removeButton.getElement(), "left", (focusPanel.getElement().getAbsoluteLeft() + focusPanel.getElement().getClientWidth()) + "px");
+
+        RootPanel.get().add(removeButton);
+
+        DOM.setStyleAttribute(removeButton.getElement(), "top", (focusPanel.getElement().getAbsoluteTop() - removeButton.getElement().getClientHeight()) + "px");
+
+    }
+
+    private void hideRemoveButton() {
+
+        if (removeButton != null) {
+            RootPanel.get().remove(removeButton);
+        }
+
     }
 
     protected abstract void drawWidget();

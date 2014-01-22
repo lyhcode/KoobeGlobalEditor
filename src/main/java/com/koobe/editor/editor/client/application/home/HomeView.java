@@ -9,13 +9,16 @@ import com.google.gwt.query.client.Function;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
+import com.koobe.editor.editor.client.helper.RandomText;
 import com.koobe.editor.editor.client.ui.AbstractWidget;
+import com.koobe.editor.editor.client.ui.CodeWidget;
 import com.koobe.editor.editor.client.ui.TextWidget;
 import com.koobe.editor.editor.client.ui.TitleWidget;
 
@@ -34,15 +37,6 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 
     @UiField
     AbsolutePanel canvas;
-
-    @UiField
-    InlineHTML titleWidget;
-
-    @UiField
-    InlineHTML textWidget;
-
-    @UiField
-    InlineHTML imageWidget;
 
     @Inject
     public HomeView(Binder binder, PlaceManager placeManager) {
@@ -157,7 +151,7 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
             }
         });
 
-        */
+
 
         imageWidget.addClickHandler(new ClickHandler() {
             @Override
@@ -179,16 +173,42 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
                 canvas.add(widget);
             }
         });
+        */
     }
 
     @UiHandler("titleWidget")
     void createTitleWidget(ClickEvent event) {
-        addWidgetToCanvas(new TitleWidget("A Big Title"));
+        TitleWidget.SIZE size = TitleWidget.SIZE.H1;
+
+        int widgetCount = canvas.getWidgetCount();
+
+        for (int i = 0; i < widgetCount; i++) {
+            Widget widget = canvas.getWidget(i);
+
+            if (widget instanceof TitleWidget) {
+                TitleWidget titleWidget;
+                titleWidget = (TitleWidget)widget;
+
+                if (titleWidget.getSize().equals(TitleWidget.SIZE.H1)) {
+                    size = TitleWidget.SIZE.H2;
+                }
+                else {
+                    size = titleWidget.getSize();
+                }
+            }
+        }
+
+        addWidgetToCanvas(new TitleWidget("A Big Title", size));
     }
 
     @UiHandler("textWidget")
     void createTextWidget(ClickEvent event) {
-        addWidgetToCanvas(new TextWidget("Gmail developers didn’t invent anything new; they used what was already available. In Gmail the development team made use of what’s now referred to as XHR or XMLHttpRequest. XHR is an API created by Microsoft that allows JavaScript to run in the browser to initiate direct communication with the server. Gmail was designed to use this tool, which was available in all major browsers, to change the paradigm of how we interact with websites in a visual and forceful way."));
+        addWidgetToCanvas(new TextWidget(RandomText.getContent()));
+    }
+
+    @UiHandler("codeWidget")
+    void createCodeWidget(ClickEvent event) {
+        addWidgetToCanvas(new CodeWidget("public class Main {\n  String name;\n}\n"));
     }
 
     private void addWidgetToCanvas(final Widget widget) {
@@ -216,7 +236,6 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
         dragController.setBehaviorMultipleSelection(false);
         //FlowPanelDropController dropController = new FlowPanelDropController(canvas);
     }
-
 
     public native void scrollIntoView(Element elem) /*-{
         var left = elem.offsetLeft, top = elem.offsetTop;

@@ -105,8 +105,8 @@
                     </g:InlineHTML>
                 </li>
                 <li>
-                    <g:InlineHTML>
-                        <i class="fa fa-question"/>
+                    <g:InlineHTML ui:field="codeWidget">
+                        <i class="fa fa-code"/>
                     </g:InlineHTML>
                 </li>
                 <li>
