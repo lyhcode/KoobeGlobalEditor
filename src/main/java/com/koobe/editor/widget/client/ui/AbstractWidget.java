@@ -1,4 +1,4 @@
-package com.koobe.editor.editor.client.ui;
+package com.koobe.editor.widget.client.ui;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.*;
@@ -12,11 +12,21 @@ public abstract class AbstractWidget extends Composite {
 
     private static AbstractWidget activeEditableWidget = null;
 
-    protected  HorizontalPanel toolbar;
+    public static void turnOnActiveEditableWidget(AbstractWidget widget) {
+        activeEditableWidget = widget;
+    }
+
+    public static void turnOffActiveEditableWidget() {
+        if (activeEditableWidget != null) {
+            activeEditableWidget.setEditable(false);
+        }
+    }
+
+    protected WidgetToolbar toolbar;
 
     protected FocusPanel focusPanel;
 
-    protected HTML html;
+    protected HTMLPanel html;
 
     protected boolean editable = false;
 
@@ -59,7 +69,7 @@ public abstract class AbstractWidget extends Composite {
 
         initWidget(focusPanel);
 
-        html = new HTML();
+        html = new HTMLPanel("");
 
         focusPanel.add(html);
     }
@@ -70,13 +80,15 @@ public abstract class AbstractWidget extends Composite {
 
     public void setEditable(boolean editable) {
 
+        // just ignore if status not change
+        if (isEditable() == editable) return;
+
         this.editable = editable;
 
         if (editable) {
 
-            inactiveEditableWidget();
-
-            activeEditableWidget = this;
+            turnOffActiveEditableWidget();
+            turnOnActiveEditableWidget(this);
 
             focusPanel.addStyleName("book-widget-editable");
 
@@ -91,32 +103,21 @@ public abstract class AbstractWidget extends Composite {
         }
     }
 
-    public static void inactiveEditableWidget() {
-        if (activeEditableWidget != null) {
-            activeEditableWidget.setEditable(false);
-        }
-    }
-
     protected abstract void initToolbar();
 
     private void showToolbar() {
 
-        toolbar = new HorizontalPanel();
+        toolbar = new WidgetToolbar(getWidgetLeft(), getWidgetTop());
 
         initToolbar();
 
-        //LayoutPanel layoutPanel = new LayoutPanel();
-        DOM.setStyleAttribute(toolbar.getElement(), "position", "relative");
-        DOM.setStyleAttribute(toolbar.getElement(), "left", focusPanel.getElement().getAbsoluteLeft()+"px");
-        //layoutPanel.add(toolbar);
-
-        RootPanel.get().add(toolbar);
-
-        DOM.setStyleAttribute(toolbar.getElement(), "top", (focusPanel.getElement().getAbsoluteTop() - toolbar.getElement().getClientHeight()-5)+"px");
+        toolbar.show();
     }
 
     private void hideToolbar() {
-        RootPanel.get().remove(toolbar);
+        if (toolbar != null) {
+            toolbar.hide();
+        }
     }
 
     private Anchor removeButton;
@@ -151,8 +152,21 @@ public abstract class AbstractWidget extends Composite {
         if (removeButton != null) {
             RootPanel.get().remove(removeButton);
         }
-
     }
 
     protected abstract void drawWidget();
+
+    native void execCommand(String cmd, String param) /*-{
+        $wnd.document.execCommand(cmd, false, param);
+    }-*/;
+
+    public int getWidgetLeft() {
+        return focusPanel.getElement().getAbsoluteLeft();
+    }
+
+    public int getWidgetTop() {
+        return focusPanel.getElement().getAbsoluteTop();
+    }
+
+
 }

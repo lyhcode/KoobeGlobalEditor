@@ -1,14 +1,8 @@
-package com.koobe.editor.editor.client.ui;
+package com.koobe.editor.widget.client.ui;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.query.client.Function;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.EventListener;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 
 import static com.google.gwt.query.client.GQuery.$;
@@ -50,7 +44,7 @@ public class CodeWidget extends AbstractWidget {
         element.setInnerText(text);
         element.setAttribute("contenteditable", "false");
 
-        html.setHTML("");
+        html.clear();
         html.getElement().appendChild(element);
     }
 

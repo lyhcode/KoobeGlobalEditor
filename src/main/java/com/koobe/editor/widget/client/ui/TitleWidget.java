@@ -1,4 +1,4 @@
-package com.koobe.editor.editor.client.ui;
+package com.koobe.editor.widget.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -79,7 +79,7 @@ public class TitleWidget extends AbstractWidget {
         element.setInnerText(text);
         element.setAttribute("contenteditable", "false");
 
-        html.setHTML("");
+        html.clear();
         html.getElement().appendChild(element);
     }
 

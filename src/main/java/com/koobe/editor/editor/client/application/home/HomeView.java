@@ -9,18 +9,16 @@ import com.google.gwt.query.client.Function;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Random;
-import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.koobe.editor.editor.client.helper.RandomText;
-import com.koobe.editor.editor.client.ui.AbstractWidget;
-import com.koobe.editor.editor.client.ui.CodeWidget;
-import com.koobe.editor.editor.client.ui.TextWidget;
-import com.koobe.editor.editor.client.ui.TitleWidget;
+import com.koobe.editor.widget.client.ui.AbstractWidget;
+import com.koobe.editor.widget.client.ui.CodeWidget;
+import com.koobe.editor.widget.client.ui.TextWidget;
+import com.koobe.editor.widget.client.ui.TitleWidget;
 
 import static com.google.gwt.query.client.GQuery.$;
 
@@ -228,7 +226,7 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 
     @UiHandler("mainPanel")
     void cancelAllEditableWidget(ClickEvent event) {
-        AbstractWidget.inactiveEditableWidget();
+        AbstractWidget.turnOffActiveEditableWidget();
     }
 
     private void initDragAndDrop() {

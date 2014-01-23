@@ -46,6 +46,9 @@
     <!-- Editor Common Library -->
     <inherits name="com.koobe.editor.common.Common" />
 
+    <!-- Editor Widget Library -->
+    <inherits name="com.koobe.editor.widget.Widget" />
+
     <!-- Test Only -->
     <inherits name="com.example.Example" />
 

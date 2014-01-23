@@ -1,13 +1,8 @@
-package com.koobe.editor.editor.client.ui;
+package com.koobe.editor.widget.client.ui;
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.HeadingElement;
-import com.google.gwt.dom.client.ParagraphElement;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.FocusPanel;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.RichTextArea;
 
 /**
  * Text Widget for Contents
@@ -30,7 +25,7 @@ public class TextWidget extends AbstractWidget {
         bold.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-
+                execCommand("Bold", "false");
             }
         });
 
@@ -46,7 +41,7 @@ public class TextWidget extends AbstractWidget {
         element.setInnerText(text);
         element.setAttribute("contenteditable", "false");
 
-        html.setHTML("");
+        html.clear();
         html.getElement().appendChild(element);
     }
 
