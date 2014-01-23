@@ -87,43 +87,64 @@
 
     <dependencies>
 
-        <!--Spring Framework-->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${springframework.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-            <version>${springframework.data.version}</version>
-        </dependency>
+        <!--Spring Framework -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
 
-        <!--KoobeCommonLibrary-->
-        <dependency>
-            <groupId>koobe</groupId>
-            <artifactId>KoobeCommonCore</artifactId>
-            <version>${koobe.common.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>koobe</groupId>
-            <artifactId>KoobeCommonData</artifactId>
-            <version>${koobe.common.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>koobe</groupId>
-            <artifactId>KoobeCommonStorage</artifactId>
-            <version>${koobe.common.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>koobe</groupId>
-            <artifactId>KoobeCommonConverter</artifactId>
-            <version>${koobe.common.version}</version>
-            <scope>compile</scope>
-        </dependency>
+		<!-- Spring data -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>${springframework.data.version}</version>
+		</dependency>
+
+		<!-- Koobe Widget Library -->
+		<dependency>
+			<groupId>koobe</groupId>
+			<artifactId>KoobeWidgetLibrary</artifactId>
+			<version>${koobe.common.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!--KoobeCommonLibrary -->
+		<dependency>
+			<groupId>koobe</groupId>
+			<artifactId>KoobeCommonCore</artifactId>
+			<version>${koobe.common.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>koobe</groupId>
+			<artifactId>KoobeCommonData</artifactId>
+			<version>${koobe.common.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>koobe</groupId>
+			<artifactId>KoobeCommonStorage</artifactId>
+			<version>${koobe.common.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>koobe</groupId>
+			<artifactId>KoobeCommonConverter</artifactId>
+			<version>${koobe.common.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>koobe</groupId>
+			<artifactId>KoobeCommonModel</artifactId>
+			<version>${koobe.common.version}</version>
+			<scope>compile</scope>
+		</dependency>
 
         <!-- Servlet -->
         <dependency>
