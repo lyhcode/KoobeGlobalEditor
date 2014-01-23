@@ -226,6 +226,7 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 
     @UiHandler("mainPanel")
     void cancelAllEditableWidget(ClickEvent event) {
+        GWT.log("cancelAllEditableWidget()");
         AbstractWidget.turnOffActiveEditableWidget();
     }
 

@@ -1,5 +1,6 @@
 package com.koobe.editor.widget.client.ui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.user.client.DOM;
@@ -79,9 +80,11 @@ public abstract class AbstractWidget extends Composite {
     }
 
     public void setEditable(boolean editable) {
+        GWT.log("setEditable(" + editable + ")");
 
         // just ignore if status not change
-        if (isEditable() == editable) return;
+        GWT.log(isEditable() + "," + editable);
+        //if (isEditable() == editable) return;
 
         this.editable = editable;
 
