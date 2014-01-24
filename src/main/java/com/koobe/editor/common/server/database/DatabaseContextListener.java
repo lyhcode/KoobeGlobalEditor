@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.net.www.content.text.PlainTextInputStream;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.io.BufferedReader;
@@ -19,6 +20,9 @@ import java.net.URL;
  */
 public class DatabaseContextListener implements ServletContextListener {
 
+    final private static String RDS_SECURITY_GROUP_NAME = "rdsSecurityGroupName";
+    final private static String RDS_SECURITY_REQUEST = "RDS_SECURITY_REQUEST";
+
     private static final Logger log = LoggerFactory.getLogger(DatabaseContextListener.class);
 
     private static final KoobeConfig config = KoobeConfig.getInstance();
@@ -26,6 +30,15 @@ public class DatabaseContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
 
+        if (!hasRdsSecurityRequest()) {
+            log.info("RDS Security Request Feature: [Disable]");
+            return;
+        }
+
+        ServletContext context = servletContextEvent.getServletContext();
+
+        String rdsSecurityGroupName;
+        rdsSecurityGroupName = context.getInitParameter(RDS_SECURITY_GROUP_NAME);
 
         try {
             String address = getServerIPAddress() + "/32";
@@ -34,7 +47,7 @@ public class DatabaseContextListener implements ServletContextListener {
 
             DatabaseSecurityManager manager;
             manager = new RDSDatabaseSecurityManager(config.getAwsAccessKeyID(), config.getAwsSecretKey());
-            manager.allow("koobe-globaleditor", address);
+            manager.allow(rdsSecurityGroupName, address);
         }
         catch (IOException ex) {
             log.error(ex.getMessage());
@@ -78,5 +91,14 @@ public class DatabaseContextListener implements ServletContextListener {
         reader.close();
 
         return response;
+    }
+
+    /**
+     * Check whether rds security request enable?
+     * @return true if system property has been configured
+     */
+    private boolean hasRdsSecurityRequest() {
+        String value = System.getProperty(RDS_SECURITY_REQUEST);
+        return "true".equals(value);
     }
 }

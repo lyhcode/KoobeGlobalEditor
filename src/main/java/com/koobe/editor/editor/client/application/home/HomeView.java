@@ -227,7 +227,7 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
     @UiHandler("mainPanel")
     void cancelAllEditableWidget(ClickEvent event) {
         GWT.log("cancelAllEditableWidget()");
-        AbstractWidget.turnOffActiveEditableWidget();
+        AbstractWidget.getActiveEditableWidget().setEditable(false);
     }
 
     private void initDragAndDrop() {

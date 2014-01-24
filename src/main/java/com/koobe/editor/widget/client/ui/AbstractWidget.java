@@ -22,6 +22,10 @@ public abstract class AbstractWidget extends Composite {
         activeEditableWidget = widget;
     }
 
+    public static AbstractWidget getActiveEditableWidget() {
+        return activeEditableWidget;
+    }
+
     protected WidgetToolbar toolbar;
 
     protected FocusPanel focusPanel;

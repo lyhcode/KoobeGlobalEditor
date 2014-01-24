@@ -93,7 +93,8 @@ public class UploadServiceImpl extends RemoteServiceServlet implements
 
         try {
             FileOutputStream stream = new FileOutputStream(file, true);
-            stream.write(base64Encoding ? base64decoder.decode(chunk) : chunk.getBytes());
+            byte[] data = base64Encoding ? base64decoder.decode(chunk.getBytes()) : chunk.getBytes();
+            stream.write(data);
             stream.close();
         }
         catch (IOException ex) {

@@ -92,10 +92,14 @@
         <listener-class>com.koobe.editor.common.server.uploader.UploadContextListener</listener-class>
     </listener>
 
-    <!-- Database Security Manager
+    <!-- Database Security Manager -->
+    <context-param>
+        <param-name>rdsSecurityGroupName</param-name>
+        <param-value>koobe-globaleditor</param-value>
+    </context-param>
     <listener>
         <listener-class>com.koobe.editor.common.server.database.DatabaseContextListener</listener-class>
-    </listener> -->
+    </listener>
 
     <!--Session-->
     <session-config>

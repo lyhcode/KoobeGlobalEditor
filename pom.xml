@@ -29,7 +29,7 @@
 
     <groupId>koobe</groupId>
     <artifactId>KoobeGlobalEditor</artifactId>
-    <version>${koobe.application.version}</version>
+    <version>1.0</version>
 
     <name>Koobe Global Editor</name>
     <packaging>war</packaging>
@@ -364,7 +364,7 @@
                     <disableCastChecking>true</disableCastChecking>
                     <disableClassMetadata>true</disableClassMetadata>
                     <compileReport>false</compileReport>
-                    <extraJvmArgs>-Xmx1024m -Xms1024m -Xss1024k -XX:MaxPermSize=512m</extraJvmArgs>
+                    <extraJvmArgs>-Xmx1024m -Xms1024m -Xss1024k -XX:MaxPermSize=256m</extraJvmArgs>
                     <extraParam>true</extraParam>
                     <!--<localWorkers>16</localWorkers>-->
                 </configuration>
@@ -434,7 +434,7 @@
                     <cnamePrefix>kooberd-globaleditor</cnamePrefix>
                     <environmentName>kooberd-globaleditor</environmentName>
                     <s3Bucket>koobe-deploy</s3Bucket>
-                    <s3Key>${project.artifactId}/${project.build.finalName}.war</s3Key>
+                    <s3Key>${project.artifactId}/${beanstalk.versionLabel}.war</s3Key>
                 </configuration>
             </plugin>
         </plugins>
