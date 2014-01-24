@@ -13,14 +13,13 @@ public abstract class AbstractWidget extends Composite {
 
     private static AbstractWidget activeEditableWidget = null;
 
-    public static void turnOnActiveEditableWidget(AbstractWidget widget) {
-        activeEditableWidget = widget;
-    }
+    public static void setActiveEditableWidget(AbstractWidget widget) {
 
-    public static void turnOffActiveEditableWidget() {
-        if (activeEditableWidget != null) {
+        if (activeEditableWidget != null && activeEditableWidget != widget) {
             activeEditableWidget.setEditable(false);
         }
+
+        activeEditableWidget = widget;
     }
 
     protected WidgetToolbar toolbar;
@@ -90,8 +89,7 @@ public abstract class AbstractWidget extends Composite {
 
         if (editable) {
 
-            turnOffActiveEditableWidget();
-            turnOnActiveEditableWidget(this);
+            setActiveEditableWidget(this);
 
             focusPanel.addStyleName("book-widget-editable");
 

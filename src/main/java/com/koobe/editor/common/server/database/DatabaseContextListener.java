@@ -34,7 +34,7 @@ public class DatabaseContextListener implements ServletContextListener {
 
             DatabaseSecurityManager manager;
             manager = new RDSDatabaseSecurityManager(config.getAwsAccessKeyID(), config.getAwsSecretKey());
-            manager.allow("ec2", address);
+            manager.allow("koobe-globaleditor", address);
         }
         catch (IOException ex) {
             log.error(ex.getMessage());
@@ -42,7 +42,6 @@ public class DatabaseContextListener implements ServletContextListener {
         catch (Exception ex) {
             log.error(ex.getMessage());
         }
-
 
         log.info("Database Context Initialized");
     }
