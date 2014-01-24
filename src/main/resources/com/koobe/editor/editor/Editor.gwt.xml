@@ -30,14 +30,14 @@
     <inherits name="com.gwtplatform.mvp.MvpWithEntryPoint"/>
     <inherits name="com.gwtplatform.dispatch.Dispatch"/>
 
+    <!-- GWT-jQuery(gwtquery) -->
+    <inherits name="com.google.gwt.query.Query"/>
+    <inherits name="gwtquery.plugins.UiEmbedded"/>
+
     <!-- GWT-Bootstrap3 -->
     <inherits name="org.gwtbootstrap3.GwtBootstrap3NoTheme"/>
     <inherits name="org.gwtbootstrap3.extras.datetimepicker.DateTimePicker"/>
     <inherits name="org.gwtbootstrap3.extras.bootbox.Bootbox"/>
-
-    <!-- GWT-jQuery(gwtquery) -->
-    <inherits name="com.google.gwt.query.Query"/>
-    <inherits name="gwtquery.plugins.UiEmbedded"/>
 
     <!-- Other module inherits -->
     <inherits name="org.vectomatic.libgwtfile" />

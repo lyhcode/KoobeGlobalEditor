@@ -138,6 +138,5 @@
                 <g:AbsolutePanel ui:field="canvas" />
             </g:HTMLPanel>
         </g:FocusPanel>
-
     </g:HTMLPanel>
 </ui:UiBinder>

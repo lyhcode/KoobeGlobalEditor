@@ -1,7 +1,8 @@
 package com.koobe.editor.widget.client.ui;
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 
 /**
@@ -41,8 +42,7 @@ public class TextWidget extends AbstractWidget {
         element.setInnerText(text);
         element.setAttribute("contenteditable", "false");
 
-        html.clear();
-        html.getElement().appendChild(element);
+        html.updateElement(element);
     }
 
     @Override

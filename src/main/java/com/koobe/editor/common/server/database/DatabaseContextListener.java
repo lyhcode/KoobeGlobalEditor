@@ -21,7 +21,7 @@ import java.net.URL;
 public class DatabaseContextListener implements ServletContextListener {
 
     final private static String RDS_SECURITY_GROUP_NAME = "rdsSecurityGroupName";
-    final private static String RDS_SECURITY_REQUEST = "RDS_SECURITY_REQUEST";
+    final private static String RDS_SECURITY_REQUEST = "rds.security.request";
 
     private static final Logger log = LoggerFactory.getLogger(DatabaseContextListener.class);
 

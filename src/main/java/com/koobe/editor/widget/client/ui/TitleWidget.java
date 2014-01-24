@@ -1,8 +1,13 @@
 package com.koobe.editor.widget.client.ui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HTML;
 import org.gwtbootstrap3.client.ui.ButtonGroup;
 import org.gwtbootstrap3.client.ui.RadioButton;
 import org.gwtbootstrap3.client.ui.constants.Toggle;
@@ -12,13 +17,9 @@ import org.gwtbootstrap3.client.ui.constants.Toggle;
  */
 public class TitleWidget extends AbstractWidget {
 
-    public enum SIZE {
-        H1, H2, H3, H4, H5, H6;
-    }
-
     private SIZE size;
-
     private String text;
+    private ButtonGroup buttons;
 
     public TitleWidget(String text, SIZE size) {
 
@@ -29,12 +30,11 @@ public class TitleWidget extends AbstractWidget {
         drawWidget();
     }
 
-    private ButtonGroup buttons;
-
     @Override
     protected void initToolbar() {
 
         buttons = new ButtonGroup();
+        buttons.setName("sizeGroup");
         buttons.setToggle(Toggle.BUTTONS);
         buttons.add(makeSizeButton("H1", SIZE.H1));
         buttons.add(makeSizeButton("H2", SIZE.H2));
@@ -42,7 +42,6 @@ public class TitleWidget extends AbstractWidget {
         buttons.add(makeSizeButton("H4", SIZE.H4));
         buttons.add(makeSizeButton("H5", SIZE.H5));
         buttons.add(makeSizeButton("H6", SIZE.H6));
-
         toolbar.add(buttons);
     }
 
@@ -61,12 +60,15 @@ public class TitleWidget extends AbstractWidget {
 
         final RadioButton button = new RadioButton(label);
         button.setActive(this.size.equals(size));
-        button.addClickHandler(new ClickHandler() {
+        button.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
             @Override
-            public void onClick(ClickEvent event) {
-                resetAllButtons();
-                button.setActive(true);
+            public void onValueChange(ValueChangeEvent<Boolean> event) {
+                //resetAllButtons();
+                //button.setActive(true);
                 target.setSize(size);
+
+                //event.stopPropagation();
+                //event.preventDefault();
             }
         });
         return button;
@@ -79,8 +81,7 @@ public class TitleWidget extends AbstractWidget {
         element.setInnerText(text);
         element.setAttribute("contenteditable", "false");
 
-        html.clear();
-        html.getElement().appendChild(element);
+        html.updateElement(element);
     }
 
     @Override
@@ -102,7 +103,6 @@ public class TitleWidget extends AbstractWidget {
 
     public void setSize(SIZE size) {
         this.size = size;
-
         drawWidget();
     }
 
@@ -112,5 +112,9 @@ public class TitleWidget extends AbstractWidget {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public enum SIZE {
+        H1, H2, H3, H4, H5, H6;
     }
 }

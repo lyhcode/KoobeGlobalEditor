@@ -30,7 +30,7 @@ public abstract class AbstractWidget extends Composite {
 
     protected FocusPanel focusPanel;
 
-    protected HTMLPanel html;
+    protected WidgetHTML html;
 
     protected boolean editable = false;
 
@@ -73,9 +73,7 @@ public abstract class AbstractWidget extends Composite {
 
         initWidget(focusPanel);
 
-        html = new HTMLPanel("");
-
-        focusPanel.add(html);
+        focusPanel.add(html = new WidgetHTML());
     }
 
     public boolean isEditable() {
@@ -83,11 +81,8 @@ public abstract class AbstractWidget extends Composite {
     }
 
     public void setEditable(boolean editable) {
-        GWT.log("setEditable(" + editable + ")");
 
-        // just ignore if status not change
-        GWT.log(isEditable() + "," + editable);
-        //if (isEditable() == editable) return;
+        if (isEditable() == editable) return;
 
         this.editable = editable;
 
