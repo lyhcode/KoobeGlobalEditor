@@ -17,6 +17,9 @@
 
     <!-- Editor Common Library -->
     <inherits name="com.koobe.editor.common.Common" />
+    
+    <!-- For Demo Purpose -->
+    <inherits name="com.koobe.common.gwt.demo.service.DemoService"/>
 
     <public path="resource">
         <include name="css/*.css"/>
