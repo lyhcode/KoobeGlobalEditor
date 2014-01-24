@@ -7,7 +7,7 @@ import com.koobe.editor.login.shared.LoginResult;
 /**
  * The client side stub for the RPC service.
  */
-@RemoteServiceRelativePath("login")
+@RemoteServiceRelativePath("../login.rpc")
 public interface LoginService extends RemoteService {
     LoginResult auth(String username, String password) throws IllegalArgumentException;
 }
