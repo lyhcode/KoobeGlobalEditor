@@ -47,44 +47,40 @@ public class MonitorView extends ViewImpl implements MonitorPresenter.MyView {
     @UiField
     Button refreshButton;
     
-    MyDemoServiceAsync service = GWT.create(MyDemoService.class);
+//    MyDemoServiceAsync service = GWT.create(MyDemoService.class);
 
     @UiHandler("refreshButton")
     void onRefreshButtonClick(ClickEvent event) {
-        //Window.alert("rest");
 
-//        $("#monitor-table-body").append("<tr><td>123</td></tr>");
-    	
-//    	Book book = new Book();
-//    	book.setBucket("aaaa");
+        $("#monitor-table-body").append("<tr><td>123</td></tr>");
         
-        service.getExtractEpubRequest(new AsyncCallback<ExtractEpubRequest>() {
-			@Override
-			public void onSuccess(ExtractEpubRequest result) {
-				String value = result.getAction() + result.getDestBucket() + result.getDestPath() + 
-						result.getSrcBucket() + result.getSrcPath();
-				$("#monitor-table-body").append("<tr><td>"+value+"</td></tr>");
-			}
-			
-			@Override
-			public void onFailure(Throwable caught) {
-				$("#monitor-table-body").append("<tr><td>"+caught.getMessage()+"</td></tr>");
-			}
-		});
-        
-        service.getConvertEpubRequest(new AsyncCallback<ConvertEpubRequest>() {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				$("#monitor-table-body").append("<tr><td>"+caught.getMessage()+"</td></tr>");
-			}
-
-			@Override
-			public void onSuccess(ConvertEpubRequest result) {
-				String value = result.getDestFileType().toString() + result.getAction() + result.getSrcPath();
-				FileTypeEnum t = result.getSrcFileType();
-				$("#monitor-table-body").append("<tr><td>"+value+"</td></tr>" + "<tr><td>"+t.toString()+"</td></tr>");
-			}
-		});
+//        service.getExtractEpubRequest(new AsyncCallback<ExtractEpubRequest>() {
+//			@Override
+//			public void onSuccess(ExtractEpubRequest result) {
+//				String value = result.getAction() + result.getDestBucket() + result.getDestPath() + 
+//						result.getSrcBucket() + result.getSrcPath();
+//				$("#monitor-table-body").append("<tr><td>"+value+"</td></tr>");
+//			}
+//			
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				$("#monitor-table-body").append("<tr><td>"+caught.getMessage()+"</td></tr>");
+//			}
+//		});
+//        
+//        service.getConvertEpubRequest(new AsyncCallback<ConvertEpubRequest>() {
+//
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				$("#monitor-table-body").append("<tr><td>"+caught.getMessage()+"</td></tr>");
+//			}
+//
+//			@Override
+//			public void onSuccess(ConvertEpubRequest result) {
+//				String value = result.getDestFileType().toString() + result.getAction() + result.getSrcPath();
+//				FileTypeEnum t = result.getSrcFileType();
+//				$("#monitor-table-body").append("<tr><td>"+value+"</td></tr>" + "<tr><td>"+t.toString()+"</td></tr>");
+//			}
+//		});
     }
 }
