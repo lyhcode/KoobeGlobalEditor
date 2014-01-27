@@ -3,7 +3,9 @@ package com.koobe.editor.widget.client.ui;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
+import org.gwtbootstrap3.client.ui.Button;
+import org.gwtbootstrap3.client.ui.ButtonGroup;
+import org.gwtbootstrap3.client.ui.constants.Toggle;
 
 /**
  * Text Widget for Contents
@@ -21,6 +23,11 @@ public class TextWidget extends AbstractWidget {
 
     @Override
     protected void initToolbar() {
+
+        ButtonGroup buttons = new ButtonGroup();
+
+        buttons.setToggle(Toggle.BUTTONS);
+
         Button bold = new Button("B");
 
         bold.addClickHandler(new ClickHandler() {
@@ -33,6 +40,8 @@ public class TextWidget extends AbstractWidget {
         toolbar.add(bold);
 
         toolbar.add(new Button("ITALIC"));
+
+        toolbar.add(buttons);
     }
 
     @Override
@@ -40,9 +49,8 @@ public class TextWidget extends AbstractWidget {
 
         element = Document.get().createPElement();
         element.setInnerText(text);
-        element.setAttribute("contenteditable", "false");
 
-        html.updateElement(element);
+        html.update(element);
     }
 
     @Override
@@ -51,10 +59,10 @@ public class TextWidget extends AbstractWidget {
         super.setEditable(editable);
 
         if (editable) {
-            element.setAttribute("contenteditable", "true");
+            focusPanel.getElement().setAttribute("contenteditable", "true");
         }
         else {
-            element.setAttribute("contenteditable", "false");
+            focusPanel.getElement().setAttribute("contenteditable", "false");
         }
     }
 

@@ -53,6 +53,7 @@
     <inherits name="com.example.Example" />
 
     <public path="resource">
+        <include name="template/*.css"/>
         <include name="css/*.css"/>
         <include name="js/*.js"/>
 
@@ -71,6 +72,9 @@
     <stylesheet src="sheldon/css/font-awesome.min.css"/>
     <stylesheet src="sheldon/css/style.css"/>
     <stylesheet src="css/style.css"/>
+
+    <!-- Template -->
+    <stylesheet src="template/default.css"/>
 
     <!-- Specify the paths for translatable code -->
     <source path="client"/>

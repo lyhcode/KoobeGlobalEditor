@@ -44,7 +44,7 @@ public class CodeWidget extends AbstractWidget {
         element.setInnerText(text);
         element.setAttribute("contenteditable", "false");
 
-        html.updateElement(element);
+        html.update(element);
     }
 
     @Override

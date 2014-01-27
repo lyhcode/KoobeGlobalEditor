@@ -8,6 +8,6 @@ public class RandomText {
     private static LoremIpsum loremIpsum = new LoremIpsum();
 
     public static String getContent() {
-        return loremIpsum.sentences(10);
+        return loremIpsum.sentences(5);
     }
 }

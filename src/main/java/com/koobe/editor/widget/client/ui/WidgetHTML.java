@@ -8,7 +8,21 @@ import com.google.gwt.user.client.ui.HTML;
  */
 public class WidgetHTML extends HTML {
 
-    public void updateElement(Element element) {
-        this.getElement().appendChild(element);
+    public WidgetHTML() {
+        addStyleName("widget");
+        addStyleName("content");
+    }
+
+    public void update(Element element) {
+        clear();
+        getElement().appendChild(element);
+    }
+
+    public void clear() {
+        int count = getElement().getChildCount();
+
+        for (int i = 0; i < count; i++) {
+            getElement().getChild(i).removeFromParent();
+        }
     }
 }

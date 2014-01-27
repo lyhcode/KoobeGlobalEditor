@@ -37,7 +37,7 @@
         margin: 0 auto;
         border: 1px solid #fff;
         box-shadow: 5px 5px 5px #aaa;
-        padding: 15px;
+        padding: 3% 5%;
         min-height: 1024px;
     }
     .viewport {
