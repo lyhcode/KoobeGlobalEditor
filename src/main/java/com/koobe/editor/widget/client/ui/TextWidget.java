@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import org.gwtbootstrap3.client.ui.Button;
 import org.gwtbootstrap3.client.ui.ButtonGroup;
+import org.gwtbootstrap3.client.ui.constants.IconType;
 import org.gwtbootstrap3.client.ui.constants.Toggle;
 
 /**
@@ -26,22 +27,36 @@ public class TextWidget extends AbstractWidget {
 
         ButtonGroup buttons = new ButtonGroup();
 
-        buttons.setToggle(Toggle.BUTTONS);
+        buttons.add(makeCommandButton(IconType.BOLD, "bold"));
+        buttons.add(makeCommandButton(IconType.ITALIC, "italic"));
+        buttons.add(makeCommandButton(IconType.UNDO, "undo"));
 
-        Button bold = new Button("B");
+        toolbar.add(buttons);
+    }
 
-        bold.addClickHandler(new ClickHandler() {
+    private Button makeCommandButton(IconType icon, String command) {
+        return makeCommandButton(icon, "", command);
+    }
+
+    private Button makeCommandButton(String label, String command) {
+        return makeCommandButton(null, label, command);
+    }
+
+    private Button makeCommandButton(IconType icon, String label, final String command) {
+        Button button = new Button(label);
+
+        if (icon != null) {
+            button.setIcon(icon);
+        }
+
+        button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-                execCommand("Bold", "false");
+                execCommand(command, "false");
             }
         });
 
-        toolbar.add(bold);
-
-        toolbar.add(new Button("ITALIC"));
-
-        toolbar.add(buttons);
+        return button;
     }
 
     @Override

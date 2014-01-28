@@ -40,7 +40,7 @@ public class CodeWidget extends AbstractWidget {
     @Override
     protected void drawWidget() {
 
-        element = Document.get().createDivElement();
+        element = Document.get().createPreElement();
         element.setInnerText(text);
         element.setAttribute("contenteditable", "false");
 
