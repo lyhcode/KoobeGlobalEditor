@@ -1,10 +1,14 @@
 package com.koobe.editor.widget.client.ui;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FocusPanel;
+import com.google.gwt.user.client.ui.RootPanel;
+
+import static com.google.gwt.query.client.GQuery.$;
 
 /**
  * Created by lyhcode on 2014/1/21.
@@ -126,7 +130,7 @@ public abstract class AbstractWidget extends Composite {
 
         final AbstractWidget targetWidget = this;
 
-        removeButton = new Anchor("x");
+        removeButton = new Anchor("×");
 
         removeButton.addClickHandler(new ClickHandler() {
             @Override
@@ -139,12 +143,19 @@ public abstract class AbstractWidget extends Composite {
         removeButton.setStyleName("book-widget-remove-button");
 
         DOM.setStyleAttribute(removeButton.getElement(), "position", "relative");
-        DOM.setStyleAttribute(removeButton.getElement(), "left", (focusPanel.getElement().getAbsoluteLeft() + focusPanel.getElement().getClientWidth()) + "px");
+        DOM.setStyleAttribute(removeButton.getElement(), "left", (focusPanel.getElement().getAbsoluteLeft() + focusPanel.getElement().getClientWidth() - 10) + "px");
 
         RootPanel.get().add(removeButton);
 
-        DOM.setStyleAttribute(removeButton.getElement(), "top", (focusPanel.getElement().getAbsoluteTop() - removeButton.getElement().getClientHeight()) + "px");
+        DOM.setStyleAttribute(removeButton.getElement(), "top", (focusPanel.getElement().getAbsoluteTop() - removeButton.getElement().getClientHeight() - 45) + "px");
 
+        $(removeButton).css("color", "red");
+        $(removeButton).css("font-family", "verdana");
+        $(removeButton).css("font-size", "16px");
+        $(removeButton).css("background-color", "#fff");
+        $(removeButton).css("border", "1px solid #51bfd2");
+        $(removeButton).css("border-radius", "2px");
+        $(removeButton).css("padding", "3px");
     }
 
     private void hideRemoveButton() {
@@ -156,8 +167,19 @@ public abstract class AbstractWidget extends Composite {
 
     protected abstract void drawWidget();
 
-    native void execCommand(String cmd, String param) /*-{
-        $wnd.document.execCommand(cmd, false, param);
+    protected void execCommand(String aCommandName, String aValueArgument) {
+        execCommand(aCommandName, false, aValueArgument);
+    }
+
+    protected native void execCommand(String aCommandName, Boolean aShowDefaultUI, String aValueArgument) /*-{
+        $wnd.console.log(aCommandName);
+        $wnd.console.log(aShowDefaultUI);
+        $wnd.console.log(aValueArgument);
+
+        var result =
+        $wnd.document.execCommand(aCommandName, aShowDefaultUI, aValueArgument);
+
+        $wnd.console.log(result);
     }-*/;
 
     public int getWidgetLeft() {
@@ -168,5 +190,7 @@ public abstract class AbstractWidget extends Composite {
         return focusPanel.getElement().getAbsoluteTop();
     }
 
-
+    public String getHTML() {
+        return html.getHTML();
+    }
 }

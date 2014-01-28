@@ -1,10 +1,12 @@
 .content {
     color: #333;
+    font-size: 22px;
+    padding: 3% 8%;
 }
 
 .content h1 {
     font-family: Georgia, serif;
-    font-size: 32px;
+    font-size: 38px;
     color: #000;
     border-bottom: 1px solid #DDD;
     line-height: 200%;
@@ -12,30 +14,29 @@
 
 .content h2 {
     font-family: Georgia, serif;
-    font-size: 28px;
+    font-size: 32px;
     color: #555;
     line-height: 150%;
 }
 
 .content h3 {
-    font-size: 22px;
+    font-size: 28px;
 }
 
 .content h4 {
-    font-size: 20px;;
+    font-size: 26px;;
 }
 
 .content h5 {
-    font-size: 18px;
+    font-size: 24px;
 }
 
 .content h6 {
-    font-size: 16px;
+    font-size: 22px;
 }
 
 .content p {
     font-family: Verdana, sans-serif;
-    font-size: 16px;
     line-height: 150%;
     color: #555;
     margin-top: 10px;
@@ -44,4 +45,18 @@
 
 .content pre {
     font-family: monospace, "courier new";
+}
+
+.content blockquote {
+  padding: 10px;
+}
+
+.content blockquote p {
+  font-family: Georgia, serif;
+  line-height: 150%;
+  font-size: 22px;
+}
+
+.content img {
+    max-width: 100%;
 }

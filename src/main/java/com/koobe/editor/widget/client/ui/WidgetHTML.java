@@ -10,7 +10,7 @@ public class WidgetHTML extends HTML {
 
     public WidgetHTML() {
         addStyleName("widget");
-        addStyleName("content");
+        //addStyleName("content");
     }
 
     public void update(Element element) {

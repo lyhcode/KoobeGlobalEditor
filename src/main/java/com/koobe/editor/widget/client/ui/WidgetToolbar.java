@@ -1,14 +1,14 @@
 package com.koobe.editor.widget.client.ui;
 
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
+import org.gwtbootstrap3.client.ui.ButtonToolBar;
 
 /**
  * Created by lyhcode on 2014/1/23.
  */
-public class WidgetToolbar extends HorizontalPanel {
+public class WidgetToolbar extends ButtonToolBar {
 
     private int widgetLeft;
     private int widgetTop;

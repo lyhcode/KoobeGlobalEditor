@@ -6,6 +6,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.query.client.Function;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -15,10 +16,8 @@ import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.koobe.editor.editor.client.helper.RandomText;
-import com.koobe.editor.widget.client.ui.AbstractWidget;
-import com.koobe.editor.widget.client.ui.CodeWidget;
-import com.koobe.editor.widget.client.ui.TextWidget;
-import com.koobe.editor.widget.client.ui.TitleWidget;
+import com.koobe.editor.widget.client.ui.*;
+import org.gwtbootstrap3.extras.bootbox.client.Bootbox;
 
 import static com.google.gwt.query.client.GQuery.$;
 
@@ -34,7 +33,7 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
     private PickupDragController dragController;
 
     @UiField
-    AbsolutePanel canvas;
+    BookCanvas canvas;
 
     @Inject
     public HomeView(Binder binder, PlaceManager placeManager) {
@@ -174,6 +173,11 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
         */
     }
 
+    @UiHandler("showHTMLButton")
+    void showHTML(ClickEvent event) {
+        Bootbox.alert("<pre>" + SafeHtmlUtils.htmlEscape(canvas.getWidgetsAsString()) + "</pre>");
+    }
+
     @UiHandler("titleWidget")
     void createTitleWidget(ClickEvent event) {
         TitleWidget.SIZE size = TitleWidget.SIZE.H1;
@@ -209,6 +213,31 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
         addWidgetToCanvas(new CodeWidget("public class Main {\n  String name;\n}\n"));
     }
 
+    @UiHandler("imageWidget")
+    void createImageWidget(ClickEvent event) {
+        String src = "http://www.team-bhp.com/forum/attachments/shifting-gears/1033178d1356977973-official-non-auto-image-thread-_mg_0143.jpg";
+
+        addWidgetToCanvas(new ImageWidget(src, ImageWidget.ALIGN.CENTER));
+    }
+
+    @UiHandler("quoteWidget")
+    void createQuoteWidget(ClickEvent event) {
+        addWidgetToCanvas(new QuoteWidget(RandomText.getContent(2)));
+    }
+
+    @UiHandler("youtubeWidget")
+    void createYoutubeWidget(ClickEvent event) {
+        addWidgetToCanvas(new YoutubeWidget("ZKEaypYJbb4"));
+        /**
+         * <iframe width="560" height="315" src="//www.youtube.com/embed/ZKEaypYJbb4" frameborder="0" allowfullscreen></iframe>
+         */
+    }
+
+    @UiHandler("audioWidget")
+    void createAudioWidget(ClickEvent event) {
+        addWidgetToCanvas(new AudioWidget("http://hpr.dogphilosophy.net/test/mp3.mp3"));
+    }
+
     private void addWidgetToCanvas(final Widget widget) {
         widget.setVisible(false);
 
@@ -227,7 +256,12 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
     @UiHandler("mainPanel")
     void cancelAllEditableWidget(ClickEvent event) {
         GWT.log("cancelAllEditableWidget()");
-        AbstractWidget.getActiveEditableWidget().setEditable(false);
+
+        AbstractWidget widget = AbstractWidget.getActiveEditableWidget();
+
+        if (widget != null) {
+            widget.setEditable(false);
+        }
     }
 
     private void initDragAndDrop() {

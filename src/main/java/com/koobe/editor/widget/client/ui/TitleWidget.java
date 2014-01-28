@@ -74,7 +74,6 @@ public class TitleWidget extends AbstractWidget {
 
         element = Document.get().createHElement(size.ordinal() + 1);
         element.setInnerText(text);
-        element.setAttribute("contenteditable", "false");
 
         html.update(element);
     }
@@ -88,7 +87,7 @@ public class TitleWidget extends AbstractWidget {
             element.setAttribute("contenteditable", "true");
         }
         else {
-            element.setAttribute("contenteditable", "false");
+            element.removeAttribute("contenteditable");
         }
     }
 

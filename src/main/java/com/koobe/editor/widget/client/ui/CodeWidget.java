@@ -1,11 +1,6 @@
 package com.koobe.editor.widget.client.ui;
 
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Button;
-
-import static com.google.gwt.query.client.GQuery.$;
 
 /**
  * Text Widget for Contents
@@ -23,18 +18,6 @@ public class CodeWidget extends AbstractWidget {
 
     @Override
     protected void initToolbar() {
-        Button bold = new Button("B");
-
-        bold.addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-
-            }
-        });
-
-        toolbar.add(bold);
-
-        toolbar.add(new Button("ITALIC"));
     }
 
     @Override
@@ -42,7 +25,6 @@ public class CodeWidget extends AbstractWidget {
 
         element = Document.get().createPreElement();
         element.setInnerText(text);
-        element.setAttribute("contenteditable", "false");
 
         html.update(element);
     }
@@ -56,7 +38,7 @@ public class CodeWidget extends AbstractWidget {
             element.setAttribute("contenteditable", "true");
         }
         else {
-            element.setAttribute("contenteditable", "false");
+            element.removeAttribute("contenteditable");
         }
     }
 
