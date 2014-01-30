@@ -1,5 +1,6 @@
 package com.koobe.editor.widget.client.ui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.IFrameElement;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -78,13 +79,18 @@ public class YoutubeWidget extends AbstractWidget {
 
         element.setAttribute("frameborder", "0");
 
-        $(element).css("width", "100%");
+        //$(element).css("width", "100%");
 
         html.update(element);
 
         //$(html).css("text-align", align.toString().toLowerCase());
 
-        $(element).css("min-height", "480px");
+        $(element).css("width", "100%");
+        GWT.log($(element).width() + "");
+        GWT.log(html.getElement().getClientWidth() + "");
+        GWT.log(html.getOffsetWidth() + "");
+
+        $(element).height($(element).width()/16*9);
     }
 
     @Override

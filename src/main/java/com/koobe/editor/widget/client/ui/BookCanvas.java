@@ -7,6 +7,7 @@ import com.google.gwt.user.client.ui.Widget;
  * Created by lyhcode on 2014/1/28.
  */
 public class BookCanvas extends AbsolutePanel {
+
     public String getWidgetsAsString() {
         int count = getWidgetCount();
 

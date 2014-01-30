@@ -50,7 +50,7 @@ public abstract class AbstractWidget extends Composite {
             public void onClick(ClickEvent event) {
                 setEditable(true);
 
-                event.preventDefault();
+                //event.preventDefault();
                 event.stopPropagation();
             }
         });
