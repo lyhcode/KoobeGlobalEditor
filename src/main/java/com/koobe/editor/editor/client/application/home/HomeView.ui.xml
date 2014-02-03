@@ -137,8 +137,10 @@
         </div>
 
         <g:FocusPanel styleName="{style.main}" ui:field="mainPanel">
-            <g:HTMLPanel styleName="{style.paper} content">
-                <widget:BookCanvas ui:field="canvas" />
+            <g:HTMLPanel styleName="{style.paper}">
+                <div class="content">
+                    <widget:BookCanvas ui:field="canvas" />
+                </div>
             </g:HTMLPanel>
         </g:FocusPanel>
     </g:HTMLPanel>

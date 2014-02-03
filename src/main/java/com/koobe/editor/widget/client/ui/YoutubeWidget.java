@@ -5,6 +5,8 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.IFrameElement;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 import org.gwtbootstrap3.client.ui.ButtonGroup;
 import org.gwtbootstrap3.client.ui.RadioButton;
 import org.gwtbootstrap3.client.ui.constants.IconType;
@@ -78,19 +80,27 @@ public class YoutubeWidget extends AbstractWidget {
         ((IFrameElement)element).setSrc("//www.youtube.com/embed/" + videoId);
 
         element.setAttribute("frameborder", "0");
+        element.setClassName("youtube-video ");
 
         //$(element).css("width", "100%");
 
         html.update(element);
 
-        //$(html).css("text-align", align.toString().toLowerCase());
-
         $(element).css("width", "100%");
-        GWT.log($(element).width() + "");
-        GWT.log(html.getElement().getClientWidth() + "");
-        GWT.log(html.getOffsetWidth() + "");
 
-        $(element).height($(element).width()/16*9);
+        new Timer() {
+            @Override
+            public void run() {
+                $(element).height($(element).width() / 16 * 9);
+            }
+        }.schedule(3000);
+
+        Window.addWindowScrollHandler(new Window.ScrollHandler() {
+            @Override
+            public void onWindowScroll(Window.ScrollEvent scrollEvent) {
+                $(element).height($(element).width() / 16 * 9);
+            }
+        });
     }
 
     @Override

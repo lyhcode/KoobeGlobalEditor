@@ -1,7 +1,13 @@
+
 .content {
     color: #333;
     font-size: 22px;
     padding: 3% 8%;
+}
+
+.content .widget {
+    margin: 0;
+    padding: 0;
 }
 
 .content h1 {

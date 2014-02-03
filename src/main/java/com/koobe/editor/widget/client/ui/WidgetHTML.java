@@ -9,8 +9,7 @@ import com.google.gwt.user.client.ui.HTML;
 public class WidgetHTML extends HTML {
 
     public WidgetHTML() {
-        addStyleName("widget");
-        //addStyleName("content");
+        setStyleName("widget");
     }
 
     public void update(Element element) {

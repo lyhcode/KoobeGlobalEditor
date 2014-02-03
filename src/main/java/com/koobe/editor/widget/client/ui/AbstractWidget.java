@@ -1,5 +1,6 @@
 package com.koobe.editor.widget.client.ui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.user.client.DOM;
@@ -7,6 +8,7 @@ import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.koobe.editor.editor.client.application.home.HomeBundle;
 
 import static com.google.gwt.query.client.GQuery.$;
 
@@ -14,6 +16,8 @@ import static com.google.gwt.query.client.GQuery.$;
  * Created by lyhcode on 2014/1/21.
  */
 public abstract class AbstractWidget extends Composite {
+
+    final WidgetBundle bundle = GWT.create(WidgetBundle.class);
 
     private static AbstractWidget activeEditableWidget = null;
 
@@ -41,9 +45,12 @@ public abstract class AbstractWidget extends Composite {
     protected Element element;
 
     public AbstractWidget() {
+
+        bundle.style().ensureInjected();
+
         focusPanel = new FocusPanel();
 
-        focusPanel.addStyleName("book-widget");
+        focusPanel.addStyleName(bundle.style().widget());
 
         focusPanel.addClickHandler(new ClickHandler() {
             @Override
@@ -64,14 +71,14 @@ public abstract class AbstractWidget extends Composite {
         focusPanel.addMouseOverHandler(new MouseOverHandler() {
             @Override
             public void onMouseOver(MouseOverEvent event) {
-                focusPanel.addStyleName("book-widget-mouse-over");
+                focusPanel.addStyleName(bundle.style().widgetMouseOver());
             }
         });
 
         focusPanel.addMouseOutHandler(new MouseOutHandler() {
             @Override
             public void onMouseOut(MouseOutEvent event) {
-                focusPanel.removeStyleName("book-widget-mouse-over");
+                focusPanel.removeStyleName(bundle.style().widgetMouseOver());
             }
         });
 
@@ -94,13 +101,13 @@ public abstract class AbstractWidget extends Composite {
 
             setActiveEditableWidget(this);
 
-            focusPanel.addStyleName("book-widget-editable");
+            focusPanel.addStyleName(bundle.style().widgetEditable());
 
             showToolbar();
             showRemoveButton();
         }
         else {
-            focusPanel.removeStyleName("book-widget-editable");
+            focusPanel.removeStyleName(bundle.style().widgetEditable());
 
             hideToolbar();
             hideRemoveButton();
@@ -140,7 +147,7 @@ public abstract class AbstractWidget extends Composite {
             }
         });
 
-        removeButton.setStyleName("book-widget-remove-button");
+        removeButton.setStyleName(bundle.style().widgetRemoveButton());
 
         DOM.setStyleAttribute(removeButton.getElement(), "position", "relative");
         DOM.setStyleAttribute(removeButton.getElement(), "left", (focusPanel.getElement().getAbsoluteLeft() + focusPanel.getElement().getClientWidth() - 10) + "px");
@@ -148,14 +155,6 @@ public abstract class AbstractWidget extends Composite {
         RootPanel.get().add(removeButton);
 
         DOM.setStyleAttribute(removeButton.getElement(), "top", (focusPanel.getElement().getAbsoluteTop() - removeButton.getElement().getClientHeight() - 45) + "px");
-
-        $(removeButton).css("color", "red");
-        $(removeButton).css("font-family", "verdana");
-        $(removeButton).css("font-size", "16px");
-        $(removeButton).css("background-color", "#fff");
-        $(removeButton).css("border", "1px solid #51bfd2");
-        $(removeButton).css("border-radius", "2px");
-        $(removeButton).css("padding", "3px");
     }
 
     private void hideRemoveButton() {
