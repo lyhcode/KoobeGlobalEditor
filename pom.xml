@@ -364,7 +364,7 @@
                     <disableCastChecking>true</disableCastChecking>
                     <disableClassMetadata>true</disableClassMetadata>
                     <compileReport>false</compileReport>
-                    <extraJvmArgs>-Xmx1024m -Xms1024m -Xss1024k -XX:MaxPermSize=256m</extraJvmArgs>
+                    <!--<extraJvmArgs>-Xmx1024m -Xms1024m -Xss1024k -XX:MaxPermSize=256m</extraJvmArgs>-->
                     <extraParam>true</extraParam>
                     <!--<localWorkers>16</localWorkers>-->
                 </configuration>
