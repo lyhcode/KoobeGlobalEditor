@@ -47,7 +47,16 @@
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>*.rpc</url-pattern>
-	</servlet-mapping> 
+	</servlet-mapping>
+	
+	<filter>
+		<filter-name>GWTCacheControlFilter</filter-name>
+		<filter-class>com.koobe.editor.web.filter.GWTCacheControlFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>GWTCacheControlFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
     <!-- Login Servlets -->
     <!-- <servlet>
