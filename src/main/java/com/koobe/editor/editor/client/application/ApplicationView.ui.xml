@@ -6,14 +6,6 @@
              xmlns:editor="urn:import:com.koobe.editor.editor.client.ui">
     <ui:style>
     </ui:style>
-    <g:HTMLPanel>
-
-        <!-- Main Place Container -->
-        <g:HTMLPanel ui:field="container" />
-
-        <!-- Loading -->
-        <common:LoadingIndicator ui:field="loading" />
-
-    </g:HTMLPanel>
-
+    <!-- Main Place Container -->
+    <g:HTMLPanel ui:field="container" />
 </ui:UiBinder>

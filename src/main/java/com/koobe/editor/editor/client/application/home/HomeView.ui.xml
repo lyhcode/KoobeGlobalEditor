@@ -15,7 +15,6 @@
         text-align: center;
     }
     .sidebar {
-        z-index: 9999;
         float: right;
         position: fixed;
         width: 200px;
@@ -26,7 +25,7 @@
         background-color: #51bfd2;
         height: 50px;
         border: none;
-        padding-left: 250px;
+        margin-left: 200px;
     }
     .main {
         padding-left: 250px;
@@ -76,6 +75,19 @@
         display: inline-block;
         text-align: center;
         cursor: pointer;
+    }
+    .chapterSlider {
+        width: 100%;
+        height: 160px;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding-left:220px;
+    }
+    .chapterSlider>div {
+        height: 100%;
+        background-color: #51bfd2;
     }
     </ui:style>
     <g:HTMLPanel styleName="{style.viewport}">
@@ -133,7 +145,6 @@
                     </g:InlineHTML>
                 </li>
             </ul>
-
         </div>
 
         <g:FocusPanel styleName="{style.main}" ui:field="mainPanel">
@@ -143,5 +154,12 @@
                 </div>
             </g:HTMLPanel>
         </g:FocusPanel>
+
+        <!--Chapter Selector-->
+        <div class="{style.chapterSlider}">
+            <widget:BookChapterSlider ui:field="chapterSlider" />
+        </div>
+
+
     </g:HTMLPanel>
 </ui:UiBinder>

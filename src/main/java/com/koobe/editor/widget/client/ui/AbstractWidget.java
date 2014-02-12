@@ -3,14 +3,8 @@ package com.koobe.editor.widget.client.ui;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.*;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.koobe.editor.editor.client.application.home.HomeBundle;
-
-import static com.google.gwt.query.client.GQuery.$;
 
 /**
  * Created by lyhcode on 2014/1/21.
@@ -35,6 +29,8 @@ public abstract class AbstractWidget extends Composite {
     }
 
     protected WidgetToolbar toolbar;
+
+    protected WidgetRemoveButton removeButton;
 
     protected FocusPanel focusPanel;
 
@@ -82,6 +78,13 @@ public abstract class AbstractWidget extends Composite {
             }
         });
 
+        focusPanel.addDragStartHandler(new DragStartHandler() {
+            @Override
+            public void onDragStart(DragStartEvent dragStartEvent) {
+                GWT.log("onDragStart");
+            }
+        });
+
         initWidget(focusPanel);
 
         focusPanel.add(html = new WidgetHTML());
@@ -117,11 +120,8 @@ public abstract class AbstractWidget extends Composite {
     protected abstract void initToolbar();
 
     private void showToolbar() {
-
-        toolbar = new WidgetToolbar(getWidgetLeft(), getWidgetTop());
-
+        toolbar = new WidgetToolbar(this);
         initToolbar();
-
         toolbar.show();
     }
 
@@ -131,36 +131,15 @@ public abstract class AbstractWidget extends Composite {
         }
     }
 
-    private Anchor removeButton;
-
     private void showRemoveButton() {
-
-        final AbstractWidget targetWidget = this;
-
-        removeButton = new Anchor("×");
-
-        removeButton.addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                targetWidget.setEditable(false);
-                targetWidget.removeFromParent();
-            }
-        });
-
+        removeButton = new WidgetRemoveButton(this);
         removeButton.setStyleName(bundle.style().widgetRemoveButton());
-
-        DOM.setStyleAttribute(removeButton.getElement(), "position", "relative");
-        DOM.setStyleAttribute(removeButton.getElement(), "left", (focusPanel.getElement().getAbsoluteLeft() + focusPanel.getElement().getClientWidth() - 10) + "px");
-
-        RootPanel.get().add(removeButton);
-
-        DOM.setStyleAttribute(removeButton.getElement(), "top", (focusPanel.getElement().getAbsoluteTop() - removeButton.getElement().getClientHeight() - 45) + "px");
+        removeButton.show();
     }
 
     private void hideRemoveButton() {
-
         if (removeButton != null) {
-            RootPanel.get().remove(removeButton);
+           removeButton.hide();
         }
     }
 
@@ -187,6 +166,10 @@ public abstract class AbstractWidget extends Composite {
 
     public int getWidgetTop() {
         return focusPanel.getElement().getAbsoluteTop();
+    }
+
+    public int getWidgetWidth() {
+        return focusPanel.getElement().getClientWidth();
     }
 
     public String getHTML() {

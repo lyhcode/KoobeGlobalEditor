@@ -10,25 +10,27 @@ import org.gwtbootstrap3.client.ui.ButtonToolBar;
  */
 public class WidgetToolbar extends ButtonToolBar {
 
-    private int widgetLeft;
-    private int widgetTop;
+    private AbstractWidget widget;
 
     private Element element;
 
-    public WidgetToolbar(int widgetLeft, int widgetTop) {
-        this.widgetLeft = widgetLeft;
-        this.widgetTop = widgetTop;
-
+    public WidgetToolbar(AbstractWidget widget) {
+        this.widget = widget;
         this.element = this.getElement();
 
-        DOM.setStyleAttribute(element, "position", "relative");
+        initStyles();
+    }
+
+    private void initStyles() {
+        DOM.setStyleAttribute(element, "display", "inline-block");
+        DOM.setStyleAttribute(element, "position", "absolute");
     }
 
     public void show() {
         RootPanel.get().add(this);
 
-        int left = widgetLeft;
-        int top = widgetTop - this.getElement().getClientHeight() - 5;
+        int left = widget.getWidgetLeft();
+        int top = widget.getWidgetTop() - element.getClientHeight() - 5;
 
         moveTo(left, top);
     }
@@ -37,7 +39,7 @@ public class WidgetToolbar extends ButtonToolBar {
         RootPanel.get().remove(this);
     }
 
-    public void moveTo(int left, int top) {
+    private void moveTo(int left, int top) {
         DOM.setStyleAttribute(element, "left", left + "px");
         DOM.setStyleAttribute(element, "top", top + "px");
     }
