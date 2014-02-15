@@ -5,7 +5,9 @@
              xmlns:widget="urn:import:com.koobe.editor.widget.client.ui">
     <ui:style>
     .logo {
+        display:inline-block;
         background-color: #b72535;
+        width: 200px;
         height: 50px;
         margin-bottom: 20px;
     }
@@ -15,6 +17,7 @@
         text-align: center;
     }
     .sidebar {
+        padding-top: 50px;
         float: right;
         position: fixed;
         width: 200px;
@@ -25,7 +28,6 @@
         background-color: #51bfd2;
         height: 50px;
         border: none;
-        margin-left: 200px;
     }
     .main {
         padding-left: 250px;
@@ -94,12 +96,16 @@
 
         <!-- Header -->
         <div class="navbar navbar-default navbar-fixed-top {style.header}">
-            <b:Button ui:field="showHTMLButton">HTML</b:Button>
+
+            <div class="{style.logo}">
+                <h1>e7read</h1>
+            </div>
+
+            <b:Button ui:field="showHTMLButton" type="INFO" size="SMALL">HTML</b:Button>
         </div>
 
         <!-- Sidebar -->
         <div class="{style.sidebar}">
-            <div class="{style.logo}"><h1>e7read</h1></div>
 
             <h3 class="{style.heading}">基本工具</h3>
 

@@ -17,6 +17,7 @@ import com.gwtplatform.mvp.client.ViewImpl;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.koobe.editor.editor.client.helper.RandomText;
 import com.koobe.editor.widget.client.ui.*;
+import org.gwtbootstrap3.client.ui.*;
 import org.gwtbootstrap3.extras.bootbox.client.Bootbox;
 
 import static com.google.gwt.query.client.GQuery.$;
@@ -44,6 +45,8 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
         initUiField();
 
         initDragAndDrop();
+
+        //new org.gwtbootstrap3.client.ui.Button().setEnabled();
     }
 
     private void initUiField() {
