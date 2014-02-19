@@ -13,8 +13,15 @@ import org.gwtbootstrap3.client.ui.constants.Toggle;
 public class TitleWidget extends AbstractWidget {
 
     private SIZE size;
+
+    private final static SIZE DEFAULT_SIZE = SIZE.H1;
+
     private String text;
     private ButtonGroup buttons;
+
+    public TitleWidget(String text) {
+        this(text, DEFAULT_SIZE);
+    }
 
     public TitleWidget(String text, SIZE size) {
 

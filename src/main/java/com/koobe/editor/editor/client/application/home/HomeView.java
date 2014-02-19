@@ -47,6 +47,7 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
         initDragAndDrop();
 
         //new org.gwtbootstrap3.client.ui.Button().setEnabled();
+
     }
 
     private void initUiField() {
@@ -176,6 +177,47 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
         */
     }
 
+    @UiHandler("pasteHTMLButton")
+    void pasteHTML(ClickEvent event) {
+
+    }
+
+    @UiHandler("moveUpButton")
+    void widgetMoveUp(ClickEvent event) {
+        moveWidget(-1);
+    }
+
+    @UiHandler("moveDownButton")
+    void widgetMoveDown(ClickEvent event) {
+        moveWidget(2);
+    }
+
+    private void moveWidget(int offset) {
+        AbstractWidget widget = AbstractWidget.getActiveEditableWidget();
+
+        if (widget == null) {
+            Window.alert("請先點選一個編輯元件。");
+            return;
+        }
+
+        int index = canvas.getWidgetIndex(widget);
+
+        int newIndex = index + offset;
+
+        if (newIndex < 0) {
+            newIndex = 0;
+        }
+        else if (newIndex > canvas.getWidgetCount()) {
+            newIndex = canvas.getWidgetCount();
+        }
+
+        if (index != newIndex) {
+            canvas.insert(widget, newIndex);
+        }
+
+        widget.scrollIntoView();
+    }
+
     @UiHandler("showHTMLButton")
     void showHTML(ClickEvent event) {
         Bootbox.alert("<pre>" + SafeHtmlUtils.htmlEscape(canvas.getWidgetsAsString()) + "</pre>");
@@ -241,7 +283,10 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
         addWidgetToCanvas(new AudioWidget("http://hpr.dogphilosophy.net/test/mp3.mp3"));
     }
 
-    private void addWidgetToCanvas(final Widget widget) {
+    private void addWidgetToCanvas(final AbstractWidget widget) {
+
+        //widget.setDragController(dragController);
+
         widget.setVisible(false);
 
         $(widget).fadeIn(new Function() {
@@ -253,7 +298,7 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 
         canvas.add(widget);
 
-        Window.scrollTo(0, widget.getElement().getAbsoluteTop() - 150);
+        widget.scrollIntoView();
     }
 
     @UiHandler("mainPanel")
@@ -268,8 +313,9 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
     }
 
     private void initDragAndDrop() {
-        dragController = new PickupDragController(canvas, true);
-        dragController.setBehaviorMultipleSelection(false);
+        //dragController = new PickupDragController(canvas, false);
+        //dragController.setBehaviorMultipleSelection(false);
+        //dragController.registerDropController();
         //FlowPanelDropController dropController = new FlowPanelDropController(canvas);
     }
 

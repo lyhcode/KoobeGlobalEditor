@@ -1,12 +1,17 @@
 package com.koobe.editor.widget.client.ui;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Created by lyhcode on 2014/1/28.
  */
-public class BookCanvas extends AbsolutePanel {
+public class BookCanvas extends FlowPanel {
+
+    public BookCanvas() {
+        addStyleName("book-canvas");
+    }
 
     public String getWidgetsAsString() {
         int count = getWidgetCount();

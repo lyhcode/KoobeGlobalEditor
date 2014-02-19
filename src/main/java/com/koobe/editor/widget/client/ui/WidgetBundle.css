@@ -21,3 +21,13 @@
     border-radius: 2px;
     padding: 3px;
 }
+
+.widgetDragButton {
+    color: blue;
+    font-family: verdana;
+    font-size: 16px;
+    background-color: #fff;
+    border: 1px solid #51bfd2;
+    border-radius: 2px;
+    padding: 3px;
+}

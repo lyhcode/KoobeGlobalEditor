@@ -1,15 +1,13 @@
 package com.koobe.editor.widget.client.ui;
 
-import com.google.gwt.core.client.GWT;
+import com.koobe.editor.widget.client.helper.SelectionHelper;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.IsWidget;
-import org.gwtbootstrap3.client.ui.*;
-import org.gwtbootstrap3.client.ui.base.mixin.IconTextMixin;
+import org.gwtbootstrap3.client.ui.Button;
+import org.gwtbootstrap3.client.ui.ButtonGroup;
 import org.gwtbootstrap3.client.ui.constants.IconType;
-import org.gwtbootstrap3.client.ui.constants.Toggle;
 import org.gwtbootstrap3.extras.bootbox.client.Bootbox;
 import org.gwtbootstrap3.extras.bootbox.client.callback.PromptCallback;
 
@@ -95,10 +93,21 @@ public class TextWidget extends AbstractWidget {
             button.setIcon(icon);
         }
 
+        final SelectionHelper selectionHelper;
+        selectionHelper = new SelectionHelper();
+        selectionHelper.saveRange();
+
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-                execCommand(command, askForValue.ask());
+                //execCommand(command, askForValue.ask());
+                askForValue.ask(new PromptCallback() {
+                    @Override
+                    public void callback(final String url) {
+                        selectionHelper.restoreRange();
+                        execCommand(command, url);
+                    }
+                });
             }
         });
 

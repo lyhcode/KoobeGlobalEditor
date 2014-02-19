@@ -12,6 +12,7 @@ public interface WidgetBundle extends ClientBundle {
         String widgetMouseOver();
         String widgetEditable();
         String widgetRemoveButton();
+        String widgetDragButton();
     }
 
     @Source("WidgetBundle.css")

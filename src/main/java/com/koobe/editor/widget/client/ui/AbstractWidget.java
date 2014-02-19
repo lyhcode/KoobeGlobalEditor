@@ -1,13 +1,15 @@
 package com.koobe.editor.widget.client.ui;
 
+import com.allen_sauer.gwt.dnd.client.DragController;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.*;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
 
 /**
- * Created by lyhcode on 2014/1/21.
+ * Book Widget Abstract Class
  */
 public abstract class AbstractWidget extends Composite {
 
@@ -32,6 +34,8 @@ public abstract class AbstractWidget extends Composite {
 
     protected WidgetRemoveButton removeButton;
 
+    protected WidgetDragButton dragButton;
+
     protected FocusPanel focusPanel;
 
     protected WidgetHTML html;
@@ -39,6 +43,8 @@ public abstract class AbstractWidget extends Composite {
     protected boolean editable = false;
 
     protected Element element;
+
+    private DragController dragController;
 
     public AbstractWidget() {
 
@@ -108,12 +114,14 @@ public abstract class AbstractWidget extends Composite {
 
             showToolbar();
             showRemoveButton();
+            showDragButton();
         }
         else {
             focusPanel.removeStyleName(bundle.style().widgetEditable());
 
             hideToolbar();
             hideRemoveButton();
+            hideDragButton();
         }
     }
 
@@ -140,6 +148,26 @@ public abstract class AbstractWidget extends Composite {
     private void hideRemoveButton() {
         if (removeButton != null) {
            removeButton.hide();
+        }
+    }
+
+    private void showDragButton() {
+        dragButton = new WidgetDragButton(this);
+        dragButton.setStyleName(bundle.style().widgetDragButton());
+        dragButton.show();
+
+        if (dragController != null) {
+            dragController.makeDraggable(this, dragButton);
+        }
+    }
+
+    private void hideDragButton() {
+        if (dragButton != null) {
+            dragButton.hide();
+        }
+
+        if (dragController != null) {
+            dragController.makeNotDraggable(this);
         }
     }
 
@@ -172,7 +200,23 @@ public abstract class AbstractWidget extends Composite {
         return focusPanel.getElement().getClientWidth();
     }
 
+    public int getWidgetHeight() {
+        return focusPanel.getElement().getClientHeight();
+    }
+
     public String getHTML() {
         return html.getHTML();
+    }
+
+    public DragController getDragController() {
+        return dragController;
+    }
+
+    public void setDragController(DragController dragController) {
+        this.dragController = dragController;
+    }
+
+    public void scrollIntoView() {
+        Window.scrollTo(0, getElement().getAbsoluteTop() - 150);
     }
 }
