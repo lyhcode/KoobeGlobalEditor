@@ -94,6 +94,16 @@
     </ui:style>
     <g:HTMLPanel styleName="{style.viewport}">
 
+        <b:Modal title="Cupcake ipsum" closable="true" fade="true" backdrop="STATIC" keyboard="true" b:id="myModal">
+            <b:ModalBody>
+                <g:HTML>Modal body...</g:HTML>
+            </b:ModalBody>
+            <b:ModalFooter>
+                <b:Button type="PRIMARY">Do something</b:Button>
+                <b:Button type="DANGER" dismiss="MODAL">Close</b:Button>
+            </b:ModalFooter>
+        </b:Modal>
+
         <!-- Header -->
         <div class="navbar navbar-default navbar-fixed-top {style.header}">
 
@@ -112,6 +122,9 @@
             <b:Button ui:field="moveDownButton" type="DEFAULT" size="SMALL">Down</b:Button>
 
             <b:Button ui:field="createChapterButton" type="DEFAULT" size="SMALL">新增章節</b:Button>
+
+            <b:Button target="#myModal" toggle="MODAL" type="DEFAULT" size="SMALL">Parse HTML</b:Button>
+
         </div>
 
         <!-- Sidebar -->

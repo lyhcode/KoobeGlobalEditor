@@ -177,13 +177,14 @@ public abstract class AbstractWidget extends Composite {
         execCommand(aCommandName, false, aValueArgument);
     }
 
-    protected native void execCommand(String aCommandName, Boolean aShowDefaultUI, String aValueArgument) /*-{
-        $wnd.console.log(aCommandName);
-        $wnd.console.log(aShowDefaultUI);
-        $wnd.console.log(aValueArgument);
+    protected native void execCommand(String aCommandName, boolean aShowDefaultUI, String aValueArgument) /*-{
+        $wnd.console.log("aCommandName = " + aCommandName);
+        $wnd.console.log("aShowDefaultUI = " + aShowDefaultUI);
+        $wnd.console.log("aValueArgument = " + aValueArgument);
 
         var result =
-        $wnd.document.execCommand(aCommandName, aShowDefaultUI, aValueArgument);
+        //$wnd.document.execCommand(aCommandName, aShowDefaultUI, aValueArgument);
+        $wnd.document.execCommand(aCommandName, false, aValueArgument);
 
         $wnd.console.log(result);
     }-*/;

@@ -1,5 +1,7 @@
 package com.koobe.editor.widget.client.ui;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Timer;
 import com.koobe.editor.widget.client.helper.SelectionHelper;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -45,6 +47,14 @@ public class TextWidget extends AbstractWidget {
     @Override
     protected void initToolbar() {
 
+        ButtonGroup colorButtons = new ButtonGroup();
+
+        colorButtons.add(makeCommandButton(IconType.FONT, "forecolor", new AskForValue("Foreground Color Code?")));
+        colorButtons.add(makeCommandButton(IconType.FONT, "backcolor", new AskForValue("Background Color Code?")));
+
+        toolbar.add(colorButtons);
+
+
         ButtonGroup basicButtons = new ButtonGroup();
 
         /*-- must enable clipboard permissions in user.js
@@ -57,6 +67,7 @@ public class TextWidget extends AbstractWidget {
         basicButtons.add(makeCommandButton(IconType.UNDERLINE, "underline", "false"));
         basicButtons.add(makeCommandButton(IconType.LINK, "createlink", new AskForValue("URL?")));
         basicButtons.add(makeCommandButton(IconType.CHAIN_BROKEN, "unlink", "false"));
+
         toolbar.add(basicButtons);
 
         ButtonGroup alignButtons = new ButtonGroup();
@@ -93,19 +104,27 @@ public class TextWidget extends AbstractWidget {
             button.setIcon(icon);
         }
 
-        final SelectionHelper selectionHelper;
-        selectionHelper = new SelectionHelper();
-        selectionHelper.saveRange();
-
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
+
+                final SelectionHelper selectionHelper;
+                selectionHelper = new SelectionHelper();
+                selectionHelper.saveRange();
+
                 //execCommand(command, askForValue.ask());
                 askForValue.ask(new PromptCallback() {
                     @Override
-                    public void callback(final String url) {
+                    public void callback(final String value) {
+
+
+                        GWT.log(command);
+                        GWT.log(value);
+
                         selectionHelper.restoreRange();
-                        execCommand(command, url);
+
+                        execCommand(command, value);
+
                     }
                 });
             }

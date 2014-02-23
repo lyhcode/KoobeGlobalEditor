@@ -14,7 +14,13 @@ public class SelectionHelper {
     }
 
     private native JavaScriptObject _saveRange() /*-{
-        return $wnd.document.getSelection().getRangeAt(0);
+
+        var result = $wnd.document.getSelection().getRangeAt(0);
+
+        console.log("SelectionHelper._saveRange()");
+        console.log(result);
+
+        return result;
     }-*/;
 
     public void restoreRange() {
