@@ -31,3 +31,8 @@
     border-radius: 2px;
     padding: 3px;
 }
+
+.btnColor {
+    padding: 3px !important;
+    line-height: 100% !important;
+}

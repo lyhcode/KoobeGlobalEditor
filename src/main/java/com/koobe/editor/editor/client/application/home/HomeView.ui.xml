@@ -94,7 +94,7 @@
     </ui:style>
     <g:HTMLPanel styleName="{style.viewport}">
 
-        <b:Modal title="Cupcake ipsum" closable="true" fade="true" backdrop="STATIC" keyboard="true" b:id="myModal">
+        <b:Modal title="Parsing EPUB XHTML" closable="true" fade="true" backdrop="STATIC" keyboard="true" b:id="myModal">
             <b:ModalBody>
                 <g:HTML>Modal body...</g:HTML>
             </b:ModalBody>
@@ -185,10 +185,11 @@
         </g:FocusPanel>
 
         <!--Chapter Selector-->
+        <!--
         <div class="{style.chapterSlider}">
             <widget:BookChapterSlider ui:field="chapterSlider" />
         </div>
-
+        -->
 
     </g:HTMLPanel>
 </ui:UiBinder>

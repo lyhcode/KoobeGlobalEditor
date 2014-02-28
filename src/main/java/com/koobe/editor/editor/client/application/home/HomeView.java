@@ -220,7 +220,28 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 
     @UiHandler("showHTMLButton")
     void showHTML(ClickEvent event) {
-        Bootbox.alert("<pre>" + SafeHtmlUtils.htmlEscape(canvas.getWidgetsAsString()) + "</pre>");
+
+
+        String html = "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n";
+        html += "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"\n";
+        html += "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n\n";
+
+        html += "<html xmlns=\"http://www.w3.org/1999/xhtml\" ";
+        html += "xml:lang=\"ja\" ";
+        html += "xmlns:epub=\"http://www.idpf.org/2007/ops\">";
+
+        html += "<head>\n";
+        html += "<title>$CHAPTER_TITLE</title>\n";
+        html += "</head>\n";
+
+        html += "<body>\n";
+
+        html += canvas.getWidgetsAsString();
+
+        html += "</body>\n";
+        html += "</html>\n";
+
+        Bootbox.alert("<pre>" + SafeHtmlUtils.htmlEscape(html) + "</pre>");
     }
 
     @UiHandler("titleWidget")

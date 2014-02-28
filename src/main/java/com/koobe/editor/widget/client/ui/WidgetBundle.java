@@ -13,6 +13,7 @@ public interface WidgetBundle extends ClientBundle {
         String widgetEditable();
         String widgetRemoveButton();
         String widgetDragButton();
+        String btnColor();
     }
 
     @Source("WidgetBundle.css")

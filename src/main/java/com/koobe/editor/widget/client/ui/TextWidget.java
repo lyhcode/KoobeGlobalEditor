@@ -1,6 +1,7 @@
 package com.koobe.editor.widget.client.ui;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
 import com.koobe.editor.widget.client.helper.SelectionHelper;
 import com.google.gwt.dom.client.Document;
@@ -9,7 +10,10 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import org.gwtbootstrap3.client.ui.Button;
 import org.gwtbootstrap3.client.ui.ButtonGroup;
+import org.gwtbootstrap3.client.ui.DropDownMenu;
+import org.gwtbootstrap3.client.ui.ListItem;
 import org.gwtbootstrap3.client.ui.constants.IconType;
+import org.gwtbootstrap3.client.ui.constants.Toggle;
 import org.gwtbootstrap3.extras.bootbox.client.Bootbox;
 import org.gwtbootstrap3.extras.bootbox.client.callback.PromptCallback;
 
@@ -17,6 +21,17 @@ import org.gwtbootstrap3.extras.bootbox.client.callback.PromptCallback;
  * Text Widget for Contents
  */
 public class TextWidget extends AbstractWidget {
+
+    final static private String COLORS[] = {
+        "#000000", "#424242", "#636363", "#9C9C94", "#CEC6CE", "#EFEFEF", "#EFF7F7", "#FFFFFF",
+        "#FF0000", "#FF9C00", "#FFFF00", "#00FF00", "#00FFFF", "#0000FF", "#9C00FF", "#FF00FF",
+        "#F7C6CE", "#FFE7CE", "#FFEFC6", "#D6EFD6", "#CEDEE7", "#CEE7F7", "#D6D6E7", "#E7D6DE",
+        "#E79C9C", "#FFC69C", "#FFE79C", "#B5D6A5", "#A5C6CE", "#9CC6EF", "#B5A5D6", "#D6A5BD",
+        "#E76363", "#F7AD6B", "#FFD663", "#94BD7B", "#73A5AD", "#6BADDE", "#8C7BC6", "#C67BA5",
+        "#CE0000", "#E79439", "#EFC631", "#6BA54A", "#4A7B8C", "#3984C6", "#634AA5", "#A54A7B",
+        "#9C0000", "#B56308", "#BD9400", "#397B21", "#104A5A", "#085294", "#311873", "#731842",
+        "#630000", "#7B3900", "#846300", "#295218", "#083139", "#003163", "#21104A", "#4A1031"
+    };
 
     class AskForValue {
 
@@ -44,13 +59,46 @@ public class TextWidget extends AbstractWidget {
         drawWidget();
     }
 
+    /**
+     * Make a dropdown button group for color palette picker
+     * @param label
+     * @param command
+     * @return
+     */
+    private ButtonGroup makeColorDropDownButtonGroup(String label, final String command) {
+        ButtonGroup buttonGroup = new ButtonGroup();
+        Button fg = new Button();
+        fg.setToggle(Toggle.DROPDOWN);
+        fg.setText(label);
+        buttonGroup.add(fg);
+
+        DropDownMenu colors = new DropDownMenu();
+        for (final String colorCode : COLORS) {
+            ListItem item = new ListItem("");
+            item.getElement().getFirstChildElement().setInnerHTML("<span style=\"color:"+colorCode+";background-color:"+colorCode+"\">◼</span>");
+            DOM.setStyleAttribute(item.getElement(), "display", "inline-block");
+            item.getElement().getFirstChildElement().setClassName(bundle.style().btnColor());
+
+            item.addClickHandler(new ClickHandler() {
+                @Override
+                public void onClick(ClickEvent event) {
+                    execCommand(command, colorCode);
+
+                }
+            });
+            colors.add(item);
+        }
+        buttonGroup.add(colors);
+
+        return buttonGroup;
+    }
     @Override
     protected void initToolbar() {
 
         ButtonGroup colorButtons = new ButtonGroup();
 
-        colorButtons.add(makeCommandButton(IconType.FONT, "forecolor", new AskForValue("Foreground Color Code?")));
-        colorButtons.add(makeCommandButton(IconType.FONT, "backcolor", new AskForValue("Background Color Code?")));
+        colorButtons.add(makeColorDropDownButtonGroup("FG", "forecolor"));
+        colorButtons.add(makeColorDropDownButtonGroup("BG", "backcolor"));
 
         toolbar.add(colorButtons);
 
@@ -91,6 +139,10 @@ public class TextWidget extends AbstractWidget {
         controlButtons.add(makeCommandButton(IconType.UNDO, "undo", "false"));
 
         toolbar.add(controlButtons);
+    }
+
+    private Button makeCommandButton(String label, String command, AskForValue askForValue) {
+        return makeCommandButton(null, label, command, askForValue);
     }
 
     private Button makeCommandButton(IconType icon, String command, AskForValue askForValue) {
